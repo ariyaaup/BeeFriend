@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(236, 127, 169, 100),
+          color: Color.fromARGB(100, 236, 127, 169),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

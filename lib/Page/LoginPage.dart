@@ -17,10 +17,10 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: Color.fromRGBO(236, 127, 169, 100),
+        backgroundColor: Color(0xFFEC7FA9),
       ),
       body: Container(
-        color: Color.fromRGBO(236, 127, 169, 100),
+        color: Color(0xFFEC7FA9),
         height: double.infinity,
         width: double.infinity,
         padding: EdgeInsets.all(20),
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color.fromRGBO(236, 127, 169, 100),
+                backgroundColor: Color(0xFFEC7FA9),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                     side: BorderSide(
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 150),
               ),
               child: const Text(
-                "Sign IN",
+                "Sign In",
                 style: TextStyle(
                   fontFamily: 'Poppins',
                 ),
