@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(
-              height: screenHeight * 0.01,
+              height: screenHeight * 0.1,
             ),
             TextField(
               controller: _controllerEmail,
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: screenHeight * 0.03,
             ),
             TextField(
               controller: _controllerPassword,
@@ -96,9 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 300,
-            ),
+            Spacer(),
             ElevatedButton(
               onPressed: () {
                 // signInWithEmailAndPassword();
@@ -121,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: screenHeight * 0.01,
             ),
             RichText(
               text: TextSpan(

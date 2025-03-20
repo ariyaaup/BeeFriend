@@ -20,12 +20,14 @@ class SplashScreen extends StatelessWidget {
           children: [
             // Logo Aplikasi
             Padding(
-              padding:
-                  const EdgeInsets.only(top: 160.0), // Jarak dari atas layar
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width * 0.5,
+              ), // Jarak dari atas layar
               child: Image.asset(
                 'lib/assets/BeeFriend_fix.png',
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: MediaQuery.of(context).size.width * 0.6,
+                fit: BoxFit.contain,
               ),
             ),
 
