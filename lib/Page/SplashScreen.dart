@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: Color.fromARGB(100, 236, 127, 169),
+          // color: Color(0xFFEC7FA9),
+          color: MediaQuery.of(context).size.width > 500
+              ? Color(0xFFEC7FA9)
+              : Color(0xFFEC7FA9),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -19,31 +24,24 @@ class SplashScreen extends StatelessWidget {
                   const EdgeInsets.only(top: 160.0), // Jarak dari atas layar
               child: Image.asset(
                 'lib/assets/BeeFriend_fix.png',
-                width: 250,
-                height: 250,
+                width: MediaQuery.of(context).size.width * 0.6,
+                height: MediaQuery.of(context).size.width * 0.6,
               ),
             ),
-            SizedBox(height: 100), // Jarak antara logo dan button
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-              ),
-            ),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 100,
-                  height: 5,
+                  width: screenWidth * 0.2,
+                  height: screenHeight * 0.007,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(2.5),
                   ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(width: screenWidth * 0.01),
               ],
             ),
             // Tombol Get Started
@@ -58,12 +56,15 @@ class SplashScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
+                  padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.02,
+                    horizontal: MediaQuery.of(context).size.width * 0.3,
+                  ),
                 ),
                 child: Text(
                   "Get Started",
                   style: TextStyle(
-                    color: Color.fromRGBO(236, 127, 146, 100),
+                    color: Color(0xFFEC7FA9),
                     fontSize: 18,
                     fontFamily: 'Poppins',
                   ),

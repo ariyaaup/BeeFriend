@@ -1,4 +1,5 @@
 import 'package:beefriend_app/Page/LoginPage.dart';
+import 'package:beefriend_app/Page/RegistPage.dart';
 import 'package:beefriend_app/Page/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         // '/homePage': (BuildContext context) => HomePage(),
         '/loginPage': (BuildContext context) => LoginPage(),
-        // '/registPage': (BuildContext context) => RegisterPage(),
+        '/RegistPage': (BuildContext context) => RegistPage(),
         // '/profilePage': (BuildContext context) => ProfilePage(),
       },
     );

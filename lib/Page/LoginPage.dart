@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +14,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerPassword = TextEditingController();
   String errorMessage = ' ';
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -20,7 +23,9 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Color(0xFFEC7FA9),
       ),
       body: Container(
-        color: Color(0xFFEC7FA9),
+        color: MediaQuery.of(context).size.width > 500
+            ? Color(0xFFEC7FA9)
+            : Color(0xFFEC7FA9),
         height: double.infinity,
         width: double.infinity,
         padding: EdgeInsets.all(20),
@@ -36,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: screenHeight * 0.01,
             ),
             TextField(
               controller: _controllerEmail,
@@ -118,14 +123,31 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 10,
             ),
-            Text(
-              "Dont have an account? Sign UP",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Poppins',
-                fontSize: 12,
+            RichText(
+              text: TextSpan(
+                text: "Don't have an account? ",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Poppins',
+                  fontSize: 12,
+                ),
+                children: [
+                  TextSpan(
+                    text: 'Sign UP',
+                    style: TextStyle(
+                      color: Colors.white,
+                      decoration: TextDecoration.underline, // underline effect
+                      fontFamily: 'Poppins',
+                      fontSize: 12,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.popAndPushNamed(context, '/RegistPage');
+                      },
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
