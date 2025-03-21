@@ -37,6 +37,45 @@ class _RegisterPage3State extends State<RegisterPage3> {
               ),
             ),
             Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                //   if (_controllerBirthDate.text.trim().isEmpty) {
+                //     ScaffoldMessenger.of(context).showSnackBar(
+                //       SnackBar(
+                //         content: Text(
+                //           "Please fill your birth date!",
+                //           style: TextStyle(color: Colors.white),
+                //         ),
+                //         backgroundColor: Color(0xFF98476A),
+                //       ),
+                //     );
+                //   } else {
+                //     // Kirim ke database
+                //     // print("Tanggal Lahir: ${_controllerBirthDate.text}");
+                //     // saveToDatabase(_controllerBirthDate.text); --> tinggal dipanggil
+                // Navigator.pushNamed(context, '/RegistPage3');
+                //   }
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Color(0xFFEC7FA9),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(
+                      color: Colors.white,
+                    )),
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02,
+                  horizontal: MediaQuery.of(context).size.width * 0.3,
+                ),
+              ),
+              child: const Text(
+                "Next",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
           ],
         ),
       ),
