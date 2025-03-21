@@ -20,7 +20,9 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: Color(0xFFEC7FA9),
+        backgroundColor: MediaQuery.of(context).size.width > 500
+            ? Color(0xFFEC7FA9)
+            : Color(0xFFEC7FA9),
       ),
       body: Container(
         color: MediaQuery.of(context).size.width > 500
@@ -55,9 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(15)),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Color(0xFF333333),
-                    ),
+                    borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(15)),
                 fillColor: const Color(0xFFFFFFFF),
                 filled: true,
@@ -83,9 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(15)),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Color(0xFF333333),
-                    ),
+                    borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(15)),
                 fillColor: const Color(0xFFFFFFFF),
                 filled: true,
@@ -109,7 +107,10 @@ class _LoginPageState extends State<LoginPage> {
                     side: BorderSide(
                       color: Colors.white,
                     )),
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 150),
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02,
+                  horizontal: MediaQuery.of(context).size.width * 0.3,
+                ),
               ),
               child: const Text(
                 "Sign In",
@@ -140,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Navigator.popAndPushNamed(context, '/RegistPage');
+                        Navigator.pushNamed(context, '/RegistPage');
                       },
                   ),
                 ],
