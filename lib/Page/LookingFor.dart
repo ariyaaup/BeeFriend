@@ -143,11 +143,7 @@ class _LookingForState extends State<LookingFor> {
                   );
                 },
               ),
-
-              SizedBox(
-                height: screenHeight * 0.05,
-              ),
-
+              Spacer(),
               ElevatedButton(
                 onPressed: () {
                   if (selectedOption.isEmpty) {
@@ -161,8 +157,7 @@ class _LookingForState extends State<LookingFor> {
                       ),
                     );
                   } else {
-                    // Arahkan ke page selanjutnya
-                    // Navigator.pushNamed(context, '/NextPage');
+                    Navigator.pushNamed(context, '/Distance');
                   }
                 },
                 style: ElevatedButton.styleFrom(
