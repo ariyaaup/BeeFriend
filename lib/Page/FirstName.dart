@@ -1,14 +1,14 @@
-import 'package:beefriend_app/Page/RegistPage2.dart';
+import 'package:beefriend_app/Page/BirthDate.dart';
 import 'package:flutter/material.dart';
 
-class RegistPage extends StatefulWidget {
-  const RegistPage({super.key});
+class FirstName extends StatefulWidget {
+  const FirstName({super.key});
 
   @override
-  State<RegistPage> createState() => _RegistPageState();
+  State<FirstName> createState() => _RegistPageState();
 }
 
-class _RegistPageState extends State<RegistPage> {
+class _RegistPageState extends State<FirstName> {
   @override
   final TextEditingController _controllerFirstName = TextEditingController();
 
@@ -91,7 +91,7 @@ class _RegistPageState extends State<RegistPage> {
                             borderRadius: BorderRadius.circular(30)),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/RegistPage2');
+                        Navigator.pushNamed(context, '/BirthDate');
                       },
                       child: Text(
                         'Let\'s go',
@@ -212,7 +212,7 @@ class _RegistPageState extends State<RegistPage> {
                       backgroundColor: Color(0xFF98476A),
                     ),
                   );
-                } else if (name.length < 3) {
+                } else if (name.length < 2) {
                   // kalau kosong
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

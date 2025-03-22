@@ -1,7 +1,9 @@
+import 'package:beefriend_app/Page/Distance.dart';
 import 'package:beefriend_app/Page/LoginPage.dart';
-import 'package:beefriend_app/Page/RegistPage.dart';
-import 'package:beefriend_app/Page/RegistPage2.dart';
-import 'package:beefriend_app/Page/RegistPage3.dart';
+import 'package:beefriend_app/Page/FirstName.dart';
+import 'package:beefriend_app/Page/BirthDate.dart';
+import 'package:beefriend_app/Page/Gender.dart';
+import 'package:beefriend_app/Page/LookingFor.dart';
 import 'package:beefriend_app/Page/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -20,13 +22,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: SplashScreen(),
+      home: Distance(),
       routes: <String, WidgetBuilder>{
         // '/homePage': (BuildContext context) => HomePage(),
         '/loginPage': (BuildContext context) => LoginPage(),
-        '/RegistPage': (BuildContext context) => RegistPage(),
-        '/RegistPage2': (BuildContext context) => RegistPage2(),
-        '/RegistPage3': (BuildContext context) => RegisterPage3(),
+        '/FirstName': (BuildContext context) => FirstName(),
+        '/BirthDate': (BuildContext context) => BirthDate(),
+        '/LookingFor': (BuildContext context) => LookingFor(),
+        '/Distance': (BuildContext context) => Distance(),
+        '/Gender': (BuildContext context) => Gender(),
         // '/profilePage': (BuildContext context) => ProfilePage(),
       },
     );

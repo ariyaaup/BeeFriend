@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.black,
                 fontFamily: 'Poppins',
               ),
-              obscureText: true,
+              obscureText: false,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Navigator.pushNamed(context, '/RegistPage');
+                        Navigator.pushNamed(context, '/FirstName');
                       },
                   ),
                 ],

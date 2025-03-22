@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class RegistPage2 extends StatefulWidget {
-  const RegistPage2({super.key});
+class BirthDate extends StatefulWidget {
+  const BirthDate({super.key});
 
   @override
-  State<RegistPage2> createState() => _RegistPage2State();
+  State<BirthDate> createState() => _BirthDateState();
 }
 
-class _RegistPage2State extends State<RegistPage2> {
+class _BirthDateState extends State<BirthDate> {
   final TextEditingController _controllerBirthDate = TextEditingController();
 
 //fungsi date picker
@@ -134,7 +134,7 @@ class _RegistPage2State extends State<RegistPage2> {
                   // Kirim ke database
                   // print("Tanggal Lahir: ${_controllerBirthDate.text}");
                   // saveToDatabase(_controllerBirthDate.text); --> tinggal dipanggil
-                  Navigator.pushNamed(context, '/RegistPage3');
+                  Navigator.pushNamed(context, '/Gender');
                 }
               },
               style: ElevatedButton.styleFrom(
