@@ -29,16 +29,15 @@ class _LookingForState extends State<LookingFor> {
         backgroundColor: MediaQuery.of(context).size.width > 500
             ? Color(0xFFEC7FA9)
             : Color(0xFFEC7FA9),
-        elevation: 0,
+        // elevation: 0,
         scrolledUnderElevation: 0,
       ),
       body: SingleChildScrollView(
-        // Tambahkan Scroll View
         child: Container(
           color: MediaQuery.of(context).size.width > 500
               ? Color(0xFFEC7FA9)
               : Color(0xFFEC7FA9),
-          height: screenHeight,
+          // height: screenHeight * 0.01,
           width: double.infinity,
           padding: EdgeInsets.all(20),
           child: Column(
@@ -80,8 +79,7 @@ class _LookingForState extends State<LookingFor> {
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-
-              // Grid View for Options
+              // Gridview option
               GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -114,6 +112,7 @@ class _LookingForState extends State<LookingFor> {
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             option['emoji']!,
@@ -136,7 +135,9 @@ class _LookingForState extends State<LookingFor> {
                   );
                 },
               ),
-              Spacer(),
+              SizedBox(
+                height: screenHeight * 0.05,
+              ),
               ElevatedButton(
                 onPressed: () {
                   if (selectedOption.isEmpty) {

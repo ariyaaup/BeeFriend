@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: RegisterPage(),
+      home: LookingFor(),
       routes: <String, WidgetBuilder>{
         // '/homePage': (BuildContext context) => HomePage(),
         '/CampusInformation': (BuildContext context) => CampusInformation(),
