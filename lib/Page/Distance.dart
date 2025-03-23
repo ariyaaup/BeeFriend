@@ -111,14 +111,17 @@ class _DistanceState extends State<Distance> {
                     SnackBar(
                       content: Text(
                         "Please set your distance preference!",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                        ),
                       ),
                       backgroundColor: Color(0xFF98476A),
                     ),
                   );
                 } else {
                   // Arahkan ke page selanjutnya
-                  Navigator.pushNamed(context, '');
+                  Navigator.pushNamed(context, '/CampusInformation');
                 }
               },
               style: ElevatedButton.styleFrom(

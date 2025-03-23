@@ -1,18 +1,17 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   @override
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  String errorMessage = ' ';
+
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
@@ -48,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Your binusian email",
+                "Binusian email",
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -71,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(15)),
                 fillColor: const Color(0xFFFFFFFF),
                 filled: true,
-                hintText: 'Fill your Binusian Email',
+                hintText: 'Fill your binusian email',
                 hintStyle: const TextStyle(
                   color: Colors.grey,
                 ),
@@ -83,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Your password",
+                "Password",
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -106,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(15)),
                 fillColor: const Color(0xFFFFFFFF),
                 filled: true,
-                hintText: 'Fill your password',
+                hintText: 'Set your password',
                 hintStyle: const TextStyle(
                   color: Colors.grey,
                 ),
@@ -131,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: const Text(
-                "Sign In",
+                "Sign up",
                 style: TextStyle(
                   fontFamily: 'Poppins',
                 ),
@@ -140,31 +139,6 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: screenHeight * 0.01,
             ),
-            RichText(
-              text: TextSpan(
-                text: "Don't have an account? ",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontSize: 12,
-                ),
-                children: [
-                  TextSpan(
-                    text: 'Sign UP',
-                    style: TextStyle(
-                      color: Colors.white,
-                      decoration: TextDecoration.underline, // underline effect
-                      fontFamily: 'Poppins',
-                      fontSize: 12,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.pushNamed(context, '/FirstName');
-                      },
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),

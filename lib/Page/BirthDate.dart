@@ -125,7 +125,10 @@ class _BirthDateState extends State<BirthDate> {
                     SnackBar(
                       content: Text(
                         "Please fill your birth date!",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                        ),
                       ),
                       backgroundColor: Color(0xFF98476A),
                     ),

@@ -105,13 +105,6 @@ class _LookingForState extends State<LookingFor> {
                           selectedOption = option['text']!;
                         }
                       });
-                      // setState(() {
-                      //   if (selectedOption == option['text']) {
-                      //     selectedOption = ""; // unselect kalau di tap lagi
-                      //   } else {
-                      //     selectedOption = option['text']; // select yang baru
-                      //   }
-                      // });
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -151,7 +144,10 @@ class _LookingForState extends State<LookingFor> {
                       SnackBar(
                         content: Text(
                           "Please select one option!",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                         backgroundColor: Color(0xFF98476A),
                       ),

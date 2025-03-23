@@ -219,6 +219,7 @@ class _RegistPageState extends State<FirstName> {
                       content: Text(
                         "First name at least more than one character!",
                         style: TextStyle(
+                          fontFamily: 'Poppins',
                           color: Colors.white,
                         ),
                       ),

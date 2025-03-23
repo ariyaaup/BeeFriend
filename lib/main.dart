@@ -1,9 +1,11 @@
+import 'package:beefriend_app/Page/CampusInformation.dart';
 import 'package:beefriend_app/Page/Distance.dart';
 import 'package:beefriend_app/Page/LoginPage.dart';
 import 'package:beefriend_app/Page/FirstName.dart';
 import 'package:beefriend_app/Page/BirthDate.dart';
 import 'package:beefriend_app/Page/Gender.dart';
 import 'package:beefriend_app/Page/LookingFor.dart';
+import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:beefriend_app/Page/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +24,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: Distance(),
+      home: RegisterPage(),
       routes: <String, WidgetBuilder>{
         // '/homePage': (BuildContext context) => HomePage(),
+        '/CampusInformation': (BuildContext context) => CampusInformation(),
+        '/RegisterPage': (BuildContext context) => RegisterPage(),
         '/loginPage': (BuildContext context) => LoginPage(),
         '/FirstName': (BuildContext context) => FirstName(),
         '/BirthDate': (BuildContext context) => BirthDate(),
