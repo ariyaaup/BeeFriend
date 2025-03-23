@@ -96,7 +96,7 @@ class _CampusInformationState extends State<CampusInformation> {
             // < ====== DROPDOWN CAMPUS LOCATION ====== >
             Container(
               width: screenWidth * 1,
-              height: screenHeight * 0.05,
+              height: screenHeight * 0.07,
               padding: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -154,7 +154,7 @@ class _CampusInformationState extends State<CampusInformation> {
             // < ====== DROPDOWN binusian ====== >
             Container(
               width: screenWidth * 1,
-              height: screenHeight * 0.05,
+              height: screenHeight * 0.07,
               padding: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
