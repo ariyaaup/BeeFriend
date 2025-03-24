@@ -1,5 +1,6 @@
 import 'package:beefriend_app/Page/CampusInformation.dart';
 import 'package:beefriend_app/Page/Distance.dart';
+import 'package:beefriend_app/Page/HomePage.dart';
 import 'package:beefriend_app/Page/LoginPage.dart';
 import 'package:beefriend_app/Page/FirstName.dart';
 import 'package:beefriend_app/Page/BirthDate.dart';
@@ -24,9 +25,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: LookingFor(),
+      home: HomePage(),
       routes: <String, WidgetBuilder>{
-        // '/homePage': (BuildContext context) => HomePage(),
+        '/homePage': (BuildContext context) => HomePage(),
         '/CampusInformation': (BuildContext context) => CampusInformation(),
         '/RegisterPage': (BuildContext context) => RegisterPage(),
         '/loginPage': (BuildContext context) => LoginPage(),
