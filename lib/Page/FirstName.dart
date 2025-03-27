@@ -2,7 +2,9 @@ import 'package:beefriend_app/Page/BirthDate.dart';
 import 'package:flutter/material.dart';
 
 class FirstName extends StatefulWidget {
-  const FirstName({super.key});
+  final String Email;
+  final String Password;
+  const FirstName({super.key, required this.Email, required this.Password});
 
   @override
   State<FirstName> createState() => _RegistPageState();
@@ -11,6 +13,21 @@ class FirstName extends StatefulWidget {
 class _RegistPageState extends State<FirstName> {
   @override
   final TextEditingController _controllerFirstName = TextEditingController();
+
+  void nextOnPressed() {
+    var navigator = Navigator.of(context);
+    navigator.push(
+      MaterialPageRoute(
+        builder: (builder) {
+          return BirthDate(
+            Email: widget.Email,
+            Password: widget.Password,
+            Fullname: _controllerFirstName.text,
+          );
+        },
+      ),
+    );
+  }
 
   void WelcomePopup(BuildContext context, String name) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -91,7 +108,7 @@ class _RegistPageState extends State<FirstName> {
                             borderRadius: BorderRadius.circular(30)),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/BirthDate');
+                        nextOnPressed();
                       },
                       child: Text(
                         'Let\'s go',

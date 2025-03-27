@@ -1,7 +1,22 @@
+import 'package:beefriend_app/Page/CampusInformation.dart';
 import 'package:flutter/material.dart';
 
 class Distance extends StatefulWidget {
-  const Distance({super.key});
+  final String Email;
+  final String Password;
+  final String Fullname;
+  final String Birthdate;
+  final int gender;
+  final int LookingFor;
+  const Distance({
+    super.key,
+    required this.Email,
+    required this.Password,
+    required this.Fullname,
+    required this.Birthdate,
+    required this.gender,
+    required this.LookingFor,
+  });
 
   @override
   State<Distance> createState() => _DistanceState();
@@ -9,6 +24,25 @@ class Distance extends StatefulWidget {
 
 class _DistanceState extends State<Distance> {
   double _currentSliderValue = 0; //slider nilainya
+
+  void nextOnPressed(double sliderValue) {
+    var navigator = Navigator.of(context);
+    navigator.push(
+      MaterialPageRoute(
+        builder: (builder) {
+          return CampusInformation(
+            Email: widget.Email,
+            Password: widget.Password,
+            Fullname: widget.Fullname,
+            Birthdate: widget.Birthdate,
+            gender: widget.gender,
+            LookingFor: widget.LookingFor,
+            Distance: sliderValue,
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +129,11 @@ class _DistanceState extends State<Distance> {
                 min: 0,
                 max: 10,
                 divisions: 10,
-                label: "${_currentSliderValue.round()} Mi",
+                label: "${_currentSliderValue.round()} Km",
                 onChanged: (double value) {
                   setState(() {
                     _currentSliderValue = value;
+                    print(_currentSliderValue.toString());
                   });
                 },
               ),
@@ -121,7 +156,7 @@ class _DistanceState extends State<Distance> {
                   );
                 } else {
                   // Arahkan ke page selanjutnya
-                  Navigator.pushNamed(context, '/CampusInformation');
+                  nextOnPressed(_currentSliderValue);
                 }
               },
               style: ElevatedButton.styleFrom(

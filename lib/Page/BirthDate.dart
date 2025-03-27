@@ -1,8 +1,16 @@
+import 'package:beefriend_app/Page/Gender.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class BirthDate extends StatefulWidget {
-  const BirthDate({super.key});
+  final String Email;
+  final String Password;
+  final String Fullname;
+  const BirthDate(
+      {super.key,
+      required this.Email,
+      required this.Password,
+      required this.Fullname});
 
   @override
   State<BirthDate> createState() => _BirthDateState();
@@ -28,10 +36,26 @@ class _BirthDateState extends State<BirthDate> {
     }
   }
 
+  void nextOnPressed() {
+    var navigator = Navigator.of(context);
+    navigator.push(
+      MaterialPageRoute(
+        builder: (builder) {
+          return Gender(
+            Email: widget.Email,
+            Password: widget.Password,
+            Fullname: widget.Fullname,
+            Birthdate: _controllerBirthDate.text,
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -137,7 +161,8 @@ class _BirthDateState extends State<BirthDate> {
                   // Kirim ke database
                   // print("Tanggal Lahir: ${_controllerBirthDate.text}");
                   // saveToDatabase(_controllerBirthDate.text); --> tinggal dipanggil
-                  Navigator.pushNamed(context, '/Gender');
+                  print(_controllerBirthDate.toString());
+                  nextOnPressed();
                 }
               },
               style: ElevatedButton.styleFrom(

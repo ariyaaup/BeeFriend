@@ -1,7 +1,20 @@
+import 'package:beefriend_app/Page/Distance.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LookingFor extends StatefulWidget {
-  const LookingFor({super.key});
+  final String Email;
+  final String Password;
+  final String Fullname;
+  final String Birthdate;
+  final int gender;
+  const LookingFor(
+      {super.key,
+      required this.Email,
+      required this.Password,
+      required this.Fullname,
+      required this.Birthdate,
+      required this.gender});
 
   @override
   State<LookingFor> createState() => _LookingForState();
@@ -16,8 +29,55 @@ final List<Map<String, String>> options = [
   {"emoji": "🤔", "text": "Still\nfiguring it out"},
 ];
 String selectedOption = "";
+int LookingForID = 0;
 
 class _LookingForState extends State<LookingFor> {
+  void nextOnPressed(int lookingForID) {
+    if (selectedOption != "") {
+      var navigator = Navigator.of(context);
+      navigator.push(
+        MaterialPageRoute(
+          builder: (builder) {
+            return Distance(
+              Email: widget.Email,
+              Password: widget.Password,
+              Fullname: widget.Fullname,
+              Birthdate: widget.Birthdate,
+              gender: widget.gender,
+              LookingFor: lookingForID,
+            );
+          },
+        ),
+      );
+    }
+    if (selectedOption == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Must Choose an Option",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    }
+    if (LookingForID == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Must Choose an Option",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -101,6 +161,25 @@ class _LookingForState extends State<LookingFor> {
                           selectedOption = ""; // Unselect
                         } else {
                           selectedOption = option['text']!;
+                          if (selectedOption == "Long-term\npartner") {
+                            LookingForID = 1;
+                          }
+                          if (selectedOption == "Long-term,\nopen to short") {
+                            LookingForID = 2;
+                          }
+                          if (selectedOption == "Short-term,\nopen to long") {
+                            LookingForID = 3;
+                          }
+                          if (selectedOption == "Short-term\nfun") {
+                            LookingForID = 4;
+                          }
+                          if (selectedOption == "New\nFriends") {
+                            LookingForID = 5;
+                          }
+                          if (selectedOption == "Still\nfiguring it out") {
+                            LookingForID = 6;
+                          }
+                          print(LookingForID.toString());
                         }
                       });
                     },
@@ -154,7 +233,7 @@ class _LookingForState extends State<LookingFor> {
                       ),
                     );
                   } else {
-                    Navigator.pushNamed(context, '/Distance');
+                    nextOnPressed(LookingForID);
                   }
                 },
                 style: ElevatedButton.styleFrom(

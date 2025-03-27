@@ -1,3 +1,4 @@
+import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   String errorMessage = ' ';
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -151,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   TextSpan(
                     text: 'Sign UP',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       decoration: TextDecoration.underline, // underline effect
                       fontFamily: 'Poppins',
@@ -159,7 +160,14 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Navigator.pushNamed(context, '/FirstName');
+                        var navigator = Navigator.of(context);
+                        navigator.push(
+                          MaterialPageRoute(
+                            builder: (builder) {
+                              return RegisterPage();
+                            },
+                          ),
+                        );
                       },
                   ),
                 ],

@@ -1,20 +1,67 @@
+import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:flutter/material.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart'; //gakepake cok
 
 class CampusInformation extends StatefulWidget {
-  const CampusInformation({super.key});
+  final String Email;
+  final String Password;
+  final String Fullname;
+  final String Birthdate;
+  final int gender;
+  final int LookingFor;
+  final double Distance;
+  const CampusInformation({
+    super.key,
+    required this.Email,
+    required this.Password,
+    required this.Fullname,
+    required this.Birthdate,
+    required this.gender,
+    required this.Distance,
+    required this.LookingFor,
+  });
 
   @override
   State<CampusInformation> createState() => _CampusInformationState();
 }
 
 class _CampusInformationState extends State<CampusInformation> {
+  final database = userDatabase();
   @override
   String selectedLocation = '';
   String selectedBinusian = '';
 
+  // void nextOnPressed() {
+  //   if (widget.genderID == "Male") {
+  //     print("halo");
+  //     final newUser = Users(
+  //       Username: "",
+  //       FullName: "",
+  //       Password: _controllerPassword.text,
+  //       Gmail: _controllerEmail.text,
+  //       Age: 0,
+  //       BirthDate: "",
+  //       RegionID: 0,
+  //       Distance: 0,
+  //       LookingForID: 0,
+  //       GenderID: 1,
+  //     );
+
+  //     var userDB = userDatabase();
+  //     userDB.signUp(newUser);
+  //     var navigator = Navigator.of(context);
+  //     navigator.push(
+  //       MaterialPageRoute(
+  //         builder: (builder) {
+  //           return FirstName();
+  //         },
+  //       ),
+  //     );
+  //   }
+  // }
+
   List<String> campusLocation = [
-    'Binus \@Alam Sutera',
+    'Alam Sutera',
     'Kemanggisan',
     'Bandung',
     'Malang',

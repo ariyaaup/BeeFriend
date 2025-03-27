@@ -1,4 +1,8 @@
+import 'package:beefriend_app/DB/user_DB.dart';
+import 'package:beefriend_app/DB_Helper/user_Data.dart';
+import 'package:beefriend_app/Page/FirstName.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -8,10 +12,26 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  @override
+  final database = userDatabase();
+
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
+  void nextOnPressed() {
+    var navigator = Navigator.of(context);
+    navigator.push(
+      MaterialPageRoute(
+        builder: (builder) {
+          return FirstName(
+            Email: _controllerEmail.text,
+            Password: _controllerPassword.text,
+          );
+        },
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
@@ -114,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                // signInWithEmailAndPassword();
+                nextOnPressed();
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,

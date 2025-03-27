@@ -1,7 +1,19 @@
+import 'package:beefriend_app/DB/user_DB.dart';
+import 'package:beefriend_app/Page/LookingFor.dart';
+import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:flutter/material.dart';
 
 class Gender extends StatefulWidget {
-  const Gender({super.key});
+  final String Email;
+  final String Password;
+  final String Fullname;
+  final String Birthdate;
+  const Gender(
+      {super.key,
+      required this.Email,
+      required this.Password,
+      required this.Fullname,
+      required this.Birthdate});
 
   @override
   State<Gender> createState() => _GenderState();
@@ -9,8 +21,54 @@ class Gender extends StatefulWidget {
 
 class _GenderState extends State<Gender> {
   String selectedGender = ""; // yang dipilih gendernya
+  int GenderID = 0;
 
-  final List<String> genderOptions = ["Woman", "Man", "More"];
+  void nextOnPressed(int gender) {
+    if (selectedGender != "") {
+      var navigator = Navigator.of(context);
+      navigator.push(
+        MaterialPageRoute(
+          builder: (builder) {
+            return LookingFor(
+              Email: widget.Email,
+              Password: widget.Password,
+              Fullname: widget.Fullname,
+              Birthdate: widget.Birthdate,
+              gender: gender,
+            );
+          },
+        ),
+      );
+    }
+    if (selectedGender == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Must Choose a Gender",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    }
+    if (GenderID == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Must Choose a Gender",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    }
+  }
+
+  final List<String> genderOptions = ["Female", "Male"];
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +129,12 @@ class _GenderState extends State<Gender> {
                           selectedGender = ""; // Unselect jika tap lagi
                         } else {
                           selectedGender = gender; // Select new
+                          if (selectedGender == "Female") {
+                            GenderID = 1;
+                          } else {
+                            GenderID = 2;
+                          }
+                          print(GenderID.toString());
                         }
                       });
                     },
@@ -110,22 +174,7 @@ class _GenderState extends State<Gender> {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                if (selectedGender.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "Please select your gender!",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Poppins',
-                        ),
-                      ),
-                      backgroundColor: Color(0xFF98476A),
-                    ),
-                  );
-                } else {
-                  Navigator.pushNamed(context, '/LookingFor');
-                }
+                nextOnPressed(GenderID);
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
