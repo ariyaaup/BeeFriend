@@ -1,4 +1,5 @@
 import 'package:beefriend_app/DB/user_DB.dart';
+import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:flutter/material.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart'; //gakepake cok
 
@@ -30,40 +31,39 @@ class _CampusInformationState extends State<CampusInformation> {
   @override
   String selectedLocation = '';
   String selectedBinusian = '';
+  int LocationID = 0;
 
-  // void nextOnPressed() {
-  //   if (widget.genderID == "Male") {
-  //     print("halo");
-  //     final newUser = Users(
-  //       Username: "",
-  //       FullName: "",
-  //       Password: _controllerPassword.text,
-  //       Gmail: _controllerEmail.text,
-  //       Age: 0,
-  //       BirthDate: "",
-  //       RegionID: 0,
-  //       Distance: 0,
-  //       LookingForID: 0,
-  //       GenderID: 1,
-  //     );
+  void nextOnPressed() {
+    print("halo");
+    print(widget.Birthdate.toString());
+    print(widget.Distance.toString());
+    print(widget.Fullname.toString());
+    print(widget.LookingFor.toString());
+    print(widget.Fullname.toString());
+    print(widget.gender.toString());
 
-  //     var userDB = userDatabase();
-  //     userDB.signUp(newUser);
-  //     var navigator = Navigator.of(context);
-  //     navigator.push(
-  //       MaterialPageRoute(
-  //         builder: (builder) {
-  //           return FirstName();
-  //         },
-  //       ),
-  //     );
-  //   }
-  // }
+    final newUser = UsersDB(
+      FullName: widget.Fullname.toString(),
+      Password: widget.Password.toString(),
+      Gmail: widget.Email.toString(),
+      Age: 18,
+      BirthDate: widget.Birthdate.toString(),
+      RegionID: LocationID,
+      Distance: widget.Distance,
+      LookingForID: widget.LookingFor,
+      GenderID: widget.gender,
+    );
+
+    var userDB = userDatabase();
+    userDB.signUp(newUser);
+  }
 
   List<String> campusLocation = [
-    'Alam Sutera',
     'Kemanggisan',
+    'Alam Sutera',
+    'Senayan',
     'Bandung',
+    'Bekasi',
     'Malang',
     'Semarang'
   ];
@@ -176,6 +176,27 @@ class _CampusInformationState extends State<CampusInformation> {
                       selectedLocation = '';
                     } else {
                       selectedLocation = value.toString();
+                      if (selectedLocation == "Kemanggisan") {
+                        LocationID = 1;
+                      }
+                      if (selectedLocation == "Alam Sutera") {
+                        LocationID = 1;
+                      }
+                      if (selectedLocation == "Senayan") {
+                        LocationID = 1;
+                      }
+                      if (selectedLocation == "Bandung") {
+                        LocationID = 1;
+                      }
+                      if (selectedLocation == "Bekasi") {
+                        LocationID = 1;
+                      }
+                      if (selectedLocation == "Malang") {
+                        LocationID = 1;
+                      }
+                      if (selectedLocation == "Semarang") {
+                        LocationID = 1;
+                      }
                     }
                   });
                 },
@@ -271,7 +292,7 @@ class _CampusInformationState extends State<CampusInformation> {
                     ),
                   );
                 } else {
-                  Navigator.pushNamed(context, '/RegisterPage');
+                  nextOnPressed();
                 }
               },
               style: ElevatedButton.styleFrom(
