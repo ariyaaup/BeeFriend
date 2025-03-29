@@ -136,7 +136,7 @@ class _InputFotoState extends State<InputFoto> {
                     GestureDetector(
                       onTap: getImage,
                       child: CircleAvatar(
-                        radius: screenWidth * 0.2,
+                        radius: circleRadius * 0.2,
                         backgroundColor: Colors.white,
                         backgroundImage:
                             _imageFile != null ? FileImage(_imageFile!) : null,

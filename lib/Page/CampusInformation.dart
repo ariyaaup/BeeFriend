@@ -63,7 +63,7 @@ class _CampusInformationState extends State<CampusInformation> {
     navigator.push(
       MaterialPageRoute(
         builder: (builder) {
-          return LoginPage();
+          return InputFoto();
         },
       ),
     );

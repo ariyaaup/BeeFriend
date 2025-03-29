@@ -174,38 +174,35 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: const Color(0xFFEC7FA9),
-        shape: const CircularNotchedRectangle(), // Biar ada notch untuk FAB
+        shape: const CircularNotchedRectangle(),
         notchMargin: 6.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
+              //button navbar profile
               icon: const Icon(Icons.person_outline, color: Colors.black),
               onPressed: () {
-                var navigator = Navigator.of(context);
-                navigator.push(
-                  MaterialPageRoute(
-                    builder: (builder) {
-                      return ProfilePage();
-                    },
-                  ),
-                );
+                Navigator.pushNamed(context, '/ProfilePage');
               },
             ),
             IconButton(
+              //button navbar lokasi
               icon: const Icon(Icons.navigation_outlined, color: Colors.black),
               onPressed: () {
                 //ngpain lah
               },
             ),
-            SizedBox(width: screenWidth * 0.1), // scape tengah
+            SizedBox(width: screenWidth * 0.1), // jarak tengah floating button
             IconButton(
+              //button pertemanan
               icon: const Icon(Icons.group_outlined, color: Colors.black),
               onPressed: () {
                 // ngpain la ini
               },
             ),
             IconButton(
+              //button chat halo chat
               icon: const Icon(Icons.chat_bubble_outline, color: Colors.black),
               onPressed: () {
                 //ntr ngapain lah ini
@@ -216,13 +213,14 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        //BeeFriend match couple nih button
         backgroundColor: Colors.transparent,
         elevation: 0,
         onPressed: () {
-          // Bisa kasih fungsi khusus disini
+          Navigator.pushNamed(context, '/homePage');
         },
         child: Image.asset(
-          'lib/assets/BeeFriend_fix.png', // gambar bee png kamu
+          'lib/assets/BeeFriend_fix.png',
           width: 40,
           height: 40,
         ),

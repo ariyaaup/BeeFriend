@@ -19,20 +19,61 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _controllerPassword = TextEditingController();
 
   void nextOnPressed() {
-    AuthService().signUpWithEmailPassword(
-        _controllerEmail.text, _controllerPassword.text);
+    String email = _controllerEmail.text.trim();
+    String password = _controllerPassword.text.trim();
 
-    var navigator = Navigator.of(context);
-    navigator.push(
-      MaterialPageRoute(
-        builder: (builder) {
-          return FirstName(
-            Email: _controllerEmail.text,
-            Password: _controllerPassword.text,
-          );
-        },
-      ),
-    );
+    if (email.isEmpty && password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please fill all content above first!",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    } else if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please fill your Binusian Email!",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    } else if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please fill your Password!",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    } else {
+      AuthService().signUpWithEmailPassword(
+          _controllerEmail.text, _controllerPassword.text);
+
+      var navigator = Navigator.of(context);
+      navigator.push(
+        MaterialPageRoute(
+          builder: (builder) {
+            return FirstName(
+              Email: email,
+              Password: password,
+            );
+          },
+        ),
+      );
+    }
   }
 
   @override
@@ -154,7 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               child: const Text(
-                "Sign up",
+                "Next",
                 style: TextStyle(
                   fontFamily: 'Poppins',
                 ),
