@@ -1,0 +1,2 @@
+C:/Users/delbe/Documents/Binus/BeeFriend - Copy/android/app/.cxx/Debug/5f2z116q/x86/CMakeFiles/edit_cache.dir
+C:/Users/delbe/Documents/Binus/BeeFriend - Copy/android/app/.cxx/Debug/5f2z116q/x86/CMakeFiles/rebuild_cache.dir
