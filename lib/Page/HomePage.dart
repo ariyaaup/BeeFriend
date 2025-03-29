@@ -1,3 +1,4 @@
+import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
@@ -181,7 +182,14 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.person_outline, color: Colors.black),
               onPressed: () {
-                // ngpain lah
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return ProfilePage();
+                    },
+                  ),
+                );
               },
             ),
             IconButton(

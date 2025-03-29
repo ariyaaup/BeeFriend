@@ -4,7 +4,7 @@ import 'package:beefriend_app/Page/Gender.dart';
 import 'package:flutter/foundation.dart';
 
 class UsersDB {
-  int? id;
+  String id;
   // String Username;
   String FullName;
   String Password;
@@ -15,9 +15,10 @@ class UsersDB {
   double Distance;
   int LookingForID;
   int GenderID;
+  int AngkatanID;
 
   UsersDB({
-    this.id,
+    required this.id,
     // required this.Username,
     required this.FullName,
     required this.Password,
@@ -28,11 +29,12 @@ class UsersDB {
     required this.Distance,
     required this.LookingForID,
     required this.GenderID,
+    required this.AngkatanID,
   });
 
   factory UsersDB.fromMap(Map<String, dynamic> map) {
     return UsersDB(
-      id: map['id'] as int,
+      id: map['id'] as String,
       // Username: map['Username'] as String,
       FullName: map['Fullname'] as String,
       Password: map['Password'] as String,
@@ -43,12 +45,14 @@ class UsersDB {
       Distance: map['Distance'] as double,
       LookingForID: map['LookingForID'] as int,
       GenderID: map['GenderID'] as int,
+      AngkatanID: map['AngkatanID'] as int,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       // 'male_Username': Username,
+      'id': id,
       'Fullname': FullName,
       'Password': Password,
       'Email': Gmail,
@@ -57,6 +61,8 @@ class UsersDB {
       'RegionID': RegionID,
       'Distance': Distance,
       'LookingForID': LookingForID,
+      'AngkatanID': AngkatanID,
+      'GenderID': GenderID,
     };
   }
 }

@@ -8,12 +8,15 @@ class Gender extends StatefulWidget {
   final String Password;
   final String Fullname;
   final String Birthdate;
-  const Gender(
-      {super.key,
-      required this.Email,
-      required this.Password,
-      required this.Fullname,
-      required this.Birthdate});
+  final int Age;
+  const Gender({
+    super.key,
+    required this.Email,
+    required this.Password,
+    required this.Fullname,
+    required this.Birthdate,
+    required this.Age,
+  });
 
   @override
   State<Gender> createState() => _GenderState();
@@ -35,6 +38,7 @@ class _GenderState extends State<Gender> {
               Fullname: widget.Fullname,
               Birthdate: widget.Birthdate,
               gender: gender,
+              age: widget.Age,
             );
           },
         ),

@@ -1,3 +1,6 @@
+import 'package:beefriend_app/DB/user_DB.dart';
+import 'package:beefriend_app/DB_Helper/AuthService.dart';
+import 'package:beefriend_app/Page/HomePage.dart';
 import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,30 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  void signInWithEmailAndPassword(String email, String password) async {
+    try {
+      final response =
+          await AuthService().signInWithEmailPassword(email, password);
+
+      if (response.session == null) {
+        throw Exception(
+            "Login gagal. Periksa kembali email dan password Anda.");
+      }
+
+      print("Login berhasil: ${response.session?.user?.email}");
+      var navigator = Navigator.of(context);
+      navigator.push(
+        MaterialPageRoute(
+          builder: (builder) {
+            return HomePage();
+          },
+        ),
+      );
+    } catch (e) {
+      print("Error saat login: $e");
+    }
+  }
+
   @override
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
@@ -116,7 +143,8 @@ class _LoginPageState extends State<LoginPage> {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                // signInWithEmailAndPassword();
+                signInWithEmailAndPassword(
+                    _controllerEmail.text, _controllerPassword.text);
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,

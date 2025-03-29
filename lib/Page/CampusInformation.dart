@@ -1,5 +1,8 @@
 import 'package:beefriend_app/DB/user_DB.dart';
+import 'package:beefriend_app/DB_Helper/AuthService.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
+import 'package:beefriend_app/Page/InputFoto.dart';
+import 'package:beefriend_app/Page/LoginPage.dart';
 import 'package:flutter/material.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart'; //gakepake cok
 
@@ -11,6 +14,7 @@ class CampusInformation extends StatefulWidget {
   final int gender;
   final int LookingFor;
   final double Distance;
+  final int age;
   const CampusInformation({
     super.key,
     required this.Email,
@@ -20,6 +24,7 @@ class CampusInformation extends StatefulWidget {
     required this.gender,
     required this.Distance,
     required this.LookingFor,
+    required this.age,
   });
 
   @override
@@ -33,29 +38,35 @@ class _CampusInformationState extends State<CampusInformation> {
   String selectedBinusian = '';
   int LocationID = 0;
 
-  void nextOnPressed() {
-    print("halo");
-    print(widget.Birthdate.toString());
-    print(widget.Distance.toString());
-    print(widget.Fullname.toString());
-    print(widget.LookingFor.toString());
-    print(widget.Fullname.toString());
-    print(widget.gender.toString());
-
+  void nextOnPressed(int angkatanID) async {
+    // print(" UID : ${AuthService().getUserIdByEmail(widget.Email).toString()}");
+    final userId = await AuthService().getUserIdByEmail(widget.Email);
+    print("User ID: ${userId.toString()}");
     final newUser = UsersDB(
+      id: userId.toString(),
       FullName: widget.Fullname.toString(),
       Password: widget.Password.toString(),
       Gmail: widget.Email.toString(),
-      Age: 18,
+      Age: widget.age,
       BirthDate: widget.Birthdate.toString(),
       RegionID: LocationID,
       Distance: widget.Distance,
       LookingForID: widget.LookingFor,
       GenderID: widget.gender,
+      AngkatanID: angkatanID,
     );
 
     var userDB = userDatabase();
     userDB.signUp(newUser);
+
+    var navigator = Navigator.of(context);
+    navigator.push(
+      MaterialPageRoute(
+        builder: (builder) {
+          return LoginPage();
+        },
+      ),
+    );
   }
 
   List<String> campusLocation = [
@@ -83,6 +94,7 @@ class _CampusInformationState extends State<CampusInformation> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    int AngkatanIDS = 0;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -178,24 +190,18 @@ class _CampusInformationState extends State<CampusInformation> {
                       selectedLocation = value.toString();
                       if (selectedLocation == "Kemanggisan") {
                         LocationID = 1;
-                      }
-                      if (selectedLocation == "Alam Sutera") {
-                        LocationID = 1;
-                      }
-                      if (selectedLocation == "Senayan") {
-                        LocationID = 1;
-                      }
-                      if (selectedLocation == "Bandung") {
-                        LocationID = 1;
-                      }
-                      if (selectedLocation == "Bekasi") {
-                        LocationID = 1;
-                      }
-                      if (selectedLocation == "Malang") {
-                        LocationID = 1;
-                      }
-                      if (selectedLocation == "Semarang") {
-                        LocationID = 1;
+                      } else if (selectedLocation == "Alam Sutera") {
+                        LocationID = 2;
+                      } else if (selectedLocation == "Senayan") {
+                        LocationID = 3;
+                      } else if (selectedLocation == "Bandung") {
+                        LocationID = 4;
+                      } else if (selectedLocation == "Bekasi") {
+                        LocationID = 5;
+                      } else if (selectedLocation == "Malang") {
+                        LocationID = 6;
+                      } else if (selectedLocation == "Semarang") {
+                        LocationID = 7;
                       }
                     }
                   });
@@ -292,7 +298,29 @@ class _CampusInformationState extends State<CampusInformation> {
                     ),
                   );
                 } else {
-                  nextOnPressed();
+                  if (selectedBinusian == "B28") {
+                    AngkatanIDS = 1;
+                  } else if (selectedBinusian == "B27") {
+                    AngkatanIDS = 2;
+                  } else if (selectedBinusian == "B26") {
+                    AngkatanIDS = 3;
+                  } else if (selectedBinusian == "B25") {
+                    AngkatanIDS = 4;
+                  } else if (selectedBinusian == "B24") {
+                    AngkatanIDS = 5;
+                  } else if (selectedBinusian == "B23") {
+                    AngkatanIDS = 6;
+                  } else if (selectedBinusian == "B22") {
+                    AngkatanIDS = 7;
+                  } else if (selectedBinusian == "B21") {
+                    AngkatanIDS = 8;
+                  } else if (selectedBinusian == "B20") {
+                    AngkatanIDS = 9;
+                  } else if (selectedBinusian == "Older") {
+                    AngkatanIDS = 10;
+                  }
+
+                  nextOnPressed(AngkatanIDS);
                 }
               },
               style: ElevatedButton.styleFrom(

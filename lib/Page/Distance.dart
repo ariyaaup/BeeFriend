@@ -8,6 +8,7 @@ class Distance extends StatefulWidget {
   final String Birthdate;
   final int gender;
   final int LookingFor;
+  final int age;
   const Distance({
     super.key,
     required this.Email,
@@ -16,6 +17,7 @@ class Distance extends StatefulWidget {
     required this.Birthdate,
     required this.gender,
     required this.LookingFor,
+    required this.age,
   });
 
   @override
@@ -38,6 +40,7 @@ class _DistanceState extends State<Distance> {
             gender: widget.gender,
             LookingFor: widget.LookingFor,
             Distance: sliderValue,
+            age: widget.age,
           );
         },
       ),

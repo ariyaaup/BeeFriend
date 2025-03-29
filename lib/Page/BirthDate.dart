@@ -19,6 +19,8 @@ class BirthDate extends StatefulWidget {
 class _BirthDateState extends State<BirthDate> {
   final TextEditingController _controllerBirthDate = TextEditingController();
 
+  int age = 0;
+
 //fungsi date picker
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
@@ -29,6 +31,19 @@ class _BirthDateState extends State<BirthDate> {
     );
 
     if (pickedDate != null) {
+      // print(((DateTime.now().day.toInt() - pickedDate.day) *
+      //         (2025 - pickedDate.year)) /
+      //     365);
+      if (pickedDate.day <= DateTime.now().day.toInt() &&
+              pickedDate.month == DateTime.now().month.toInt() ||
+          pickedDate.month < DateTime.now().month.toInt()) {
+        age = 2025 - pickedDate.year;
+      } else if (pickedDate.day >= DateTime.now().day.toInt() &&
+              pickedDate.month == DateTime.now().month.toInt() ||
+          pickedDate.month > DateTime.now().month.toInt()) {
+        age = 2024 - pickedDate.year;
+      }
+      print(age.toString());
       String formattedDate = DateFormat('MM/dd/yyyy').format(pickedDate);
       setState(() {
         _controllerBirthDate.text = formattedDate;
@@ -46,6 +61,7 @@ class _BirthDateState extends State<BirthDate> {
             Password: widget.Password,
             Fullname: widget.Fullname,
             Birthdate: _controllerBirthDate.text,
+            Age: age,
           );
         },
       ),

@@ -1,3 +1,4 @@
+import 'package:beefriend_app/DB_Helper/LoggedUser.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -11,11 +12,22 @@ class userDatabase {
     await Database.insert(newUsers.toMap());
   }
 
+  Future SignIn(String Email, String Password) async {
+    if ((Database.select('id').eq('Email', Email).single()) ==
+        Database.select('id').eq('Password', Password)) {
+      final response = await Database.select('id').eq('Email', Email).single();
+
+      final userId = response['id']; // Ambil nilai ID
+
+      print('User ID: $userId');
+      Loggeduser(id: userId);
+    }
+  }
+
   // READ
   final stream = Supabase.instance.client.from('UserTable').stream(primaryKey: [
     'id'
   ]).map((data) => data.map((UserMap) => UsersDB.fromMap(UserMap)).toList());
-
   // UPDATE
 }
 

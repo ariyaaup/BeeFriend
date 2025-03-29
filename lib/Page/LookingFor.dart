@@ -8,13 +8,16 @@ class LookingFor extends StatefulWidget {
   final String Fullname;
   final String Birthdate;
   final int gender;
-  const LookingFor(
-      {super.key,
-      required this.Email,
-      required this.Password,
-      required this.Fullname,
-      required this.Birthdate,
-      required this.gender});
+  final int age;
+  const LookingFor({
+    super.key,
+    required this.Email,
+    required this.Password,
+    required this.Fullname,
+    required this.Birthdate,
+    required this.gender,
+    required this.age,
+  });
 
   @override
   State<LookingFor> createState() => _LookingForState();
@@ -45,6 +48,7 @@ class _LookingForState extends State<LookingFor> {
               Birthdate: widget.Birthdate,
               gender: widget.gender,
               LookingFor: lookingForID,
+              age: widget.age,
             );
           },
         ),
