@@ -1,5 +1,9 @@
 class Loggeduser {
-  int id;
+  String Email;
 
-  Loggeduser({required this.id});
+  Loggeduser({required this.Email});
+
+  String email() {
+    return Email;
+  }
 }

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: ProfilePage(),
+      home: SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/homePage': (BuildContext context) => HomePage(),
         // '/CampusInformation': (BuildContext context) => CampusInformation(),
@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         // '/Distance': (BuildContext context) => Distance(),
         // '/Gender': (BuildContext context) => Gender(),
         '/ProfilePage': (BuildContext context) => ProfilePage(),
+        '/InputFoto': (BuildContext context) => InputFoto(),
       },
     );
   }

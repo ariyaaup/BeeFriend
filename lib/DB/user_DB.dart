@@ -20,7 +20,6 @@ class userDatabase {
       final userId = response['id']; // Ambil nilai ID
 
       print('User ID: $userId');
-      Loggeduser(id: userId);
     }
   }
 
@@ -29,6 +28,10 @@ class userDatabase {
     'id'
   ]).map((data) => data.map((UserMap) => UsersDB.fromMap(UserMap)).toList());
   // UPDATE
+
+  Future UpdateProfilePicture(String Email, String FileName) async {
+    await Database.update({'ProfilePicture': FileName}).eq('Email', Email);
+  }
 }
 
 // class maleDB {

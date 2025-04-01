@@ -1,6 +1,7 @@
 import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/DB_Helper/AuthService.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
+import 'package:beefriend_app/Page/HomePage.dart';
 import 'package:beefriend_app/Page/InputFoto.dart';
 import 'package:beefriend_app/Page/LoginPage.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class _CampusInformationState extends State<CampusInformation> {
     navigator.push(
       MaterialPageRoute(
         builder: (builder) {
-          return InputFoto();
+          return LoginPage();
         },
       ),
     );

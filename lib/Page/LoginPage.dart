@@ -1,5 +1,6 @@
 import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/DB_Helper/AuthService.dart';
+import 'package:beefriend_app/DB_Helper/LoggedUser.dart';
 import 'package:beefriend_app/Page/HomePage.dart';
 import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:flutter/gestures.dart';

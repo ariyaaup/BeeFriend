@@ -1,3 +1,4 @@
+import 'package:beefriend_app/DB_Helper/AuthService.dart';
 import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -11,6 +12,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> profiles = ['Profile 1', 'Profile 2', 'Profile 3'];
+
+  String UserEmail = AuthService().getCurrentUserEmail().toString();
 
   int currentIndex = 0; // Manual pagination index
 
@@ -218,6 +221,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         onPressed: () {
           Navigator.pushNamed(context, '/homePage');
+          print(UserEmail);
         },
         child: Image.asset(
           'lib/assets/BeeFriend_fix.png',

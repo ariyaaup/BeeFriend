@@ -1,4 +1,7 @@
 import "dart:io";
+import "package:beefriend_app/DB/user_DB.dart";
+import "package:beefriend_app/DB_Helper/AuthService.dart";
+import "package:beefriend_app/DB_Helper/LoggedUser.dart";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
@@ -27,6 +30,7 @@ class _InputFotoState extends State<InputFoto> {
   }
 
   Future<void> uploadImage() async {
+    String Email = AuthService().getCurrentUserEmail().toString();
     if (_imageFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -38,30 +42,30 @@ class _InputFotoState extends State<InputFoto> {
     }
 
     try {
-      final String fileName =
-          "profile_pictures/${DateTime.now().millisecondsSinceEpoch}.jpg";
-      final response = await supabase.storage.from('profile_images').upload(
-            fileName,
-            _imageFile!,
-            fileOptions: const FileOptions(cacheControl: '3600', upsert: false),
-          );
-
-      final String imageUrl =
-          supabase.storage.from('profile_images').getPublicUrl(fileName);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "Image uploaded successfully!",
-            style: TextStyle(
-              color: Color(0xFF98476A),
+      final String fileName = 'Upload/profile_pictures${Email}.jpg';
+      // final String fileNames = 'profile_pictures${Email}.jpg';
+      final String publicUrl =
+          supabase.storage.from('images').getPublicUrl(fileName);
+      final path = '$fileName';
+      await Supabase.instance.client.storage
+          .from('images')
+          .upload(path, _imageFile!)
+          .then(
+            (value) => ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "Image uploaded successfully!",
+                  style: TextStyle(
+                    color: Color(0xFF98476A),
+                  ),
+                ),
+                backgroundColor: Colors.white,
+              ),
             ),
-          ),
-          backgroundColor: Colors.white,
-        ),
-      );
+          );
+      userDatabase().UpdateProfilePicture(Email, publicUrl);
 
-      print("Uploaded Image URL: $imageUrl"); // Debugging URL di terminal
+      // print("Uploaded Image URL : $imageUrl");// Debugging URL di terminal
     } catch (error) {
       print("Upload error: $error"); // Debugging error di terminal
       ScaffoldMessenger.of(context).showSnackBar(
@@ -171,7 +175,9 @@ class _InputFotoState extends State<InputFoto> {
                     ),
                     Spacer(),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/ProfilePage");
+                      },
                       // nextOnPressed,
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,

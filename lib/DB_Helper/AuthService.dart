@@ -41,7 +41,13 @@ class AuthService {
     return response;
   }
 
-// // Contoh penggunaan
-// final userId = await getUserIdByEmail("user@example.com");
-// print("User ID: $userId");
+  Future<Map<String, dynamic>?> getUserDataByEmail(String email) async {
+    final response = await Supabase.instance.client
+        .from('UserTable')
+        .select('*, Region(*), Looking_For(*), Gender(*), Angkatan(*)')
+        .eq('Email', email)
+        .single();
+
+    return response;
+  }
 }
