@@ -1,0 +1,2 @@
+C:/Users/Ariya/Documents/BeeFriend/android/app/.cxx/Debug/254c6d1j/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/Ariya/Documents/BeeFriend/android/app/.cxx/Debug/254c6d1j/x86_64/CMakeFiles/rebuild_cache.dir

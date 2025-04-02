@@ -15,7 +15,92 @@ class _HomePageState extends State<HomePage> {
 
   String UserEmail = AuthService().getCurrentUserEmail().toString();
 
-  int currentIndex = 0; // Manual pagination index
+  int currentIndex = 0;
+
+// Dropdown
+  String selectedAgama = 'Islam';
+  String selectedHobi = 'Seni';
+  String selectedAngkatan = 'B28';
+  String selectedRas = 'Chinese';
+  String selectedZodiak = 'Aries';
+
+  final Map<String, IconData> agamaIcons = {
+    "Buddha": Icons.temple_buddhist,
+    "Hindu": Icons.temple_hindu,
+    "Kristen": Icons.church,
+    "Katolik": Icons.church,
+    "Konghucu": Icons.account_balance,
+    "Islam": Icons.mosque,
+  };
+
+  final Map<String, IconData> hobiIcons = {
+    "Seni": Icons.brush,
+    "Gaming": Icons.sports_esports,
+    "Olahraga": Icons.fitness_center,
+    "Travel": Icons.flight,
+    "Belajar": Icons.book,
+  };
+
+  final Map<String, IconData> angkatanIcons = {
+    "B28": Icons.school,
+    "B27": Icons.school,
+    "B26": Icons.school,
+    "B25": Icons.school,
+    "B24": Icons.school,
+    "B23": Icons.school,
+    "B22": Icons.school,
+    "B21": Icons.school,
+    "Older": Icons.history,
+  };
+
+  final Map<String, IconData> rasIcons = {
+    "Chinese": Icons.people,
+    "Batak": Icons.people,
+    "Jawa": Icons.people,
+    "Sunda": Icons.people,
+    "Minang": Icons.people,
+    "Dayak": Icons.people,
+    "Madura": Icons.people,
+    "Timur": Icons.people,
+  };
+
+  final Map<String, IconData> zodiakIcons = {
+    "Aries": Icons.stars,
+    "Taurus": Icons.bolt,
+    "Gemini": Icons.auto_awesome,
+    "Cancer": Icons.crisis_alert,
+    "Leo": Icons.wb_sunny,
+    "Virgo": Icons.spa,
+    "Libra": Icons.balance,
+    "Scorpio": Icons.science,
+    "Sagitarius": Icons.architecture,
+    "Capricorn": Icons.terrain,
+    "Aquarius": Icons.water,
+    "Pisces": Icons.waves,
+  };
+  Widget _buildDropdownTile(String title, Map<String, IconData> items,
+      String selectedValue, ValueChanged<String?> onChanged) {
+    return ListTile(
+      leading: Icon(items[selectedValue] ?? Icons.help, color: Colors.black54),
+      title: Text(title, style: TextStyle(fontFamily: 'Poppins')),
+      trailing: DropdownButton<String>(
+        value: selectedValue,
+        onChanged: onChanged,
+        items: items.keys.map((String item) {
+          return DropdownMenuItem<String>(
+            value: item,
+            child: Row(
+              children: [
+                Icon(items[item], size: 20, color: Colors.black54),
+                SizedBox(width: 8),
+                Text(item),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,35 +113,82 @@ class _HomePageState extends State<HomePage> {
           ? const Color(0xFFEC7FA9)
           : const Color(0xFFEC7FA9),
       appBar: AppBar(
-          scrolledUnderElevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: MediaQuery.of(context).size.width > 500
-              ? const Color(0xFFEC7FA9)
-              : const Color(0xFFEC7FA9),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "BeeFriend",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 20,
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: MediaQuery.of(context).size.width > 500
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Ganti warna ikon drawer menjadi putih
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              "BeeFriend",
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(
+              width: screenWidth * 0.5,
+            ),
+          ],
+        ),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            SizedBox(
+              height: screenHeight * 0.15,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xFFEC7FA9),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Filter Search",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                    Image.asset(
+                      'lib/assets/Setting.png',
+                      width: 24, // Sesuaikan ukuran ikon
+                      height: 24,
+                      color:
+                          Colors.white, // Opsional: mengubah warna jika perlu
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                width: screenWidth * 0.5,
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(
-                    'lib/assets/Setting.png',
-                    color: Colors.white,
-                    width: screenWidth * 0.1,
-                    height: screenHeight * 0.1,
-                  ))
-            ],
-          )),
+            ),
+            _buildDropdownTile("Agama", agamaIcons, selectedAgama, (value) {
+              setState(() => selectedAgama = value!);
+            }),
+            _buildDropdownTile("Hobi", hobiIcons, selectedHobi, (value) {
+              setState(() => selectedHobi = value!);
+            }),
+            _buildDropdownTile("Angkatan", angkatanIcons, selectedAngkatan,
+                (value) {
+              setState(() => selectedAngkatan = value!);
+            }),
+            _buildDropdownTile("Ras", rasIcons, selectedRas, (value) {
+              setState(() => selectedRas = value!);
+            }),
+            _buildDropdownTile("Zodiak", zodiakIcons, selectedZodiak, (value) {
+              setState(() => selectedZodiak = value!);
+            }),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
