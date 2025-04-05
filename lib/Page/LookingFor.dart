@@ -1,5 +1,5 @@
 import 'package:beefriend_app/Page/Distance.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LookingFor extends StatefulWidget {
@@ -85,7 +85,7 @@ class _LookingForState extends State<LookingFor> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(

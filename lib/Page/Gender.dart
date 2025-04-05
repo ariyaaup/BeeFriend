@@ -1,6 +1,6 @@
-import 'package:beefriend_app/DB/user_DB.dart';
+// import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/Page/LookingFor.dart';
-import 'package:beefriend_app/Page/RegisterPage.dart';
+// import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:flutter/material.dart';
 
 class Gender extends StatefulWidget {
@@ -77,7 +77,7 @@ class _GenderState extends State<Gender> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(

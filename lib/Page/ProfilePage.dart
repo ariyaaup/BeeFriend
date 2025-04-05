@@ -1,6 +1,9 @@
+import "package:beefriend_app/DB/user_DB.dart";
 import "package:beefriend_app/DB_Helper/AuthService.dart";
-import "package:beefriend_app/DB_Helper/LoggedUser.dart";
-import "package:beefriend_app/Page/HomePage.dart";
+// import "package:beefriend_app/DB_Helper/LoggedUser.dart";
+import "package:beefriend_app/Page/ChatListPage.dart";
+// import "package:beefriend_app/Page/HomePage.dart";
+import "package:beefriend_app/Page/LoginPage.dart";
 import "package:flutter/material.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 
@@ -33,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> fetchUserData() async {
     final user = Supabase.instance.client.auth.currentUser;
     if (user != null) {
-      final data = await AuthService().getUserDataByEmail(user.email!);
+      final data = await showData().getUserDataByEmail(user.email!);
       setState(() {
         userData = data;
         print(userData);
@@ -118,8 +121,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: CircleAvatar(
                                 radius: circleRadius * 0.12,
                                 backgroundColor: Colors.white,
-                                backgroundImage:
-                                    NetworkImage(publicUrl.toString()),
+                                backgroundImage: NetworkImage(
+                                  publicUrl.toString(),
+                                ),
                                 //nanti lu disini tambahin dari Xfile picture upload bert.
                               ),
                             ),
@@ -246,13 +250,37 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          AuthService().signOut();
+                          print(AuthService().getCurrentUserEmail().toString());
+                          var navigator = Navigator.of(context);
+                          navigator.push(
+                            MaterialPageRoute(
+                              builder: (builder) {
+                                return LoginPage();
+                              },
+                            ),
+                          );
+                        },
+                        child: Text("Sign Out"),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
       bottomNavigationBar: BottomAppBar(
-        color: const Color(0xFFEC7FA9),
+        color: const Color(0xFFFFFFFF),
         shape: const CircularNotchedRectangle(),
-        notchMargin: 6.0,
+        notchMargin: 5.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -282,7 +310,14 @@ class _ProfilePageState extends State<ProfilePage> {
               //button chat halo chat
               icon: const Icon(Icons.chat_bubble_outline, color: Colors.black),
               onPressed: () {
-                //ntr ngapain lah ini
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return Chatlistpage();
+                    },
+                  ),
+                );
               },
             ),
           ],
@@ -298,8 +333,8 @@ class _ProfilePageState extends State<ProfilePage> {
         },
         child: Image.asset(
           'lib/assets/BeeFriend_fix.png',
-          width: 40,
-          height: 40,
+          width: 50,
+          height: 50,
         ),
       ),
     );

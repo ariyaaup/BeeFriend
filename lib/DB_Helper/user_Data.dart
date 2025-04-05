@@ -1,7 +1,7 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
-import 'package:beefriend_app/Page/Gender.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:beefriend_app/Page/Gender.dart';
+// import 'package:flutter/foundation.dart';
 
 class UsersDB {
   String id;
@@ -16,6 +16,23 @@ class UsersDB {
   int LookingForID;
   int GenderID;
   int AngkatanID;
+  int HobiID;
+  int ZodiakID;
+  int EthnicID;
+  int AgamaID;
+  String ProfilePicture;
+
+  final String? AgamaName;
+  final String? ZodiakName;
+  final String? EthnicName;
+  final String? AngkatanName;
+  final String? HobiName;
+
+  // String? Agama;
+  // String? Hobi;
+  // String? Zodiak;
+  // String? Ethnic;
+  // String? Angkatan;
 
   UsersDB({
     required this.id,
@@ -30,6 +47,16 @@ class UsersDB {
     required this.LookingForID,
     required this.GenderID,
     required this.AngkatanID,
+    required this.AgamaID,
+    required this.EthnicID,
+    required this.HobiID,
+    required this.ZodiakID,
+    required this.ProfilePicture,
+    this.AgamaName,
+    this.AngkatanName,
+    this.EthnicName,
+    this.HobiName,
+    this.ZodiakName,
   });
 
   factory UsersDB.fromMap(Map<String, dynamic> map) {
@@ -42,10 +69,20 @@ class UsersDB {
       Age: map['Age'] as int,
       BirthDate: map['BirthDate'] as String,
       RegionID: map['RegionID'] as int,
-      Distance: map['Distance'] as double,
+      Distance: (map['Distance'] as num).toDouble(),
       LookingForID: map['LookingForID'] as int,
       GenderID: map['GenderID'] as int,
       AngkatanID: map['AngkatanID'] as int,
+      AgamaID: map['AgamaID'] as int,
+      ZodiakID: map['ZodiakID'] as int,
+      HobiID: map['HobiID'] as int,
+      EthnicID: map['EthnicID'] as int,
+      ProfilePicture: map['ProfilePicture'] as String,
+      AgamaName: map['Agama']?['Agama'] as String?,
+      ZodiakName: map['Zodiak']?['Zodiak'] as String?,
+      EthnicName: map['Ethnic']?['Ethnic'] as String?,
+      AngkatanName: map['Angkatan']?['Angkatan'] as String?,
+      HobiName: map['Hobi']?['Hobi'] as String?,
     );
   }
 
@@ -63,114 +100,44 @@ class UsersDB {
       'LookingForID': LookingForID,
       'AngkatanID': AngkatanID,
       'GenderID': GenderID,
+      'AgamaID': AgamaID,
+      'ZodiakID': ZodiakID,
+      'HobiID': HobiID,
+      'EthnicID': EthnicID,
+      'ProfilePicture': ProfilePicture,
+      // 'Agama': Agama,
+      // 'Hobi': Hobi,
+      // 'Angkatan': Angkatan,
+      // 'Zodiak': Zodiak,
+      // 'Ethnic': Ethnic,
     };
   }
 }
 
-// class Male_User {
-//   int? id;
-//   String Username;
-//   String FullName;
-//   String Password;
-//   String Gmail;
-//   int Age;
-//   String BirthDate;
-//   int RegionID;
-//   int Distance;
-//   int LookingForID;
+class userChat {
+  int? id;
+  String Email1;
+  String Email2;
 
-//   Male_User({
-//     this.id,
-//     required this.Username,
-//     required this.FullName,
-//     required this.Password,
-//     required this.Gmail,
-//     required this.Age,
-//     required this.BirthDate,
-//     required this.RegionID,
-//     required this.Distance,
-//     required this.LookingForID,
-//   });
+  userChat({
+    this.id,
+    required this.Email1,
+    required this.Email2,
+  });
 
-//   factory Male_User.fromMap(Map<String, dynamic> map) {
-//     return Male_User(
-//         id: map['id'] as int,
-//         Username: map['male_Username'] as String,
-//         FullName: map['male_Fullname'] as String,
-//         Password: map['male_Password'] as String,
-//         Gmail: map['male_Gmail'] as String,
-//         Age: map['male_Age'] as int,
-//         BirthDate: map['male_BirthDate'] as String,
-//         RegionID: map['RegionID'] as int,
-//         Distance: map['male_Distance'] as int,
-//         LookingForID: map['LookingForID'] as int);
-//   }
+  factory userChat.fromMap(Map<String, dynamic> map) {
+    return userChat(
+      // id: map['id'] as int,
+      Email1: map['Email_1'] as String,
+      Email2: map['Email_2'] as String,
+    );
+  }
 
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'male_Username': Username,
-//       'male_Fullname': FullName,
-//       'male_Password': Password,
-//       'male_Gmail': Gmail,
-//       'male_Age': Age,
-//       'male_BirthDate': BirthDate,
-//       'RegionID': RegionID,
-//       'male_Distance': Distance,
-//       'LookingForID': LookingForID,
-//     };
-//   }
-// }
-
-// class Female_User {
-//   int? id;
-//   String Username;
-//   String FullName;
-//   String Password;
-//   String Gmail;
-//   int Age;
-//   String BirthDate;
-//   int RegionID;
-//   int Distance;
-//   int LookingForID;
-
-//   Female_User({
-//     this.id,
-//     required this.Username,
-//     required this.FullName,
-//     required this.Password,
-//     required this.Gmail,
-//     required this.Age,
-//     required this.BirthDate,
-//     required this.RegionID,
-//     required this.Distance,
-//     required this.LookingForID,
-//   });
-
-//   factory Female_User.fromMap(Map<String, dynamic> map) {
-//     return Female_User(
-//         id: map['id'] as int,
-//         Username: map['female_Username'].toString(),
-//         FullName: map['female_Fullname'].toString(),
-//         Password: map['female_Password'].toString(),
-//         Gmail: map['female_Gmail'].toString(),
-//         Age: map['female_Age'] as int,
-//         BirthDate: map['female_BirthDate'] as String,
-//         RegionID: map['RegionID'] as int,
-//         Distance: map['female_Distance'] as int,
-//         LookingForID: ['LookingForID'] as int);
-//   }
-
-//   Map<String, dynamic> toMap() {
-//     return {
-//       'female_Username': Username,
-//       'female_Fullname': FullName,
-//       'female_Password': Password,
-//       'female_Gmail': Gmail,
-//       'female_Age': Age,
-//       'female_BirthDate': BirthDate,
-//       'RegionID': RegionID,
-//       'female_Distance': Distance,
-//       'LookingForID': LookingForID,
-//     };
-//   }
-// }
+  Map<String, dynamic> toMap() {
+    return {
+      // 'id': id,
+      'Email_1': Email1,
+      'Email_2': Email2,
+    };
+  }
+}

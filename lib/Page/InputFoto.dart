@@ -1,7 +1,7 @@
 import "dart:io";
 import "package:beefriend_app/DB/user_DB.dart";
 import "package:beefriend_app/DB_Helper/AuthService.dart";
-import "package:beefriend_app/DB_Helper/LoggedUser.dart";
+// import "package:beefriend_app/DB_Helper/LoggedUser.dart";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 import "package:supabase_flutter/supabase_flutter.dart";

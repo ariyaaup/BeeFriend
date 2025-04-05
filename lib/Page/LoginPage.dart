@@ -1,6 +1,6 @@
-import 'package:beefriend_app/DB/user_DB.dart';
+// import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/DB_Helper/AuthService.dart';
-import 'package:beefriend_app/DB_Helper/LoggedUser.dart';
+// import 'package:beefriend_app/DB_Helper/LoggedUser.dart';
 import 'package:beefriend_app/Page/HomePage.dart';
 import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:flutter/gestures.dart';
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
             "Login gagal. Periksa kembali email dan password Anda.");
       }
 
-      print("Login berhasil: ${response.session?.user?.email}");
+      print("Login berhasil: ${response.session?.user.email}");
       var navigator = Navigator.of(context);
       navigator.push(
         MaterialPageRoute(
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  @override
+  // @override
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   String errorMessage = ' ';
@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
               style: const TextStyle(
                 color: Colors.black,
               ),
-              obscureText: false,
+              obscureText: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,

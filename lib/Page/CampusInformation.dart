@@ -1,8 +1,8 @@
 import 'package:beefriend_app/DB/user_DB.dart';
-import 'package:beefriend_app/DB_Helper/AuthService.dart';
+// import 'package:beefriend_app/DB_Helper/AuthService.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
-import 'package:beefriend_app/Page/HomePage.dart';
-import 'package:beefriend_app/Page/InputFoto.dart';
+// import 'package:beefriend_app/Page/HomePage.dart';
+// import 'package:beefriend_app/Page/InputFoto.dart';
 import 'package:beefriend_app/Page/LoginPage.dart';
 import 'package:flutter/material.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart'; //gakepake cok
@@ -34,14 +34,14 @@ class CampusInformation extends StatefulWidget {
 
 class _CampusInformationState extends State<CampusInformation> {
   final database = userDatabase();
-  @override
   String selectedLocation = '';
   String selectedBinusian = '';
   int LocationID = 0;
 
   void nextOnPressed(int angkatanID) async {
     // print(" UID : ${AuthService().getUserIdByEmail(widget.Email).toString()}");
-    final userId = await AuthService().getUserIdByEmail(widget.Email);
+    final userId = await showData().getUserIdByEmail(widget.Email);
+    print("Email: ${widget.Email}");
     print("User ID: ${userId.toString()}");
     final newUser = UsersDB(
       id: userId.toString(),
@@ -55,6 +55,11 @@ class _CampusInformationState extends State<CampusInformation> {
       LookingForID: widget.LookingFor,
       GenderID: widget.gender,
       AngkatanID: angkatanID,
+      AgamaID: 7,
+      EthnicID: 9,
+      HobiID: 6,
+      ZodiakID: 13,
+      ProfilePicture: "",
     );
 
     var userDB = userDatabase();

@@ -1,7 +1,11 @@
+import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/DB_Helper/AuthService.dart';
-import 'package:beefriend_app/Page/ProfilePage.dart';
+import 'package:beefriend_app/DB_Helper/user_Data.dart';
+import 'package:beefriend_app/Page/ChatListPage.dart';
+// import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,26 +15,311 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> profiles = ['Profile 1', 'Profile 2', 'Profile 3'];
+  Map<String, dynamic>? userData;
+  String? emails;
 
+  Widget buildProfileCard(UsersDB user) {
+    String? Email = AuthService().getCurrentUserEmail();
+    print(Email);
+    return Container(
+      color: const Color(0xFFEC7FA9),
+      child: Column(
+        children: [
+          Expanded(
+            child: Card(
+              elevation: 10,
+              margin: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: user.ProfilePicture.isNotEmpty
+                        ? Image.network(
+                            user.ProfilePicture,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            "lib/assets/BeeFriend_fix.png",
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: const LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [Colors.black54, Colors.transparent],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 20,
+                    bottom: 20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          user.FullName,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        Text(
+                          "${user.Age} tahun",
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Agama : ${user.AgamaName ?? "-"}"),
+                Text("Agama : ${user.AngkatanName ?? "-"}"),
+                Text("Agama : ${user.HobiName ?? "-"}"),
+                Text("Agama : ${user.ZodiakName ?? "-"}"),
+                Text("Agama : ${user.EthnicName ?? "-"}"),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding:
+                const EdgeInsets.only(bottom: 20), // Biar spacing bawah bagus
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(20),
+                    backgroundColor: Colors.black,
+                    // Consistent button
+                  ),
+                  child: const Icon(Icons.close, color: Colors.white),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    userDatabase().ChatLogic(
+                        userChat(Email1: Email!, Email2: user.Gmail));
+                    // var datas = await showData().AlreadyLiked(Email!);
+                    emails = user.Gmail;
+                    print("DataaaaEUY: ${emails!}");
+                    await fetchProfiles();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(20),
+                    backgroundColor: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.favorite,
+                    color: Color(0xFFEC7FA9),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Key widgetKey = UniqueKey();
+  List<Map<String, dynamic>> userList = [];
+
+  List<UsersDB> profiles = [];
   String UserEmail = AuthService().getCurrentUserEmail().toString();
+
+  int? agamaID;
+  int? hobiID;
+  int? angkatanID;
+  int? ethnicID;
+  int? zodiakID;
+
+  Future<void> fetchProfiles() async {
+    final user = Supabase.instance.client.auth.currentUser;
+
+    // print(users);
+    if (user != null) {
+      final datas = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = datas;
+        // print(userData!['GenderID']);
+      });
+    }
+    if (selectedAgama == "Buddha") {
+      agamaID = 1;
+    } else if (selectedAgama == "Hindu") {
+      agamaID = 2;
+    } else if (selectedAgama == "Protestan") {
+      agamaID = 3;
+    } else if (selectedAgama == "Katolik") {
+      agamaID = 4;
+    } else if (selectedAgama == "Konghucu") {
+      agamaID = 5;
+    } else if (selectedAgama == "Islam") {
+      agamaID = 6;
+    } else if (selectedAgama == "ANY") {
+      agamaID = null;
+    }
+    if (selectedHobi == "Seni") {
+      agamaID = 1;
+    } else if (selectedAgama == "Gaming") {
+      agamaID = 2;
+    } else if (selectedAgama == "Olahraga") {
+      agamaID = 3;
+    } else if (selectedAgama == "Travel") {
+      agamaID = 4;
+    } else if (selectedAgama == "Belajar") {
+      agamaID = 5;
+    } else if (selectedAgama == "ANY") {
+      agamaID = null;
+    }
+    if (selectedAngkatan == "B28") {
+      angkatanID = 1;
+    } else if (selectedAngkatan == "B27") {
+      angkatanID = 2;
+    } else if (selectedAngkatan == "B26") {
+      angkatanID = 3;
+    } else if (selectedAngkatan == "B25") {
+      angkatanID = 4;
+    } else if (selectedAngkatan == "B24") {
+      angkatanID = 5;
+    } else if (selectedAngkatan == "B23") {
+      angkatanID = 6;
+    } else if (selectedAngkatan == "B22") {
+      angkatanID = 7;
+    } else if (selectedAngkatan == "B21") {
+      angkatanID = 8;
+    } else if (selectedAngkatan == "B20") {
+      angkatanID = 9;
+    } else if (selectedAngkatan == "Older") {
+      angkatanID = 10;
+    } else if (selectedAngkatan == "ANY") {
+      angkatanID = null;
+    }
+    if (selectedRas == "Chinese") {
+      ethnicID = 1;
+    } else if (selectedRas == "Batak") {
+      ethnicID = 2;
+    } else if (selectedRas == "Jawa") {
+      ethnicID = 3;
+    } else if (selectedRas == "Sunda") {
+      ethnicID = 4;
+    } else if (selectedRas == "Minang") {
+      ethnicID = 5;
+    } else if (selectedRas == "Dayak") {
+      ethnicID = 6;
+    } else if (selectedRas == "Madura") {
+      ethnicID = 7;
+    } else if (selectedRas == "Timur") {
+      ethnicID = 8;
+    } else if (selectedRas == "ANY") {
+      ethnicID = null;
+    }
+    if (selectedZodiak == "Aries") {
+      zodiakID = 1;
+    } else if (selectedZodiak == "Taurus") {
+      zodiakID = 2;
+    } else if (selectedZodiak == "Gemini") {
+      zodiakID = 3;
+    } else if (selectedZodiak == "Cancer") {
+      zodiakID = 4;
+    } else if (selectedZodiak == "Leo") {
+      zodiakID = 5;
+    } else if (selectedZodiak == "Virgo") {
+      zodiakID = 6;
+    } else if (selectedZodiak == "Libra") {
+      zodiakID = 7;
+    } else if (selectedZodiak == "Scorpio") {
+      zodiakID = 8;
+    } else if (selectedZodiak == "Sagitarius") {
+      zodiakID = 9;
+    } else if (selectedZodiak == "Capricorn") {
+      zodiakID = 10;
+    } else if (selectedZodiak == "Aquarius") {
+      zodiakID = 11;
+    } else if (selectedZodiak == "Pisces") {
+      zodiakID = 12;
+    } else if (selectedZodiak == "ANY") {
+      zodiakID = null;
+    }
+    if (userData!["GenderID"].toString() == "1") {
+      var response = await showData().getUserDataByFiltered(
+        genderId: 2,
+        agama: agamaID,
+        angkatan: angkatanID,
+        ethnic: ethnicID,
+        hobi: hobiID,
+        zodiak: zodiakID,
+        email: emails,
+      );
+      setState(() {});
+      profiles =
+          (response as List).map((data) => UsersDB.fromMap(data)).toList();
+      setState(() {
+        userList = response;
+      });
+    } else if (userData!["GenderID"].toString() == "2") {
+      var responses = await showData().getUserDataByFiltered(
+        genderId: 1,
+        agama: agamaID,
+        angkatan: angkatanID,
+        ethnic: ethnicID,
+        hobi: hobiID,
+        zodiak: zodiakID,
+        email: emails,
+      );
+      setState(() {
+        userList = responses;
+      });
+      profiles =
+          (responses as List).map((data) => UsersDB.fromMap(data)).toList();
+      setState(() {});
+      // print('TestBrooo : ${responses.toString()}');
+    }
+    // }
+  }
 
   int currentIndex = 0;
 
 // Dropdown
-  String selectedAgama = 'Islam';
-  String selectedHobi = 'Seni';
-  String selectedAngkatan = 'B28';
-  String selectedRas = 'Chinese';
-  String selectedZodiak = 'Aries';
+  String selectedAgama = "ANY";
+  String selectedHobi = "ANY";
+  String selectedAngkatan = "ANY";
+  String selectedRas = "ANY";
+  String selectedZodiak = "ANY";
 
   final Map<String, IconData> agamaIcons = {
     "Buddha": Icons.temple_buddhist,
     "Hindu": Icons.temple_hindu,
-    "Kristen": Icons.church,
+    "Protestan": Icons.church,
     "Katolik": Icons.church,
     "Konghucu": Icons.account_balance,
     "Islam": Icons.mosque,
+    "ANY": Icons.question_mark_sharp,
   };
 
   final Map<String, IconData> hobiIcons = {
@@ -39,6 +328,7 @@ class _HomePageState extends State<HomePage> {
     "Olahraga": Icons.fitness_center,
     "Travel": Icons.flight,
     "Belajar": Icons.book,
+    "ANY": Icons.question_mark_sharp,
   };
 
   final Map<String, IconData> angkatanIcons = {
@@ -50,7 +340,9 @@ class _HomePageState extends State<HomePage> {
     "B23": Icons.school,
     "B22": Icons.school,
     "B21": Icons.school,
+    "B20": Icons.school,
     "Older": Icons.history,
+    "ANY": Icons.question_mark_sharp,
   };
 
   final Map<String, IconData> rasIcons = {
@@ -62,6 +354,7 @@ class _HomePageState extends State<HomePage> {
     "Dayak": Icons.people,
     "Madura": Icons.people,
     "Timur": Icons.people,
+    "ANY": Icons.question_mark_sharp,
   };
 
   final Map<String, IconData> zodiakIcons = {
@@ -77,33 +370,44 @@ class _HomePageState extends State<HomePage> {
     "Capricorn": Icons.terrain,
     "Aquarius": Icons.water,
     "Pisces": Icons.waves,
+    "ANY": Icons.question_mark_sharp,
   };
   Widget _buildDropdownTile(String title, Map<String, IconData> items,
       String selectedValue, ValueChanged<String?> onChanged) {
     return ListTile(
       leading: Icon(items[selectedValue] ?? Icons.help, color: Colors.black54),
-      title: Text(title, style: TextStyle(fontFamily: 'Poppins')),
+      title: Text(title, style: const TextStyle(fontFamily: 'Poppins')),
       trailing: DropdownButton<String>(
         value: selectedValue,
         onChanged: onChanged,
-        items: items.keys.map((String item) {
-          return DropdownMenuItem<String>(
-            value: item,
-            child: Row(
-              children: [
-                Icon(items[item], size: 20, color: Colors.black54),
-                SizedBox(width: 8),
-                Text(item),
-              ],
-            ),
-          );
-        }).toList(),
+        items: items.keys.map(
+          (String item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Row(
+                children: [
+                  Icon(items[item], size: 20, color: Colors.black54),
+                  const SizedBox(width: 8),
+                  Text(item),
+                ],
+              ),
+            );
+          },
+        ).toList(),
       ),
     );
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchProfiles();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // fetchProfiles();
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -118,13 +422,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: MediaQuery.of(context).size.width > 500
             ? const Color(0xFFEC7FA9)
             : const Color(0xFFEC7FA9),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white, // Ganti warna ikon drawer menjadi putih
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "BeeFriend",
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -145,13 +449,13 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: screenHeight * 0.15,
               child: DrawerHeader(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFFEC7FA9),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Filter Search",
                       style: TextStyle(
                         color: Colors.white,
@@ -171,146 +475,111 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             _buildDropdownTile("Agama", agamaIcons, selectedAgama, (value) {
-              setState(() => selectedAgama = value!);
+              setState(() {
+                selectedAgama = value!;
+              });
             }),
             _buildDropdownTile("Hobi", hobiIcons, selectedHobi, (value) {
-              setState(() => selectedHobi = value!);
+              setState(() {
+                selectedHobi = value!;
+              });
             }),
             _buildDropdownTile("Angkatan", angkatanIcons, selectedAngkatan,
                 (value) {
               setState(() => selectedAngkatan = value!);
             }),
-            _buildDropdownTile("Ras", rasIcons, selectedRas, (value) {
+            _buildDropdownTile("Ethnic", rasIcons, selectedRas, (value) {
               setState(() => selectedRas = value!);
             }),
             _buildDropdownTile("Zodiak", zodiakIcons, selectedZodiak, (value) {
               setState(() => selectedZodiak = value!);
             }),
+            SizedBox(
+              height: screenHeight * 0.33,
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                left: screenWidth * 0.1,
+                right: screenWidth * 0.1,
+              ),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text(
+                  "Auto Filter",
+                  style: TextStyle(
+                    fontFamily: "Poppin",
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  elevation: 5,
+                  foregroundColor: Color(0xFFEC7FA9),
+                  backgroundColor: Color(0xFFFFFFFF),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0,
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                left: screenWidth * 0.1,
+                right: screenWidth * 0.1,
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  // refreshWidget();
+                  fetchProfiles();
+                  setState(() {});
+                },
+                child: const Text(
+                  "Confirm Filter",
+                  style: TextStyle(
+                    fontFamily: "Poppin",
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  elevation: 5,
+                  foregroundColor: Color(0xFFFFFFFF),
+                  backgroundColor: Color(0xFFEC7FA9),
+                ),
+              ),
+            ),
           ],
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // SizedBox(
-            //   height: screenHeight * 0.001,
-            // ),
-            Swiper(
-              itemBuilder: (BuildContext context, int index) {
-                //ini nanti bisa ganti :
-//             itemBuilder: (BuildContext context, int index) {
-//              return buildProfileCard(profiles[index % profiles.length]);
-// },
-                return Card(
-                  elevation: 10,
-                  margin: EdgeInsets.zero, //shadow bawah card nya
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+            profiles.isEmpty
+                ? const Center(
+                    child: Text("No User Found"),
+                  )
+                : Swiper(
+                    itemBuilder: (BuildContext context, int index) {
+                      return buildProfileCard(profiles[index]);
+                    },
+                    itemCount: profiles.length,
+                    layout: SwiperLayout.TINDER,
+                    itemWidth: screenWidth,
+                    itemHeight: screenHeight,
+                    onIndexChanged: (index) {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    },
                   ),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            20), //shadow rounded kanan kiri card
-                        child: Image.asset(
-                          "lib/assets/BeeFriend_fix.png",
-                          width: screenWidth * 1,
-                          height: screenHeight * 1,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(20), // rounded image nya
-                          gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: [
-                              Colors.black54,
-                              Colors.transparent,
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: screenWidth * 0.05, //posisi teks di card
-                        bottom: screenHeight * 0.05, //posisi teks di card
-                        child: Text(
-                          profiles[
-                              index % profiles.length], //profile smeentara dl
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              itemCount: profiles.length,
-              layout: SwiperLayout.TINDER,
-              itemWidth: screenWidth,
-              itemHeight: screenHeight,
-              onIndexChanged: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-            ),
             SizedBox(
-              height: screenHeight * 0.01,
+              height: screenHeight * 0.03,
             ),
+
             // Control Buttons
-            Padding(
-              padding:
-                  const EdgeInsets.only(bottom: 20), // Biar spacing bawah bagus
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        currentIndex = (currentIndex - 1) < 0
-                            ? profiles.length - 1
-                            : currentIndex - 1;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(20),
-                      backgroundColor: Colors.black, // Consistent button
-                    ),
-                    child: const Icon(Icons.close, color: Colors.white),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        currentIndex = (currentIndex + 1) % profiles.length;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(20),
-                      backgroundColor: Colors.white,
-                    ),
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Color(0xFFEC7FA9),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: const Color(0xFFEC7FA9),
+        color: const Color(0xFFFFFFFF),
         shape: const CircularNotchedRectangle(),
-        notchMargin: 6.0,
+        notchMargin: 5.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -340,7 +609,14 @@ class _HomePageState extends State<HomePage> {
               //button chat halo chat
               icon: const Icon(Icons.chat_bubble_outline, color: Colors.black),
               onPressed: () {
-                //ntr ngapain lah ini
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return Chatlistpage();
+                    },
+                  ),
+                );
               },
             ),
           ],
@@ -357,10 +633,137 @@ class _HomePageState extends State<HomePage> {
         },
         child: Image.asset(
           'lib/assets/BeeFriend_fix.png',
-          width: 40,
-          height: 40,
+          width: 100,
+          height: 100,
         ),
       ),
     );
   }
 }
+
+// Widget buildProfileCard(UsersDB user) {
+//   String? Email = AuthService().getCurrentUserEmail();
+//   List<Map<String, dynamic>> data = [];
+//   print(Email);
+//   return Container(
+//     color: const Color(0xFFEC7FA9),
+//     child: Column(
+//       children: [
+//         Expanded(
+//           child: Card(
+//             elevation: 10,
+//             margin: EdgeInsets.zero,
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(20),
+//             ),
+//             child: Stack(
+//               children: [
+//                 ClipRRect(
+//                   borderRadius: BorderRadius.circular(20),
+//                   child: user.ProfilePicture.isNotEmpty
+//                       ? Image.network(
+//                           user.ProfilePicture,
+//                           width: double.infinity,
+//                           height: double.infinity,
+//                           fit: BoxFit.cover,
+//                         )
+//                       : Image.asset(
+//                           "lib/assets/BeeFriend_fix.png",
+//                           width: double.infinity,
+//                           height: double.infinity,
+//                           fit: BoxFit.cover,
+//                         ),
+//                 ),
+//                 Container(
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(20),
+//                     gradient: const LinearGradient(
+//                       begin: Alignment.bottomCenter,
+//                       end: Alignment.topCenter,
+//                       colors: [Colors.black54, Colors.transparent],
+//                     ),
+//                   ),
+//                 ),
+//                 Positioned(
+//                   left: 20,
+//                   bottom: 20,
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         user.FullName,
+//                         style: const TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 22,
+//                           fontFamily: 'Poppins',
+//                         ),
+//                       ),
+//                       Text(
+//                         "${user.Age} tahun",
+//                         style: const TextStyle(
+//                           color: Colors.white70,
+//                           fontSize: 16,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//         const SizedBox(height: 20),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 20),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Text("Agama : ${user.AgamaName ?? "-"}"),
+//               Text("Agama : ${user.AngkatanName ?? "-"}"),
+//               Text("Agama : ${user.HobiName ?? "-"}"),
+//               Text("Agama : ${user.ZodiakName ?? "-"}"),
+//               Text("Agama : ${user.EthnicName ?? "-"}"),
+//             ],
+//           ),
+//         ),
+//         const SizedBox(height: 20),
+//         Padding(
+//           padding:
+//               const EdgeInsets.only(bottom: 20), // Biar spacing bawah bagus
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//             children: [
+//               ElevatedButton(
+//                 onPressed: () {},
+//                 style: ElevatedButton.styleFrom(
+//                   shape: const CircleBorder(),
+//                   padding: const EdgeInsets.all(20),
+//                   backgroundColor: Colors.black, // Consistent button
+//                 ),
+//                 child: const Icon(Icons.close, color: Colors.white),
+//               ),
+//               ElevatedButton(
+//                 onPressed: () async {
+//                   // userDatabase()
+//                   //     .ChatLogic(userChat(Email1: Email!, Email2: user.Gmail));
+//                   var datas = await showData().AlreadyLiked(Email!);
+//                   data = datas.cast<Map<String, dynamic>>();
+//                   print("Dataaaa: ${datas.toString()}");
+//                 },
+//                 style: ElevatedButton.styleFrom(
+//                   shape: const CircleBorder(),
+//                   padding: const EdgeInsets.all(20),
+//                   backgroundColor: Colors.white,
+//                 ),
+//                 child: const Icon(
+//                   Icons.favorite,
+//                   color: Color(0xFFEC7FA9),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }

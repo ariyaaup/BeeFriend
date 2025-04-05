@@ -33,18 +33,19 @@ class AuthService {
     return user?.email;
   }
 
-  Future<String?> getUserIdByEmail(String email) async {
-    final response =
-        await _supabase.rpc('get_user_id_by_email', params: {'email': email});
-    print("User ID: $response");
+  // Future<String?> getUserIdByEmail(String email) async {
+  //   final response =
+  //       await _supabase.rpc('get_user_id_by_email', params: {'email': email});
+  //   print("User ID: $response");
 
-    return response;
-  }
+  //   return response;
+  // }
 
   Future<Map<String, dynamic>?> getUserDataByEmail(String email) async {
     final response = await Supabase.instance.client
         .from('UserTable')
-        .select('*, Region(*), Looking_For(*), Gender(*), Angkatan(*)')
+        .select(
+            '*, Region(*), Looking_For(*), Gender(*), Angkatan(*), Agama(*), Hobi(*), Zodiak(*), Ethnic(*)')
         .eq('Email', email)
         .single();
 

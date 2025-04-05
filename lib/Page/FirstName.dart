@@ -11,7 +11,6 @@ class FirstName extends StatefulWidget {
 }
 
 class _RegistPageState extends State<FirstName> {
-  @override
   final TextEditingController _controllerFirstName = TextEditingController();
 
   void nextOnPressed() {
@@ -130,7 +129,7 @@ class _RegistPageState extends State<FirstName> {
 
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
