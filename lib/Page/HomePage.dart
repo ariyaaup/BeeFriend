@@ -2,6 +2,7 @@ import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/DB_Helper/AuthService.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:beefriend_app/Page/ChatListPage.dart';
+import 'package:beefriend_app/Page/savedPage.dart';
 // import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -122,7 +123,8 @@ class _HomePageState extends State<HomePage> {
                 ElevatedButton(
                   onPressed: () async {
                     userDatabase().ChatLogic(
-                        userChat(Email1: Email!, Email2: user.Gmail));
+                        savedUser(Email1: Email!, Email2: user.Gmail),
+                        user.GenderID);
                     // var datas = await showData().AlreadyLiked(Email!);
                     emails = user.Gmail;
                     print("DataaaaEUY: ${emails!}");
@@ -602,7 +604,14 @@ class _HomePageState extends State<HomePage> {
               //button pertemanan
               icon: const Icon(Icons.group_outlined, color: Colors.black),
               onPressed: () {
-                // ngpain la ini
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return Savedpage();
+                    },
+                  ),
+                );
               },
             ),
             IconButton(
@@ -640,130 +649,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// Widget buildProfileCard(UsersDB user) {
-//   String? Email = AuthService().getCurrentUserEmail();
-//   List<Map<String, dynamic>> data = [];
-//   print(Email);
-//   return Container(
-//     color: const Color(0xFFEC7FA9),
-//     child: Column(
-//       children: [
-//         Expanded(
-//           child: Card(
-//             elevation: 10,
-//             margin: EdgeInsets.zero,
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(20),
-//             ),
-//             child: Stack(
-//               children: [
-//                 ClipRRect(
-//                   borderRadius: BorderRadius.circular(20),
-//                   child: user.ProfilePicture.isNotEmpty
-//                       ? Image.network(
-//                           user.ProfilePicture,
-//                           width: double.infinity,
-//                           height: double.infinity,
-//                           fit: BoxFit.cover,
-//                         )
-//                       : Image.asset(
-//                           "lib/assets/BeeFriend_fix.png",
-//                           width: double.infinity,
-//                           height: double.infinity,
-//                           fit: BoxFit.cover,
-//                         ),
-//                 ),
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(20),
-//                     gradient: const LinearGradient(
-//                       begin: Alignment.bottomCenter,
-//                       end: Alignment.topCenter,
-//                       colors: [Colors.black54, Colors.transparent],
-//                     ),
-//                   ),
-//                 ),
-//                 Positioned(
-//                   left: 20,
-//                   bottom: 20,
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         user.FullName,
-//                         style: const TextStyle(
-//                           color: Colors.white,
-//                           fontSize: 22,
-//                           fontFamily: 'Poppins',
-//                         ),
-//                       ),
-//                       Text(
-//                         "${user.Age} tahun",
-//                         style: const TextStyle(
-//                           color: Colors.white70,
-//                           fontSize: 16,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//         const SizedBox(height: 20),
-//         Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 20),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text("Agama : ${user.AgamaName ?? "-"}"),
-//               Text("Agama : ${user.AngkatanName ?? "-"}"),
-//               Text("Agama : ${user.HobiName ?? "-"}"),
-//               Text("Agama : ${user.ZodiakName ?? "-"}"),
-//               Text("Agama : ${user.EthnicName ?? "-"}"),
-//             ],
-//           ),
-//         ),
-//         const SizedBox(height: 20),
-//         Padding(
-//           padding:
-//               const EdgeInsets.only(bottom: 20), // Biar spacing bawah bagus
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//             children: [
-//               ElevatedButton(
-//                 onPressed: () {},
-//                 style: ElevatedButton.styleFrom(
-//                   shape: const CircleBorder(),
-//                   padding: const EdgeInsets.all(20),
-//                   backgroundColor: Colors.black, // Consistent button
-//                 ),
-//                 child: const Icon(Icons.close, color: Colors.white),
-//               ),
-//               ElevatedButton(
-//                 onPressed: () async {
-//                   // userDatabase()
-//                   //     .ChatLogic(userChat(Email1: Email!, Email2: user.Gmail));
-//                   var datas = await showData().AlreadyLiked(Email!);
-//                   data = datas.cast<Map<String, dynamic>>();
-//                   print("Dataaaa: ${datas.toString()}");
-//                 },
-//                 style: ElevatedButton.styleFrom(
-//                   shape: const CircleBorder(),
-//                   padding: const EdgeInsets.all(20),
-//                   backgroundColor: Colors.white,
-//                 ),
-//                 child: const Icon(
-//                   Icons.favorite,
-//                   color: Color(0xFFEC7FA9),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }

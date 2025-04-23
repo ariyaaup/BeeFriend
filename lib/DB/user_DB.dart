@@ -7,6 +7,7 @@ class userDatabase {
   final Database = Supabase.instance.client.from('UserTable');
   final Databases = Supabase.instance.client.from('FemaletoMale');
   final Databasess = Supabase.instance.client.from('MaletoFemale');
+  final Databasesss = Supabase.instance.client.from('ChatTable');
 
   // CREATE
   Future signUp(UsersDB newUsers) async {
@@ -19,14 +20,22 @@ class userDatabase {
         Database.select('id').eq('Password', Password)) {
       final response = await Database.select('id').eq('Email', Email).single();
 
-      final userId = response['id']; // Ambil nilai ID
+      final userId = response['id'];
 
       print('User ID: $userId');
     }
   }
 
-  Future ChatLogic(userChat newChat) async {
-    await Databasess.insert(newChat.toMap());
+  Future ChatLogic(savedUser newChat, int gender) async {
+    if (gender == 1) {
+      await Databasess.insert(newChat.toMap());
+    } else if (gender == 2) {
+      await Databases.insert(newChat.toMap());
+    }
+  }
+
+  Future chatContents(userChat newChat) async {
+    await Databasesss.insert(newChat.toMap());
   }
 
   // READ
@@ -71,44 +80,44 @@ class showData {
   //         .eq('GenderID', "2")
   //         .limit(20);
 
-  Future<Map<String, dynamic>?> getUserDataByFilteredFemale(
-      {int? agama, int? hobi, int? angkatan, int? ethnic, int? zodiak}) async {
-    print('TestBrooo');
+  // Future<Map<String, dynamic>?> getUserDataByFilteredFemale(
+  //     {int? agama, int? hobi, int? angkatan, int? ethnic, int? zodiak}) async {
+  //   print('TestBrooo');
 
-    var query =
-        Supabase.instance.client.from('UserTable').select().eq('GenderID', "1");
-    if (agama != null) query = query.eq('AgamaID', agama);
-    if (hobi != null) query = query.eq('HobiID', hobi);
-    if (angkatan != null) query = query.eq('AngkatanID', angkatan);
-    if (ethnic != null) query = query.eq('EthnicID', ethnic);
-    if (zodiak != null) query = query.eq('ZodiakID', zodiak);
+  //   var query =
+  //       Supabase.instance.client.from('UserTable').select().eq('GenderID', "1");
+  //   if (agama != null) query = query.eq('AgamaID', agama);
+  //   if (hobi != null) query = query.eq('HobiID', hobi);
+  //   if (angkatan != null) query = query.eq('AngkatanID', angkatan);
+  //   if (ethnic != null) query = query.eq('EthnicID', ethnic);
+  //   if (zodiak != null) query = query.eq('ZodiakID', zodiak);
 
-    final response = await query.maybeSingle();
-    return response;
-  }
+  //   final response = await query.maybeSingle();
+  //   return response;
+  // }
 
-  Future<Map<String, dynamic>?> getUserDataByFilteredMale(
-      {int? agama,
-      int? hobi,
-      int? angkatan,
-      int? ethnic,
-      int? zodiak,
-      String? email}) async {
-    // print('TestBrooo');
+  // Future<Map<String, dynamic>?> getUserDataByFilteredMale(
+  //     {int? agama,
+  //     int? hobi,
+  //     int? angkatan,
+  //     int? ethnic,
+  //     int? zodiak,
+  //     String? email}) async {
+  //   // print('TestBrooo');
 
-    var querys =
-        Supabase.instance.client.from('UserTable').select().eq('GenderID', "2");
+  //   var querys =
+  //       Supabase.instance.client.from('UserTable').select().eq('GenderID', "2");
 
-    if (agama != null) querys = querys.eq('AgamaID', agama);
-    if (hobi != null) querys = querys.eq('HobiID', hobi);
-    if (angkatan != null) querys = querys.eq('AngkatanID', angkatan);
-    if (ethnic != null) querys = querys.eq('EthnicID', ethnic);
-    if (zodiak != null) querys = querys.eq('ZodiakID', zodiak);
-    if (email != null) querys = querys.neq('Email', email);
+  //   if (agama != null) querys = querys.eq('AgamaID', agama);
+  //   if (hobi != null) querys = querys.eq('HobiID', hobi);
+  //   if (angkatan != null) querys = querys.eq('AngkatanID', angkatan);
+  //   if (ethnic != null) querys = querys.eq('EthnicID', ethnic);
+  //   if (zodiak != null) querys = querys.eq('ZodiakID', zodiak);
+  //   if (email != null) querys = querys.neq('Email', email);
 
-    final response = await querys.maybeSingle();
-    return response;
-  }
+  //   final response = await querys.maybeSingle();
+  //   return response;
+  // }
 
   Future<List<Map<String, dynamic>>> getUserDataByFiltered({
     required int genderId, // 1 = female, 2 = male
@@ -141,17 +150,6 @@ class showData {
     return (response as List<dynamic>).cast<Map<String, dynamic>>();
   }
 
-  // Future<List<Map<String, dynamic>>> AlreadyLiked(String Email) async {
-  //   final _supabase = Supabase.instance.client;
-
-  //   final response = await _supabase
-  //       .from("MaletoFemale")
-  //       .select('Email_2')
-  //       .eq('Email_1', Email);
-
-  //   return (response as List).cast<Map<String, dynamic>>();
-  // }
-
   Future<String> AlreadyLiked(String Email) async {
     final _supabase = Supabase.instance.client;
 
@@ -163,6 +161,40 @@ class showData {
     List<String> emails =
         response.map<String>((item) => item['Email_2'] as String).toList();
 
-    return emails.join(', '); // Gabung jadi satu string, dipisah koma
+    return emails.join(', ');
+  }
+
+  Future<List<Map<String, dynamic>>> getSavedUserDataMale({
+    required String Email,
+  }) async {
+    final response = await Supabase.instance.client
+        .from('MaletoFemale')
+        .select('*, UserTable(*)')
+        .eq('Email_1', Email);
+
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
+  Future<List<Map<String, dynamic>>> getSavedUserDataFemale({
+    required String Email,
+  }) async {
+    final response = await Supabase.instance.client
+        .from('FemaletoMale')
+        .select('*, UserTable(*)')
+        .eq('Email_1', Email);
+
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
+  Future<List<Map<String, dynamic>>> showFullChat({
+    required String user1,
+    required String user2,
+  }) async {
+    final response = await Supabase.instance.client
+        .from('ChatTable')
+        .select('*')
+        .or('and(Sender.eq.$user1,Receiver.eq.$user2),and(Sender.eq.$user2,Receiver.eq.$user1)');
+
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
   }
 }

@@ -4,6 +4,7 @@ import "package:beefriend_app/DB_Helper/AuthService.dart";
 import "package:beefriend_app/Page/ChatListPage.dart";
 // import "package:beefriend_app/Page/HomePage.dart";
 import "package:beefriend_app/Page/LoginPage.dart";
+import "package:beefriend_app/Page/savedPage.dart";
 import "package:flutter/material.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 
@@ -288,7 +289,7 @@ class _ProfilePageState extends State<ProfilePage> {
               //button navbar profile
               icon: const Icon(Icons.person_outline, color: Colors.black),
               onPressed: () {
-                // ngpain lah
+                Navigator.pushNamed(context, '/ProfilePage');
               },
             ),
             IconButton(
@@ -303,7 +304,14 @@ class _ProfilePageState extends State<ProfilePage> {
               //button pertemanan
               icon: const Icon(Icons.group_outlined, color: Colors.black),
               onPressed: () {
-                // ngpain la ini
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return Savedpage();
+                    },
+                  ),
+                );
               },
             ),
             IconButton(
@@ -330,11 +338,12 @@ class _ProfilePageState extends State<ProfilePage> {
         elevation: 0,
         onPressed: () {
           Navigator.pushNamed(context, '/homePage');
+          // print(UserEmail);
         },
         child: Image.asset(
           'lib/assets/BeeFriend_fix.png',
-          width: 50,
-          height: 50,
+          width: 100,
+          height: 100,
         ),
       ),
     );

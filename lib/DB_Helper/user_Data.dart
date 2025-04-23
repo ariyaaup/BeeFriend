@@ -114,22 +114,52 @@ class UsersDB {
   }
 }
 
-class userChat {
-  int? id;
+// class savedUser {
+//   int? id;
+//   String Email1;
+//   String Email2;
+
+//   userChat({
+//     this.id,
+//     required this.Email1,
+//     required this.Email2,
+//   });
+
+//   factory userChat.fromMap(Map<String, dynamic> map) {
+//     return userChat(
+//       // id: map['id'] as int,
+//       Email1: map['Email_1'] as String,
+//       Email2: map['Email_2'] as String,
+//     );
+//   }
+
+//   Map<String, dynamic> toMap() {
+//     return {
+//       // 'id': id,
+//       'Email_1': Email1,
+//       'Email_2': Email2,
+//     };
+//   }
+// }
+
+class savedUser {
   String Email1;
   String Email2;
+  UsersDB? profile;
 
-  userChat({
-    this.id,
+  savedUser({
     required this.Email1,
     required this.Email2,
+    this.profile,
   });
 
-  factory userChat.fromMap(Map<String, dynamic> map) {
-    return userChat(
-      // id: map['id'] as int,
+  factory savedUser.fromMap(Map<String, dynamic> map) {
+    print('MAP => $map');
+    return savedUser(
       Email1: map['Email_1'] as String,
       Email2: map['Email_2'] as String,
+      profile:
+          map['UserTable'] != null ? UsersDB.fromMap(map['UserTable']) : null,
     );
   }
 
@@ -138,6 +168,36 @@ class userChat {
       // 'id': id,
       'Email_1': Email1,
       'Email_2': Email2,
+    };
+  }
+}
+
+class userChat {
+  String Email1;
+  String Email2;
+  String chatContent;
+
+  userChat({
+    required this.Email1,
+    required this.Email2,
+    required this.chatContent,
+  });
+
+  factory userChat.fromMap(Map<String, dynamic> map) {
+    print('MAP => $map');
+    return userChat(
+      Email1: map['Sender'] as String,
+      chatContent: map['Content'] as String,
+      Email2: map['Receiver'] as String,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      // 'id': id,
+      'Sender': Email1,
+      'Content': chatContent,
+      'Receiver': Email2,
     };
   }
 }
