@@ -97,6 +97,7 @@ class _CampusInformationState extends State<CampusInformation> {
     'Older'
   ];
 
+  @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
@@ -106,20 +107,20 @@ class _CampusInformationState extends State<CampusInformation> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
       ),
       body: Container(
         color: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
         height: double.infinity,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Hello, Bee👋",
               style: TextStyle(
                 color: Colors.white,
@@ -130,7 +131,7 @@ class _CampusInformationState extends State<CampusInformation> {
             SizedBox(
               height: screenHeight * 0.11,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Your campus information",
@@ -144,7 +145,7 @@ class _CampusInformationState extends State<CampusInformation> {
             SizedBox(
               height: screenHeight * 0.02,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Campus Location",
@@ -162,11 +163,11 @@ class _CampusInformationState extends State<CampusInformation> {
             Container(
               width: screenWidth * 1,
               height: screenHeight * 0.07,
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
@@ -175,11 +176,11 @@ class _CampusInformationState extends State<CampusInformation> {
                 ],
               ),
               child: DropdownButtonFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: InputBorder.none,
                 ),
                 value: selectedLocation.isEmpty ? null : selectedLocation,
-                hint: Text("Select location"),
+                hint: const Text("Select location"),
                 items: campusLocation
                     .map(
                       (loc) => DropdownMenuItem(
@@ -217,7 +218,7 @@ class _CampusInformationState extends State<CampusInformation> {
             SizedBox(
               height: screenHeight * 0.02,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Binusian",
@@ -235,11 +236,11 @@ class _CampusInformationState extends State<CampusInformation> {
             Container(
               width: screenWidth * 1,
               height: screenHeight * 0.07,
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
@@ -248,11 +249,11 @@ class _CampusInformationState extends State<CampusInformation> {
                 ],
               ),
               child: DropdownButtonFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: InputBorder.none,
                 ),
                 value: selectedBinusian.isEmpty ? null : selectedBinusian,
-                hint: Text("Binusian"),
+                hint: const Text("Binusian"),
                 items: binusian
                     .map(
                       (bn) => DropdownMenuItem(
@@ -274,12 +275,12 @@ class _CampusInformationState extends State<CampusInformation> {
               ),
             ),
 
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 if (selectedLocation.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text(
                         "Please set your campus location!",
                         style: TextStyle(
@@ -292,7 +293,7 @@ class _CampusInformationState extends State<CampusInformation> {
                   );
                 } else if (selectedBinusian.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text(
                         "Please set your binusian!",
                         style: TextStyle(
@@ -331,10 +332,10 @@ class _CampusInformationState extends State<CampusInformation> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xFFEC7FA9),
+                backgroundColor: const Color(0xFFEC7FA9),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.white,
                     )),
                 padding: EdgeInsets.symmetric(
