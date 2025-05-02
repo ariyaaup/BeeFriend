@@ -28,8 +28,10 @@ class userDatabase {
 
   Future ChatLogic(savedUser newChat, int gender) async {
     if (gender == 1) {
+      print("delbert");
       await Databasess.insert(newChat.toMap());
     } else if (gender == 2) {
+      print("ariya");
       await Databases.insert(newChat.toMap());
     }
   }

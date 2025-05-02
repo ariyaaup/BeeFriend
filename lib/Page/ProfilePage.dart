@@ -5,6 +5,7 @@ import "package:beefriend_app/Page/ChatListPage.dart";
 // import "package:beefriend_app/Page/HomePage.dart";
 import "package:beefriend_app/Page/LoginPage.dart";
 import "package:beefriend_app/Page/savedPage.dart";
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 
@@ -18,21 +19,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   Map<String, dynamic>? userData;
   String? publicUrl;
-  // final supabase = Supabase.instance.client; // dari gpt
-
-  // // Future untuk mengambil data user
-  // Future<Map<String, dynamic>?> getUserData() async {
-  //   final userId = supabase.auth.currentUser?.id; // Ambil ID pengguna yang sedang login
-  //   if (userId == null) return null;
-
-  //   final response = await supabase
-  //       .from('users')
-  //       .select()
-  //       .eq('id', userId)
-  //       .single();
-
-  //   return response;
-  // }
 
   Future<void> fetchUserData() async {
     final user = Supabase.instance.client.auth.currentUser;
@@ -150,6 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   //yang ada dalem edit profile nanti isinya dari databse,
                                   //yang bisa diedit foto profile, password, jarak uda keknya
                                   //Gender, lookingfor, email, kampus, angkatan umur, tanggal lahir gabisa
+                                  //pokoknya yang bisa diedit yang gada pas regist
                                   onPressed: () {
                                     // Navigasi ke Edit Profile
                                   },
@@ -223,6 +210,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
+
+                  // Ini buat More and Info support,
                   Container(
                     padding: const EdgeInsets.all(20),
                     width: double.infinity,
@@ -233,20 +222,181 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Photo Gallery",
+                          "More Info and support",
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10),
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(15),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: const Icon(Icons.add,
-                              size: 40, color: Colors.black54),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.16,
+                          child: Column(
+                            children: [
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Icon(
+                                  Icons.help_outline,
+                                ),
+                                title: Text(
+                                  'Help',
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                ),
+                                onTap: () {
+                                  //masukin halaman tanpa bikin baru, males nnti kebanyakan page
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Scaffold(
+                                          resizeToAvoidBottomInset: false,
+                                          backgroundColor:
+                                              MediaQuery.of(context)
+                                                          .size
+                                                          .width >
+                                                      500
+                                                  ? const Color(0xFFEC7FA9)
+                                                  : const Color(0xFFEC7FA9),
+                                          appBar: AppBar(
+                                              scrolledUnderElevation: 0,
+                                              automaticallyImplyLeading: false,
+                                              iconTheme: IconThemeData(
+                                                color: Colors.white,
+                                              ),
+                                              backgroundColor:
+                                                  MediaQuery.of(context)
+                                                              .size
+                                                              .width >
+                                                          500
+                                                      ? const Color(0xFFEC7FA9)
+                                                      : const Color(0xFFEC7FA9),
+                                              title: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pop(); // Kembali ke halaman sebelumnya
+                                                    },
+                                                    child: Icon(
+                                                      Icons.arrow_back_ios,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      width:
+                                                          screenWidth * 0.05),
+                                                  Text(
+                                                    "BeeFriend",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: screenWidth * 0.5,
+                                                  ),
+                                                ],
+                                              )),
+                                          body: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: screenWidth * 0.05,
+                                              vertical: screenHeight * 0.01,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: screenHeight * 0.05,
+                                                ),
+                                                Text(
+                                                  "What is it ?",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.white,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                                SizedBox(
+                                                  height: screenHeight * 0.01,
+                                                ),
+                                                Text(
+                                                  "Beefriend di buat untuk membantu mahasiswa menemukan teman baru, membangun hubungan bermakna, dan mungkin... menemukan cinta sejati! Kami percaya bahwa dunia perkuliahan adalah salah satu masa terbaik untuk bertemu orang-orang luar biasa dan Beefriend hadir untuk membuatnya lebih mudah dan seru.",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.white),
+                                                  textAlign: TextAlign.justify,
+                                                ),
+                                                SizedBox(
+                                                    height:
+                                                        screenHeight * 0.05),
+                                                Text(
+                                                  "Contact us",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.white,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                                SizedBox(
+                                                  height: screenHeight * 0.01,
+                                                ),
+                                                Text(
+                                                  "Email :",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.white),
+                                                  textAlign: TextAlign.justify,
+                                                ),
+                                                Text(
+                                                  "3perintismahasiswa27@gmail.com",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 38, 255)),
+                                                  textAlign: TextAlign.justify,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ));
+                                },
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.00001,
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Icon(
+                                  Icons.help_outline,
+                                ),
+                                title: Text(
+                                  'About us',
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/AboutUs');
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

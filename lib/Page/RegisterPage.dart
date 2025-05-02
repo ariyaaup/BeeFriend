@@ -160,7 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
               style: const TextStyle(
                 color: Colors.black,
               ),
-              obscureText: false,
+              obscureText: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,

@@ -1,5 +1,7 @@
 // import 'package:beefriend_app/Page/CampusInformation.dart';
 // import 'package:beefriend_app/Page/Distance.dart';
+import 'package:beefriend_app/Page/AboutUsPage.dart';
+import 'package:beefriend_app/Page/EditProfilePage.dart';
 import 'package:beefriend_app/Page/HomePage.dart';
 import 'package:beefriend_app/Page/LoginPage.dart';
 // import 'package:beefriend_app/Page/FirstName.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: SplashScreen(),
+      home: ProfilePage(),
       routes: <String, WidgetBuilder>{
         '/homePage': (BuildContext context) => HomePage(),
         // '/CampusInformation': (BuildContext context) => CampusInformation(),
@@ -44,7 +46,9 @@ class MyApp extends StatelessWidget {
         // '/LookingFor': (BuildContext context) => LookingFor(),
         // '/Distance': (BuildContext context) => Distance(),
         // '/Gender': (BuildContext context) => Gender(),
+        '/AboutUs': (BuildContext context) => Aboutuspage(),
         '/ProfilePage': (BuildContext context) => ProfilePage(),
+        '/EditProfile': (BuildContext context) => Editprofilepage(),
         '/InputFoto': (BuildContext context) => InputFoto(),
       },
     );
