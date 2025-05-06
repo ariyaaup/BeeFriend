@@ -12,6 +12,8 @@ import 'package:beefriend_app/Page/InputFoto.dart';
 import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:beefriend_app/Page/SplashScreen.dart';
+import 'package:beefriend_app/Page/savedPage.dart';
+import 'package:beefriend_app/Page/viewProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: ProfilePage(),
+      home: Aboutuspage(),
       routes: <String, WidgetBuilder>{
         '/homePage': (BuildContext context) => HomePage(),
         // '/CampusInformation': (BuildContext context) => CampusInformation(),

@@ -46,52 +46,57 @@ class _ChatpageState extends State<Chatpage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: MediaQuery.of(context).size.width > 500
           ? const Color(0xFFFFB8E0)
           : const Color(0xFFFFB8E0),
       appBar: AppBar(
-        backgroundColor: Color(0xFFEC7FA9),
-        toolbarHeight: screenWidth * 0.175,
-        leading: Container(
-          width: 100,
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(left: 15),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(widget.Image),
-          ),
-        ),
-        centerTitle: false,
-        title: Text(
-          widget.Name,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: MediaQuery.of(context).size.width > 500
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
+        toolbarHeight: screenHeight * 0.1,
+        leading: IconButton(
+          onPressed: () {
+            var navigator = Navigator.of(context);
+            navigator.push(
+              MaterialPageRoute(
+                builder: (builder) {
+                  return Chatlistpage();
+                },
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
             color: Colors.white,
-            fontFamily: 'Poppins',
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              var navigator = Navigator.of(context);
-              navigator.push(
-                MaterialPageRoute(
-                  builder: (builder) {
-                    return Chatlistpage();
-                  },
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: screenWidth * 0.1,
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 0.1),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(widget.Image),
+              ),
             ),
-          ),
-          SizedBox(
-            width: screenWidth * 0.05,
-          )
-        ],
+            SizedBox(width: screenWidth * 0.025),
+            Text(
+              widget.Name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'Poppins',
+              ),
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -136,7 +141,7 @@ class _ChatpageState extends State<Chatpage> {
               ),
       ),
       bottomNavigationBar: BottomAppBar(
-        height: screenWidth * 0.25, // Sesuaikan tinggi BottomAppBar
+        height: screenHeight * 0.15, // Sesuaikan tinggi BottomAppBar
         color: const Color(0xFFEC7FA9),
         child: Padding(
           padding: const EdgeInsets.only(left: 10, top: 10.0, bottom: 10),
@@ -144,7 +149,7 @@ class _ChatpageState extends State<Chatpage> {
             children: [
               Expanded(
                 child: Container(
-                  height: 60, // Ubah tinggi TextField di sini
+                  height: 50,
                   child: TextField(
                     controller: _controllerChat,
                     style: const TextStyle(fontFamily: "Poppin"),
@@ -166,8 +171,8 @@ class _ChatpageState extends State<Chatpage> {
                       filled: true,
                       hintText: "Enter Your Message",
                       contentPadding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 15.0,
+                        vertical: 15.0,
+                        horizontal: 20.0,
                       ),
                     ),
                   ),

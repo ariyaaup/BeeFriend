@@ -10,10 +10,10 @@ class Aboutuspage extends StatefulWidget {
 
 class _AboutuspageState extends State<Aboutuspage> {
   List<String> imageList = [
-    'lib/assets/AriyaUttama.png',
-    "lib/assets/DelbertMelvin.png",
-    "lib/assets/FelixMarcellino.png",
-    "lib/assets/AdityaWedo.png",
+    'lib/assets/Ariya_prof.png',
+    'lib/assets/Delbert_prof.png',
+    'lib/assets/Felix_prof.png',
+    'lib/assets/Adit_prof.png',
   ];
 
   @override
@@ -71,7 +71,10 @@ class _AboutuspageState extends State<Aboutuspage> {
             ),
             items: imageList
                 .map((item) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                        vertical: 15.0,
+                      ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(
@@ -84,12 +87,12 @@ class _AboutuspageState extends State<Aboutuspage> {
                 .toList(),
           ),
         ),
-        SizedBox(height: screenHeight * 0.05),
+        SizedBox(height: screenHeight * 0.01),
         Expanded(
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(
               horizontal: screenWidth * 0.05,
-              vertical: screenHeight * 0.01,
+              vertical: screenHeight * 0.001,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

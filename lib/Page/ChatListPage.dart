@@ -133,7 +133,12 @@ class _ChatlistpageState extends State<Chatlistpage> {
                             'https://via.placeholder.com/150',
                       ),
                     ),
-                    title: Text(profile?.FullName ?? 'No Name'),
+                    title: Text(
+                      profile?.FullName ?? 'No Name',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
                     onTap: () {
                       var navigator = Navigator.of(context);
                       navigator.push(

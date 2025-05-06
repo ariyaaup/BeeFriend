@@ -19,7 +19,39 @@ class _HomePageState extends State<HomePage> {
   Map<String, dynamic>? userData;
   String? emails;
 
+  Widget buildTextBackgroundRow(List<String> texts,
+      {Color backgroundColor = Colors.white24,
+      double borderRadius = 10.0,
+      EdgeInsetsGeometry padding = const EdgeInsets.all(8)}) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: texts
+          .map((text) => Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 2.0,
+                  vertical: 10,
+                ), //spacing antar text rownya
+                padding: padding,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  text,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
+                  ),
+                ),
+              ))
+          .toList(),
+    );
+  }
+
   Widget buildProfileCard(UsersDB user) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     String? Email = AuthService().getCurrentUserEmail();
     print(Email);
     return Container(
@@ -28,7 +60,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: Card(
-              elevation: 10,
+              elevation: 10, //shadow nya
               margin: EdgeInsets.zero,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -42,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                             user.ProfilePicture,
                             width: double.infinity,
                             height: double.infinity,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.cover, //bair fit sama card setiap foto
                           )
                         : Image.asset(
                             "lib/assets/BeeFriend_fix.png",
@@ -71,16 +103,23 @@ class _HomePageState extends State<HomePage> {
                           user.FullName,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 22,
+                            fontSize: 24,
                             fontFamily: 'Poppins',
                           ),
                         ),
                         Text(
-                          "${user.Age} tahun",
+                          "${user.Age} Tahun",
                           style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 16,
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontFamily: 'Poppins',
                           ),
+                        ),
+                        buildTextBackgroundRow(
+                          [
+                            '${user.HobiName}',
+                            '${user.EthnicName}',
+                          ], //list nya nih desc dalam card bert
                         ),
                       ],
                     ),
@@ -89,24 +128,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: screenHeight * 0.02),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Agama : ${user.AgamaName ?? "-"}"),
-                Text("Agama : ${user.AngkatanName ?? "-"}"),
-                Text("Agama : ${user.HobiName ?? "-"}"),
-                Text("Agama : ${user.ZodiakName ?? "-"}"),
-                Text("Agama : ${user.EthnicName ?? "-"}"),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding:
-                const EdgeInsets.only(bottom: 20), // Biar spacing bawah bagus
+            padding: const EdgeInsets.only(
+              bottom: 10,
+              top: 1,
+            ), // Biar spacing bawah bagus
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -114,11 +141,14 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(20),
-                    backgroundColor: Colors.black,
-                    // Consistent button
+                    padding: const EdgeInsets.all(30),
+                    backgroundColor: Colors.pink,
                   ),
-                  child: const Icon(Icons.close, color: Colors.white),
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: screenWidth * 0.1,
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -132,12 +162,13 @@ class _HomePageState extends State<HomePage> {
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(20),
-                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.all(30),
+                    backgroundColor: Colors.greenAccent,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.favorite,
-                    color: Color(0xFFEC7FA9),
+                    size: screenWidth * 0.1,
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -380,6 +411,7 @@ class _HomePageState extends State<HomePage> {
       leading: Icon(items[selectedValue] ?? Icons.help, color: Colors.black54),
       title: Text(title, style: const TextStyle(fontFamily: 'Poppins')),
       trailing: DropdownButton<String>(
+        iconSize: 20,
         value: selectedValue,
         onChanged: onChanged,
         items: items.keys.map(
@@ -497,7 +529,7 @@ class _HomePageState extends State<HomePage> {
               setState(() => selectedZodiak = value!);
             }),
             SizedBox(
-              height: screenHeight * 0.33,
+              height: screenHeight * 0.3, //jarak filter sama button confirm
             ),
             Container(
               padding: EdgeInsets.only(
@@ -520,7 +552,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: screenHeight * 0,
+              height: screenHeight * 0.001, //gap filter button nih
             ),
             Container(
               padding: EdgeInsets.only(
@@ -571,7 +603,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
             SizedBox(
-              height: screenHeight * 0.03,
+              height: screenHeight * 0.01, //size swiper atau gap bawahnya
             ),
 
             // Control Buttons
