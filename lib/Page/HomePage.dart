@@ -669,7 +669,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         onPressed: () {
-          Navigator.pushNamed(context, '/homePage');
+          Navigator.popAndPushNamed(context, '/homePage');
           print(UserEmail);
         },
         child: Image.asset(

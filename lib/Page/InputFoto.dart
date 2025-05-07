@@ -118,12 +118,13 @@ class _InputFotoState extends State<InputFoto> {
                     Row(
                       children: [
                         SizedBox(
-                          width: screenWidth * 0.01,
+                          width: screenWidth * 0.03,
                         ),
                         Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "Let's create your own Profile Picture !",
+                            "Let's create your own Profile Picture !\n"
+                            "Tap the upload button...",
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               color: Colors.white,
@@ -173,12 +174,13 @@ class _InputFotoState extends State<InputFoto> {
                         style: TextStyle(fontFamily: 'Poppins'),
                       ),
                     ),
-                    Spacer(),
+                    SizedBox(
+                      height: screenHeight * 0.05,
+                    ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/ProfilePage");
+                        Navigator.popAndPushNamed(context, "/EditProfile");
                       },
-                      // nextOnPressed,
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Color(0xFFEC7FA9),
@@ -193,7 +195,7 @@ class _InputFotoState extends State<InputFoto> {
                         ),
                       ),
                       child: const Text(
-                        "Next",
+                        "Finish",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                         ),

@@ -73,7 +73,7 @@ class _AboutuspageState extends State<Aboutuspage> {
                 .map((item) => Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 5.0,
-                        vertical: 15.0,
+                        vertical: 20.0,
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),

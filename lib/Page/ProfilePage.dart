@@ -93,17 +93,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: MediaQuery.of(context).size.width > 500
                           ? Color(0xFFEC7FA9)
                           : Color(0xFFEC7FA9),
-                      borderRadius: BorderRadius.only(),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, "/InputFoto");
+                                Navigator.pushNamed(context, "/EditProfile");
                               },
                               child: CircleAvatar(
                                 radius: circleRadius * 0.12,
@@ -111,7 +110,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 backgroundImage: NetworkImage(
                                   publicUrl.toString(),
                                 ),
-                                //nanti lu disini tambahin dari Xfile picture upload bert.
                               ),
                             ),
                             SizedBox(
@@ -133,10 +131,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   height: screenHeight * 0.001,
                                 ),
                                 ElevatedButton(
-                                  //yang ada dalem edit profile nanti isinya dari databse,
-                                  //yang bisa diedit foto profile, password, jarak uda keknya
-                                  //Gender, lookingfor, email, kampus, angkatan umur, tanggal lahir gabisa
-                                  //pokoknya yang bisa diedit yang gada pas regist
                                   onPressed: () {
                                     // Navigasi ke Edit Profile
                                   },
@@ -183,17 +177,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontFamily: 'Poppins',
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            //bio
-                          },
-                          child: Text(
-                            "Bio",
-                            style: const TextStyle(
-                                color: Colors.blue, fontSize: 16),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
+                        // Text(
+                        //   userData!['Region']?['RegionName'] ?? 'null',
+                        //   style:
+                        //       const TextStyle(color: Colors.blue, fontSize: 16),
+                        // ),
+                        // NANTI INI GANTI BIO DARI EDIT PROFILE PAGE
+                        SizedBox(height: screenHeight * 0.05),
                         const Text(
                           "Campus",
                           style: TextStyle(
@@ -206,7 +196,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           style:
                               const TextStyle(color: Colors.blue, fontSize: 16),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: screenHeight * 0.01),
                       ],
                     ),
                   ),
