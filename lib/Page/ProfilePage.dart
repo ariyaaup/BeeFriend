@@ -2,6 +2,7 @@ import "package:beefriend_app/DB/user_DB.dart";
 import "package:beefriend_app/DB_Helper/AuthService.dart";
 // import "package:beefriend_app/DB_Helper/LoggedUser.dart";
 import "package:beefriend_app/Page/ChatListPage.dart";
+import "package:beefriend_app/Page/EditProfilePage.dart";
 // import "package:beefriend_app/Page/HomePage.dart";
 import "package:beefriend_app/Page/LoginPage.dart";
 import "package:beefriend_app/Page/savedPage.dart";
@@ -132,7 +133,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    // Navigasi ke Edit Profile
+                                    var navigator = Navigator.of(context);
+                                    navigator.push(
+                                      MaterialPageRoute(
+                                        builder: (builder) {
+                                          return Editprofilepage();
+                                        },
+                                      ),
+                                    );
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white70,

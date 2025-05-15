@@ -118,7 +118,7 @@ class _InputFotoState extends State<InputFoto> {
                     Row(
                       children: [
                         SizedBox(
-                          width: screenWidth * 0.03,
+                          width: screenWidth * 0.001,
                         ),
                         Align(
                           alignment: Alignment.center,
