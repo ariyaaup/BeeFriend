@@ -459,19 +459,16 @@ class _HomePageState extends State<HomePage> {
         iconTheme: const IconThemeData(
           color: Colors.white, // Ganti warna ikon drawer menjadi putih
         ),
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "BeeFriend",
               style: TextStyle(
                 fontFamily: 'Poppins',
                 color: Colors.white,
                 fontSize: 20,
               ),
-            ),
-            SizedBox(
-              width: screenWidth * 0.5,
             ),
           ],
         ),

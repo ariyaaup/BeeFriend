@@ -52,20 +52,34 @@ class _BirthDateState extends State<BirthDate> {
   }
 
   void nextOnPressed() {
-    var navigator = Navigator.of(context);
-    navigator.push(
-      MaterialPageRoute(
-        builder: (builder) {
-          return Gender(
-            Email: widget.Email,
-            Password: widget.Password,
-            Fullname: widget.Fullname,
-            Birthdate: _controllerBirthDate.text,
-            Age: age,
-          );
-        },
-      ),
-    );
+    if (_controllerBirthDate == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please fill your Birthdate!",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    } else {
+      var navigator = Navigator.of(context);
+      navigator.push(
+        MaterialPageRoute(
+          builder: (builder) {
+            return Gender(
+              Email: widget.Email,
+              Password: widget.Password,
+              Fullname: widget.Fullname,
+              Birthdate: _controllerBirthDate.text,
+              Age: age,
+            );
+          },
+        ),
+      );
+    }
   }
 
   @override

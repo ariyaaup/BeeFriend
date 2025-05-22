@@ -83,10 +83,26 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
             ? Color(0xFFEC7FA9)
             : Color(0xFFEC7FA9),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+              ),
+            ),
+          ],
+        ),
       ),
       body: Container(
         color: MediaQuery.of(context).size.width > 500

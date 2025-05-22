@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // scaffoldBackgroundColor: Colors.tran,
           ),
-      home: SplashScreen(),
+      home: HomePage(),
       routes: <String, WidgetBuilder>{
         '/homePage': (BuildContext context) => HomePage(),
         // '/CampusInformation': (BuildContext context) => CampusInformation(),

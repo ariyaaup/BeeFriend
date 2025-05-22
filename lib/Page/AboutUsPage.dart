@@ -39,7 +39,7 @@ class _AboutuspageState extends State<Aboutuspage> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
+                  Navigator.of(context).pop();
                 },
                 child: Icon(
                   Icons.arrow_back_ios,

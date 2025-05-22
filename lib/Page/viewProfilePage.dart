@@ -117,7 +117,7 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
                 [
                   '${widget.name}',
                   '${widget.age}',
-                  '${widget.age}',
+                  // '${widget.}',
                 ], //nanti biar list disini banyak
               ),
               // Text(widget.name),

@@ -67,7 +67,7 @@ class SplashScreen extends StatelessWidget {
                   "Get Started",
                   style: TextStyle(
                     color: Color(0xFFEC7FA9),
-                    fontSize: 18,
+                    fontSize: screenWidth * 0.045,
                     fontFamily: 'Poppins',
                   ),
                 ),

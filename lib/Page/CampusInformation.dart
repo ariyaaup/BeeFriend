@@ -65,6 +65,18 @@ class _CampusInformationState extends State<CampusInformation> {
     var userDB = userDatabase();
     userDB.signUp(newUser);
 
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          "Login Successful",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Color(0xFF98476A),
+      ),
+    );
+
     var navigator = Navigator.of(context);
     navigator.push(
       MaterialPageRoute(

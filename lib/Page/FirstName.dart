@@ -14,18 +14,32 @@ class _RegistPageState extends State<FirstName> {
   final TextEditingController _controllerFirstName = TextEditingController();
 
   void nextOnPressed() {
-    var navigator = Navigator.of(context);
-    navigator.push(
-      MaterialPageRoute(
-        builder: (builder) {
-          return BirthDate(
-            Email: widget.Email,
-            Password: widget.Password,
-            Fullname: _controllerFirstName.text,
-          );
-        },
-      ),
-    );
+    if (_controllerFirstName == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Please fill your Name!",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    } else {
+      var navigator = Navigator.of(context);
+      navigator.push(
+        MaterialPageRoute(
+          builder: (builder) {
+            return BirthDate(
+              Email: widget.Email,
+              Password: widget.Password,
+              Fullname: _controllerFirstName.text,
+            );
+          },
+        ),
+      );
+    }
   }
 
   void WelcomePopup(BuildContext context, String name) {
