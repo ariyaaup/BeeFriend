@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+// ignore: must_be_immutable
 class Chatpage extends StatefulWidget {
   final String Image;
   final String Name;
   final String Email;
-  const Chatpage(
+  Chatpage(
       {super.key,
       required this.Image,
       required this.Name,
@@ -22,6 +23,8 @@ class Chatpage extends StatefulWidget {
   State<Chatpage> createState() => _ChatpageState();
 }
 
+RealtimeChannel? chatChannel;
+
 class _ChatpageState extends State<Chatpage> {
   final TextEditingController _controllerChat = TextEditingController();
   final user = Supabase.instance.client.auth.currentUser;
@@ -30,10 +33,26 @@ class _ChatpageState extends State<Chatpage> {
   final String currentUser = Supabase.instance.client.auth.currentUser!.email!;
 
   @override
+  void dispose() {
+    if (chatChannel != null) {
+      Supabase.instance.client.removeChannel(chatChannel!);
+    }
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     loadChat();
   }
+
+  // Future<void> loadChat() async {
+  //   final data =
+  //       await showData().showFullChat(user1: currentUser, user2: widget.Email);
+  //   setState(() {
+  //     chatMessages = data;
+  //   });
+  // }
 
   Future<void> loadChat() async {
     final data =
@@ -41,6 +60,22 @@ class _ChatpageState extends State<Chatpage> {
     setState(() {
       chatMessages = data;
     });
+
+    // Realtime listener
+    chatChannel = Supabase.instance.client
+        .channel('public:ChatTable')
+        .onPostgresChanges(
+          event: PostgresChangeEvent.insert,
+          schema: 'public',
+          table: 'ChatTable',
+          callback: (payload) {
+            final newMessage = payload.newRecord;
+            setState(() {
+              chatMessages.add(newMessage);
+            });
+          },
+        )
+        .subscribe();
   }
 
   @override
@@ -69,6 +104,7 @@ class _ChatpageState extends State<Chatpage> {
                 },
               ),
             );
+            dispose();
           },
           icon: Icon(
             Icons.arrow_back_ios_new,

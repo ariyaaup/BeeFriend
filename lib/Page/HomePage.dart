@@ -2,6 +2,7 @@ import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/DB_Helper/AuthService.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:beefriend_app/Page/ChatListPage.dart';
+import 'package:beefriend_app/Page/TopLikesPage.dart';
 import 'package:beefriend_app/Page/savedPage.dart';
 // import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:flutter/material.dart';
@@ -159,6 +160,9 @@ class _HomePageState extends State<HomePage> {
                     emails = user.Gmail;
                     print("DataaaaEUY: ${emails!}");
                     await fetchProfiles();
+                    userDatabase()
+                        .topLikeds(topLiked(email: user.Gmail, likes: 1));
+                    likesLogic(user.Gmail);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
@@ -190,6 +194,42 @@ class _HomePageState extends State<HomePage> {
   int? angkatanID;
   int? ethnicID;
   int? zodiakID;
+
+  Future updateLikes(String Email) async {
+    final data = await showData().getTopLiked(Email);
+    setState(() {
+      userData = data;
+      print(userData);
+    });
+
+    await Supabase.instance.client
+        .from('TopLiked')
+        .update({'likes': userData!['likes'] + 1}).eq("email", Email);
+  }
+
+  Future likesLogic(String Email) async {
+    final data = await showData().getLikedEmailMale(UserEmail, Email);
+    setState(() {
+      userData = data;
+      print(userData);
+    });
+    if (userData!["Email_1"] == UserEmail && userData!["Email_2"] == Email) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "You Already Liked This User",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Poppins',
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    } else {
+      updateLikes(Email);
+    }
+  }
 
   Future<void> fetchProfiles() async {
     final user = Supabase.instance.client.auth.currentUser;
@@ -625,7 +665,14 @@ class _HomePageState extends State<HomePage> {
               //button navbar lokasi
               icon: const Icon(Icons.navigation_outlined, color: Colors.black),
               onPressed: () {
-                //ngpain lah
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return Toplikespage();
+                    },
+                  ),
+                );
               },
             ),
             SizedBox(width: screenWidth * 0.1), // jarak tengah floating button

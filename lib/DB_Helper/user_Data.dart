@@ -201,3 +201,33 @@ class userChat {
     };
   }
 }
+
+class topLiked {
+  String email;
+  int likes;
+  UsersDB? profile;
+
+  topLiked({
+    required this.email,
+    required this.likes,
+    this.profile,
+  });
+
+  factory topLiked.fromMap(Map<String, dynamic> map) {
+    print('MAP => $map');
+    return topLiked(
+      email: map['email'] as String,
+      likes: map['likes'] as int,
+      profile:
+          map['UserTable'] != null ? UsersDB.fromMap(map['UserTable']) : null,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      // 'id': id,
+      'email': email,
+      'likes': likes,
+    };
+  }
+}

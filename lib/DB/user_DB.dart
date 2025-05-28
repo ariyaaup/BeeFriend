@@ -8,6 +8,7 @@ class userDatabase {
   final Databases = Supabase.instance.client.from('FemaletoMale');
   final Databasess = Supabase.instance.client.from('MaletoFemale');
   final Databasesss = Supabase.instance.client.from('ChatTable');
+  final Databasessss = Supabase.instance.client.from('TopLiked');
 
   // CREATE
   Future signUp(UsersDB newUsers) async {
@@ -28,12 +29,14 @@ class userDatabase {
 
   Future ChatLogic(savedUser newChat, int gender) async {
     if (gender == 1) {
-      print("delbert");
       await Databasess.insert(newChat.toMap());
     } else if (gender == 2) {
-      print("ariya");
       await Databases.insert(newChat.toMap());
     }
+  }
+
+  Future topLikeds(topLiked toplike) async {
+    await Databasessss.insert(toplike.toMap());
   }
 
   Future chatContents(userChat newChat) async {
@@ -71,6 +74,7 @@ class showData {
 
     return response;
   }
+
   // var response = await Supabase.instance.client
   //         .from('UserTable')
   //         .select()
@@ -177,6 +181,16 @@ class showData {
     return (response as List<dynamic>).cast<Map<String, dynamic>>();
   }
 
+  Future<List<Map<String, dynamic>>> showTopLikes() async {
+    final response = await Supabase.instance.client
+        .from('TopLiked')
+        .select('*, UserTable(*)')
+        .order('likes', ascending: false);
+    ;
+
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
   Future<List<Map<String, dynamic>>> getSavedUserDataFemale({
     required String Email,
   }) async {
@@ -198,5 +212,27 @@ class showData {
         .or('and(Sender.eq.$user1,Receiver.eq.$user2),and(Sender.eq.$user2,Receiver.eq.$user1)');
 
     return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
+  Future<Map<String, dynamic>?> getTopLiked(String email) async {
+    final response = await Supabase.instance.client
+        .from('TopLiked')
+        .select('*')
+        .eq('email', email)
+        .single();
+
+    return response;
+  }
+
+  Future<Map<String, dynamic>?> getLikedEmailMale(
+      String email1, String email2) async {
+    final response = await Supabase.instance.client
+        .from('MaletoFemale')
+        .select('*')
+        .eq('Email_1', email1)
+        .eq('Email_2', email2)
+        .single();
+
+    return response;
   }
 }
