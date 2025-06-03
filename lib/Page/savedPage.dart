@@ -33,25 +33,28 @@ class _SavedpageState extends State<Savedpage> {
       });
     }
 
-    if (userData!['GenderID'] == 2) {
+    if (userData!['GenderID'] == 1) {
       var response =
-          await showData().getSavedUserDataMale(Email: user!.email.toString());
+          await showData().getSavedUserDataMale(Email: UserEmail.toString());
       final profiles = (response as List).map((data) {
         return savedUser.fromMap(data);
       }).toList();
 
       setState(() {
         userList = profiles;
+        print(userList);
       });
-    } else if (userData!['GenderID'] == 1) {
-      var response = await showData()
-          .getSavedUserDataFemale(Email: user!.email.toString());
+    } else if (userData!['GenderID'] == 2) {
+      print("EMAIL SAVED PAGE ${userData!["Email"]}");
+      var response =
+          await showData().getSavedUserDataFemale(Email: userData!['Email']);
       final profiles = (response as List).map((data) {
         return savedUser.fromMap(data);
       }).toList();
 
       setState(() {
         userList = profiles;
+        print(userList);
       });
     }
 
@@ -121,7 +124,7 @@ class _SavedpageState extends State<Savedpage> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
-                childAspectRatio: 3 / 4,
+                childAspectRatio: 9 / 16,
               ),
               itemCount: userList.length,
               itemBuilder: (context, index) {
@@ -135,11 +138,11 @@ class _SavedpageState extends State<Savedpage> {
                       MaterialPageRoute(
                         builder: (builder) {
                           return Viewprofilepage(
-                            name: profile!.FullName,
-                            age: profile.Age.toString(),
-                            birthdate: profile.BirthDate,
-                            img: profile.ProfilePicture,
-                          );
+                              name: profile!.FullName,
+                              age: profile.Age.toString(),
+                              birthdate: profile.BirthDate,
+                              img: profile.ProfilePicture,
+                              email: profile.Gmail);
                         },
                       ),
                     );
@@ -160,24 +163,27 @@ class _SavedpageState extends State<Savedpage> {
                             child: Image.network(
                               profile?.ProfilePicture ??
                                   'https://via.placeholder.com/150',
-                              scale: 2,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                              scale: 1,
+                              width: screenWidth,
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
                         // Nama
                         Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            profile?.FullName ?? 'No Name',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(5),
+                            child: Column(
+                              children: [
+                                Text(
+                                  profile?.FullName ?? 'No Name',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ],
+                            )),
                       ],
                     ),
                   ),
@@ -200,7 +206,7 @@ class _SavedpageState extends State<Savedpage> {
             ),
             IconButton(
               //button navbar lokasi
-              icon: const Icon(Icons.navigation_outlined, color: Colors.black),
+              icon: const Icon(Icons.star_border_outlined, color: Colors.black),
               onPressed: () {
                 //ngpain lah
               },

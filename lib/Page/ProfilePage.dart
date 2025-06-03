@@ -442,7 +442,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             IconButton(
               //button navbar lokasi
-              icon: const Icon(Icons.navigation_outlined, color: Colors.black),
+              icon: const Icon(Icons.star_border_outlined, color: Colors.black),
               onPressed: () {
                 //ngpain lah
               },

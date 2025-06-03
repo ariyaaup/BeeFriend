@@ -5,10 +5,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class userDatabase {
   // Buat akses DB
   final Database = Supabase.instance.client.from('UserTable');
-  final Databases = Supabase.instance.client.from('FemaletoMale');
-  final Databasess = Supabase.instance.client.from('MaletoFemale');
-  final Databasesss = Supabase.instance.client.from('ChatTable');
-  final Databasessss = Supabase.instance.client.from('TopLiked');
+  final FemaleToMale = Supabase.instance.client.from('FemaletoMale');
+  final MaleToFemale = Supabase.instance.client.from('MaletoFemale');
+  final ChatTable = Supabase.instance.client.from('ChatTable');
+  final Topliked = Supabase.instance.client.from('TopLiked');
 
   // CREATE
   Future signUp(UsersDB newUsers) async {
@@ -27,20 +27,20 @@ class userDatabase {
     }
   }
 
-  Future ChatLogic(savedUser newChat, int gender) async {
+  Future LikeLogic(savedUser newChat, int gender) async {
     if (gender == 1) {
-      await Databasess.insert(newChat.toMap());
+      await MaleToFemale.insert(newChat.toMap());
     } else if (gender == 2) {
-      await Databases.insert(newChat.toMap());
+      await FemaleToMale.insert(newChat.toMap());
     }
   }
 
   Future topLikeds(topLiked toplike) async {
-    await Databasessss.insert(toplike.toMap());
+    await Topliked.insert(toplike.toMap());
   }
 
   Future chatContents(userChat newChat) async {
-    await Databasesss.insert(newChat.toMap());
+    await ChatTable.insert(newChat.toMap());
   }
 
   // READ
@@ -156,6 +156,41 @@ class showData {
     return (response as List<dynamic>).cast<Map<String, dynamic>>();
   }
 
+  Future<List<Map<String, dynamic>>> getUserDataByAutoFiltered({
+    required int genderId, // 1 = female, 2 = male
+    int? agama,
+    int? hobi,
+    int? angkatan,
+    int? ethnic,
+    int? zodiak,
+    String? email,
+    int? campusLocation,
+    int? relation,
+  }) async {
+    print('Fetching filtered user data...');
+
+    // print(email);
+
+    var query = Supabase.instance.client
+        .from('UserTable')
+        .select(
+            '*, Region(*), Looking_For(*), Gender(*), Angkatan(*), Agama(*), Hobi(*), Zodiak(*), Ethnic(*)')
+        .eq('GenderID', genderId);
+
+    if (agama != null) query = query.eq('AgamaID', agama);
+    if (hobi != null) query = query.eq('HobiID', hobi);
+    if (angkatan != null) query = query.eq('AngkatanID', angkatan);
+    if (ethnic != null) query = query.eq('EthnicID', ethnic);
+    if (zodiak != null) query = query.eq('ZodiakID', zodiak);
+    if (campusLocation != null) query = query.eq('RegionID', campusLocation);
+    if (relation != null) query = query.eq('LookingForID', relation);
+    if (email != null) query = query.neq('Email', email);
+
+    final response = await query;
+    print('REGION ${campusLocation}');
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
   Future<String> AlreadyLiked(String Email) async {
     final _supabase = Supabase.instance.client;
 
@@ -170,17 +205,6 @@ class showData {
     return emails.join(', ');
   }
 
-  Future<List<Map<String, dynamic>>> getSavedUserDataMale({
-    required String Email,
-  }) async {
-    final response = await Supabase.instance.client
-        .from('MaletoFemale')
-        .select('*, UserTable(*)')
-        .eq('Email_1', Email);
-
-    return (response as List<dynamic>).cast<Map<String, dynamic>>();
-  }
-
   Future<List<Map<String, dynamic>>> showTopLikes() async {
     final response = await Supabase.instance.client
         .from('TopLiked')
@@ -192,6 +216,17 @@ class showData {
   }
 
   Future<List<Map<String, dynamic>>> getSavedUserDataFemale({
+    required String Email,
+  }) async {
+    final response = await Supabase.instance.client
+        .from('MaletoFemale')
+        .select('*, UserTable(*)')
+        .eq('Email_1', Email);
+
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
+  Future<List<Map<String, dynamic>>> getSavedUserDataMale({
     required String Email,
   }) async {
     final response = await Supabase.instance.client
@@ -225,6 +260,20 @@ class showData {
   }
 
   Future<Map<String, dynamic>?> getLikedEmailMale(
+      String email1, String email2) async {
+    print(email1);
+    print(email2);
+    final response = await Supabase.instance.client
+        .from('FemaletoMale')
+        .select('*')
+        .eq('Email_1', email1)
+        .eq('Email_2', email2)
+        .single();
+
+    return response;
+  }
+
+  Future<Map<String, dynamic>?> getLikedEmailFemale(
       String email1, String email2) async {
     final response = await Supabase.instance.client
         .from('MaletoFemale')

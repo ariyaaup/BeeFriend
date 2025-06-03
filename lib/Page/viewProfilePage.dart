@@ -1,25 +1,30 @@
+import 'package:beefriend_app/DB/user_DB.dart';
+import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Viewprofilepage extends StatefulWidget {
   final String name;
   final String age;
   final String img;
   final String birthdate;
+  final String email;
   const Viewprofilepage(
       {super.key,
       required this.name,
       required this.age,
       required this.img,
-      required this.birthdate});
+      required this.birthdate,
+      required this.email});
   //tambahin semuanya pokoknya
 
   @override
   State<Viewprofilepage> createState() => _ViewprofilepageState();
 }
 
-Widget buildTextBackgroundRow(List<String> texts,
-    {Color backgroundColor = const Color(0xFFEC7FA9),
+Widget buildTextBackgroundRow1(List<String> texts,
+    {Color backgroundColor = const Color(0xFFFFFFFF),
     double borderRadius = 10.0,
     EdgeInsetsGeometry padding = const EdgeInsets.all(8)}) {
   return Row(
@@ -38,7 +43,37 @@ Widget buildTextBackgroundRow(List<String> texts,
               child: Text(
                 text,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFFEC7FA9),
+                  fontFamily: 'Poppins',
+                  fontSize: 12,
+                ),
+              ),
+            ))
+        .toList(),
+  );
+}
+
+Widget buildTextBackgroundRow2(List<String> texts,
+    {Color backgroundColor = const Color(0xFFFFFFFF),
+    double borderRadius = 10.0,
+    EdgeInsetsGeometry padding = const EdgeInsets.all(8)}) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: texts
+        .map((text) => Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 2.0,
+                vertical: 10,
+              ), //spacing antar text rownya
+              padding: padding,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                text,
+                style: const TextStyle(
+                  color: Color(0xFFEC7FA9),
                   fontFamily: 'Poppins',
                   fontSize: 12,
                 ),
@@ -49,6 +84,80 @@ Widget buildTextBackgroundRow(List<String> texts,
 }
 
 class _ViewprofilepageState extends State<Viewprofilepage> {
+  Map<String, dynamic>? userData;
+  Map<String, dynamic>? userDatas;
+  String? emails;
+
+  final user = Supabase.instance.client.auth.currentUser;
+
+  Future updateLikes(String Email) async {
+    final data = await showData().getTopLiked(Email);
+    setState(() {
+      userData = data;
+      print("HALO ${userData}");
+    });
+
+    await Supabase.instance.client
+        .from('TopLiked')
+        .update({'likes': userData!['likes'] + 1}).eq("email", Email);
+  }
+
+  Future likesLogics(String Email, int gender) async {
+    if (gender == 2) {
+      final data =
+          await showData().getLikedEmailFemale(user!.email.toString(), Email);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    } else if (gender == 1) {
+      final data =
+          await showData().getLikedEmailMale(user!.email.toString(), Email);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    }
+
+    if (userData!["Email_1"] == user!.email.toString() &&
+        userData!["Email_2"] == Email) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "You Already Liked This User",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Poppins',
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    } else {
+      updateLikes(Email);
+    }
+  }
+
+  Future<void> fetchUserData() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(widget.email);
+      final datas = await showData().getUserDataByEmail(user.email.toString());
+      setState(() {
+        userData = data;
+        userDatas = datas;
+        print(userData);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetchUserData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -89,46 +198,116 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
               ),
             ],
           )),
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50),
-              topRight: Radius.circular(50),
+      body: userData == null
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFFEC7FA9),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                        child: Image.network(
+                          userData!["ProfilePicture"],
+                          fit: BoxFit.cover,
+                          height: screenHeight * 1,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          buildTextBackgroundRow1(
+                            [
+                              '${userData!["Fullname"]}',
+                              '${userData!["Age"]}',
+                              '${userData!['Hobi']?['Hobi'] ?? 'null'}',
+                              '${userData!['Angkatan']?['Angkatan'] ?? 'null'}',
+                              '${userData!['Zodiak']?['Zodiak'] ?? 'null'}',
+                              '${userData!['Ethnic']?['Ethnic'] ?? 'null'}',
+
+                              // '${widget.}',
+                            ], //nanti biar list disini banyak
+                          ),
+                          buildTextBackgroundRow2(
+                            [
+                              '${userData!['Looking_For']?['LookingFor'] ?? 'null'}',
+                              // '${widget.}',
+                            ], //nanti biar list disini banyak
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  shape: const CircleBorder(),
+                                  padding: const EdgeInsets.all(30),
+                                  backgroundColor: Colors.pink,
+                                ),
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: screenWidth * 0.1,
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  userDatabase().LikeLogic(
+                                      savedUser(
+                                          Email1: widget.email,
+                                          Email2: user!.email.toString()),
+                                      userData!["GenderID"]);
+                                  // var datas = await showData().AlreadyLiked(Email!);
+
+                                  emails = widget.email;
+                                  print("DataaaaEUY: ${emails!}");
+                                  await fetchUserData();
+                                  userDatabase().topLikeds(
+                                      topLiked(email: widget.email, likes: 1));
+                                  likesLogics(
+                                      widget.email, userDatas!["GenderID"]);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: const CircleBorder(),
+                                  padding: const EdgeInsets.all(30),
+                                  backgroundColor: Colors.greenAccent,
+                                ),
+                                child: Icon(
+                                  Icons.favorite,
+                                  size: screenWidth * 0.1,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Text(widget.name),
+                    // Text(widget.age),
+                    // Text(widget.birthdate),
+                    SizedBox(
+                      height: screenHeight * 0.5, //lebar kebawah
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                ),
-                child: Image.network(
-                  widget.img,
-                  fit: BoxFit.cover,
-                  height: screenHeight * 1,
-                ),
-              ),
-              buildTextBackgroundRow(
-                [
-                  '${widget.name}',
-                  '${widget.age}',
-                  // '${widget.}',
-                ], //nanti biar list disini banyak
-              ),
-              // Text(widget.name),
-              // Text(widget.age),
-              // Text(widget.birthdate),
-              SizedBox(
-                height: screenHeight * 0.5, //lebar kebawah
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

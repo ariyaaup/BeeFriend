@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Map<String, dynamic>? userData;
+  Map<String, dynamic>? userDatas;
+
   String? emails;
 
   Widget buildTextBackgroundRow(List<String> texts,
@@ -153,16 +155,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    userDatabase().ChatLogic(
-                        savedUser(Email1: Email!, Email2: user.Gmail),
-                        user.GenderID);
                     // var datas = await showData().AlreadyLiked(Email!);
+                    userDatabase().LikeLogic(
+                        savedUser(Email1: user.Gmail, Email2: Email!),
+                        user.GenderID);
                     emails = user.Gmail;
                     print("DataaaaEUY: ${emails!}");
+
                     await fetchProfiles();
                     userDatabase()
                         .topLikeds(topLiked(email: user.Gmail, likes: 1));
-                    likesLogic(user.Gmail);
+                    likesLogic(
+                      user.Gmail,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
@@ -196,6 +201,7 @@ class _HomePageState extends State<HomePage> {
   int? zodiakID;
 
   Future updateLikes(String Email) async {
+    print("masuk update likes");
     final data = await showData().getTopLiked(Email);
     setState(() {
       userData = data;
@@ -208,12 +214,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future likesLogic(String Email) async {
-    final data = await showData().getLikedEmailMale(UserEmail, Email);
-    setState(() {
-      userData = data;
-      print(userData);
-    });
-    if (userData!["Email_1"] == UserEmail && userData!["Email_2"] == Email) {
+    if (userData!["GenderID"] == 2) {
+      final data = await showData().getLikedEmailFemale(UserEmail, Email);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    } else if (userData!["GenderID"] == 1) {
+      final data = await showData().getLikedEmailMale(UserEmail, Email);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    }
+    if (userData!["Email_1"] == Email && userData!["Email_2"] == UserEmail) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -367,6 +381,162 @@ class _HomePageState extends State<HomePage> {
       );
       setState(() {
         userList = responses;
+      });
+      profiles =
+          (responses as List).map((data) => UsersDB.fromMap(data)).toList();
+      setState(() {});
+      // print('TestBrooo : ${responses.toString()}');
+    }
+    // }
+  }
+
+  Future<void> fetchProfilesfiltered() async {
+    final user = Supabase.instance.client.auth.currentUser;
+
+    // print(users);
+    if (user != null) {
+      final datas = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = datas;
+        // print(userData!['GenderID']);
+      });
+    }
+    if (selectedAgama == "Buddha") {
+      agamaID = 1;
+    } else if (selectedAgama == "Hindu") {
+      agamaID = 2;
+    } else if (selectedAgama == "Protestan") {
+      agamaID = 3;
+    } else if (selectedAgama == "Katolik") {
+      agamaID = 4;
+    } else if (selectedAgama == "Konghucu") {
+      agamaID = 5;
+    } else if (selectedAgama == "Islam") {
+      agamaID = 6;
+    } else if (selectedAgama == "ANY") {
+      agamaID = null;
+    }
+    if (selectedHobi == "Seni") {
+      agamaID = 1;
+    } else if (selectedAgama == "Gaming") {
+      agamaID = 2;
+    } else if (selectedAgama == "Olahraga") {
+      agamaID = 3;
+    } else if (selectedAgama == "Travel") {
+      agamaID = 4;
+    } else if (selectedAgama == "Belajar") {
+      agamaID = 5;
+    } else if (selectedAgama == "ANY") {
+      agamaID = null;
+    }
+    if (selectedAngkatan == "B28") {
+      angkatanID = 1;
+    } else if (selectedAngkatan == "B27") {
+      angkatanID = 2;
+    } else if (selectedAngkatan == "B26") {
+      angkatanID = 3;
+    } else if (selectedAngkatan == "B25") {
+      angkatanID = 4;
+    } else if (selectedAngkatan == "B24") {
+      angkatanID = 5;
+    } else if (selectedAngkatan == "B23") {
+      angkatanID = 6;
+    } else if (selectedAngkatan == "B22") {
+      angkatanID = 7;
+    } else if (selectedAngkatan == "B21") {
+      angkatanID = 8;
+    } else if (selectedAngkatan == "B20") {
+      angkatanID = 9;
+    } else if (selectedAngkatan == "Older") {
+      angkatanID = 10;
+    } else if (selectedAngkatan == "ANY") {
+      angkatanID = null;
+    }
+    if (selectedRas == "Chinese") {
+      ethnicID = 1;
+    } else if (selectedRas == "Batak") {
+      ethnicID = 2;
+    } else if (selectedRas == "Jawa") {
+      ethnicID = 3;
+    } else if (selectedRas == "Sunda") {
+      ethnicID = 4;
+    } else if (selectedRas == "Minang") {
+      ethnicID = 5;
+    } else if (selectedRas == "Dayak") {
+      ethnicID = 6;
+    } else if (selectedRas == "Madura") {
+      ethnicID = 7;
+    } else if (selectedRas == "Timur") {
+      ethnicID = 8;
+    } else if (selectedRas == "ANY") {
+      ethnicID = null;
+    }
+    if (selectedZodiak == "Aries") {
+      zodiakID = 1;
+    } else if (selectedZodiak == "Taurus") {
+      zodiakID = 2;
+    } else if (selectedZodiak == "Gemini") {
+      zodiakID = 3;
+    } else if (selectedZodiak == "Cancer") {
+      zodiakID = 4;
+    } else if (selectedZodiak == "Leo") {
+      zodiakID = 5;
+    } else if (selectedZodiak == "Virgo") {
+      zodiakID = 6;
+    } else if (selectedZodiak == "Libra") {
+      zodiakID = 7;
+    } else if (selectedZodiak == "Scorpio") {
+      zodiakID = 8;
+    } else if (selectedZodiak == "Sagitarius") {
+      zodiakID = 9;
+    } else if (selectedZodiak == "Capricorn") {
+      zodiakID = 10;
+    } else if (selectedZodiak == "Aquarius") {
+      zodiakID = 11;
+    } else if (selectedZodiak == "Pisces") {
+      zodiakID = 12;
+    } else if (selectedZodiak == "ANY") {
+      zodiakID = null;
+    }
+    if (userData!["GenderID"].toString() == "1") {
+      var response = await showData().getUserDataByAutoFiltered(
+        genderId: 2,
+        agama: agamaID,
+        angkatan: angkatanID,
+        ethnic: ethnicID,
+        hobi: hobiID,
+        zodiak: zodiakID,
+        email: emails,
+        campusLocation: userData!["RegionID"],
+        relation: userData!["LookingForID"],
+      );
+
+      setState(() {
+        userList = response;
+      });
+      profiles =
+          (response as List).map((data) => UsersDB.fromMap(data)).toList();
+      setState(() {
+        userList = response;
+        // print("Region : ${userData!["RegionID"]}");
+        // print(userData!["LookingForID"]);
+      });
+    } else if (userData!["GenderID"].toString() == "2") {
+      var responses = await showData().getUserDataByAutoFiltered(
+        genderId: 1,
+        agama: agamaID,
+        angkatan: angkatanID,
+        ethnic: ethnicID,
+        hobi: hobiID,
+        zodiak: zodiakID,
+        email: emails,
+        campusLocation: userData!["RegionID"],
+        relation: userData!["LookingForID"],
+      );
+      setState(() {
+        userList = responses;
+        // print("Region : ${userData!["RegionID"]}");
+        // print(userData!["LookingForID"]);
       });
       profiles =
           (responses as List).map((data) => UsersDB.fromMap(data)).toList();
@@ -574,7 +744,10 @@ class _HomePageState extends State<HomePage> {
                 right: screenWidth * 0.1,
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  fetchProfilesfiltered();
+                  setState(() {});
+                },
                 child: const Text(
                   "Auto Filter",
                   style: TextStyle(
@@ -663,7 +836,7 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               //button navbar lokasi
-              icon: const Icon(Icons.navigation_outlined, color: Colors.black),
+              icon: const Icon(Icons.star_border_outlined, color: Colors.black),
               onPressed: () {
                 var navigator = Navigator.of(context);
                 navigator.push(
