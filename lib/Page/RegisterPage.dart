@@ -3,6 +3,7 @@ import 'package:beefriend_app/DB_Helper/AuthService.dart';
 // import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:beefriend_app/Page/FirstName.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 // import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -17,14 +18,56 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  String? Eror;
+
+  Future<void> signUpWithEmail(
+      BuildContext context, String email, String password) async {
+    try {
+      final response = await Supabase.instance.client.auth.signUp(
+        email: email,
+        password: password,
+      );
+
+      if (response.user != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content:
+                  Text('Registrasi berhasil! Cek email untuk verifikasi.')),
+        );
+        var navigator = Navigator.of(context);
+        navigator.push(
+          MaterialPageRoute(
+            builder: (builder) {
+              return FirstName(
+                Email: email,
+                Password: password,
+              );
+            },
+          ),
+        );
+      }
+    } on AuthException catch (e) {
+      if (e.message == "Password should be at least 6 characters.") {
+        Eror = "Email must be ended with @binus.ac.id.";
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${Eror}')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Terjadi kesalahan: $e')),
+      );
+    }
+  }
 
   void nextOnPressed() {
     String email = _controllerEmail.text.trim();
     String password = _controllerPassword.text.trim();
+    print(password.length);
 
     if (email.isEmpty && password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Please fill all content above first!",
             style: TextStyle(
@@ -36,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     } else if (email.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Please fill your Binusian Email!",
             style: TextStyle(
@@ -48,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     } else if (password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Please fill your Password!",
             style: TextStyle(
@@ -58,21 +101,21 @@ class _RegisterPageState extends State<RegisterPage> {
           backgroundColor: Color(0xFF98476A),
         ),
       );
-    } else {
-      AuthService().signUpWithEmailPassword(
-          _controllerEmail.text, _controllerPassword.text);
-
-      var navigator = Navigator.of(context);
-      navigator.push(
-        MaterialPageRoute(
-          builder: (builder) {
-            return FirstName(
-              Email: email,
-              Password: password,
-            );
-          },
+    } else if (password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Password must be more than 6 characters.",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
         ),
       );
+    } else {
+      // AuthService().signUpWithEmailPassword(
+      signUpWithEmail(context, _controllerEmail.text, _controllerPassword.text);
     }
   }
 
@@ -85,9 +128,9 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
-        iconTheme: IconThemeData(
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         title: Row(
@@ -97,7 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
               ),
             ),
@@ -106,15 +149,15 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: Container(
         color: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
         height: double.infinity,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Hello, Bee👋",
               style: TextStyle(
                 color: Colors.white,
@@ -125,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: screenHeight * 0.1,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Binusian email",
@@ -160,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: screenHeight * 0.03,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Password",
@@ -192,17 +235,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 nextOnPressed();
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xFFEC7FA9),
+                backgroundColor: const Color(0xFFEC7FA9),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.white,
                     )),
                 padding: EdgeInsets.symmetric(

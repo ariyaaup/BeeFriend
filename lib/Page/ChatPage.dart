@@ -132,10 +132,10 @@ class _ChatpageState extends State<Chatpage> {
               ),
             ),
             SizedBox(
-              width: screenWidth * 0.12,
+              width: screenWidth * 0.05,
             ),
             DropdownButton<String>(
-              items: [
+              items: const [
                 DropdownMenuItem<String>(
                   value: 'Report',
                   child: Row(
@@ -150,7 +150,7 @@ class _ChatpageState extends State<Chatpage> {
               ],
               onChanged: (value) {
                 if (value == 'Report') {
-                  _showReportDialog(context);
+                  _showReportDialog(context, widget.Email);
                 }
               },
               icon: Icon(Icons.more_vert, color: Colors.white),
@@ -187,7 +187,7 @@ class _ChatpageState extends State<Chatpage> {
                           Text(
                             chat['Content'] ?? '',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontFamily: 'Poppins',
                             ),
                           ),
@@ -269,14 +269,14 @@ class _ChatpageState extends State<Chatpage> {
     );
   }
 
-  void _showReportDialog(BuildContext context) {
+  void _showReportDialog(BuildContext context, String Email) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Report Issue'),
-          content:
-              Text('This is where you can add the details for the report.'),
+          content: Text(
+              'dou you really really very really want to report this user?'),
           actions: <Widget>[
             TextButton(
               child: Text('Cancel'),
@@ -287,7 +287,7 @@ class _ChatpageState extends State<Chatpage> {
             TextButton(
               child: Text('Submit'),
               onPressed: () {
-                // Handle report submission
+                userDatabase().ReportInsert(report(email: Email));
                 print('Report submitted');
                 Navigator.of(context).pop(); // Close the dialog
               },

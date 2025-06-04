@@ -1,13 +1,16 @@
 import "dart:io";
 import "package:beefriend_app/DB/user_DB.dart";
 import "package:beefriend_app/DB_Helper/AuthService.dart";
+import "package:beefriend_app/Page/EditProfilePage.dart";
 // import "package:beefriend_app/DB_Helper/LoggedUser.dart";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 import "package:supabase_flutter/supabase_flutter.dart";
 
 class InputFoto extends StatefulWidget {
-  const InputFoto({super.key});
+  final String email;
+  final String foto;
+  InputFoto({super.key, required this.email, required this.foto});
 
   @override
   State<InputFoto> createState() => _InputFotoState();
@@ -42,11 +45,15 @@ class _InputFotoState extends State<InputFoto> {
     }
 
     try {
-      final String fileName = 'Upload/profile_pictures${Email}.jpg';
+      final fileName =
+          'Upload/profile_pictures${Email}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      // final String fileName = 'Upload/profile_pictures${Email}.jpg';
+
       // final String fileNames = 'profile_pictures${Email}.jpg';
       final String publicUrl =
           supabase.storage.from('images').getPublicUrl(fileName);
       final path = '$fileName';
+
       await Supabase.instance.client.storage
           .from('images')
           .upload(path, _imageFile!)
@@ -68,6 +75,70 @@ class _InputFotoState extends State<InputFoto> {
       // print("Uploaded Image URL : $imageUrl");// Debugging URL di terminal
     } catch (error) {
       print("Upload error: $error"); // Debugging error di terminal
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Failed to upload image!"),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+    }
+  }
+
+  Map<String, dynamic>? userData;
+
+  Future<void> deletePP(String path) async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = data;
+        print(path);
+      });
+    }
+
+    await Supabase.instance.client.storage
+        .from('images')
+        .remove(["profile_pictures${widget.email}.jpg"]);
+  }
+
+  Future<void> deleteAndUploadImage() async {
+    final email = AuthService().getCurrentUserEmail();
+    if (_imageFile == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please select an image first!"),
+          backgroundColor: Color(0xFF98476A),
+        ),
+      );
+      return;
+    }
+
+    final String fileName = 'profile_pictures$email.jpg';
+    final String path = 'Upload/$fileName';
+    final String publicUrl =
+        Supabase.instance.client.storage.from('images').getPublicUrl(path);
+
+    print("Trying to delete path: $path");
+    try {
+      await Supabase.instance.client.storage
+          .from('images')
+          .remove(['Upload/profile_picturesdelbert.setioso@binus.ac.id.jpg']);
+
+      print("Trying to upload to path: $path");
+      await Supabase.instance.client.storage
+          .from('images')
+          .upload(path, _imageFile!);
+
+      await userDatabase().UpdateProfilePicture(email.toString(), publicUrl);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Image uploaded successfully!"),
+          backgroundColor: Colors.white,
+        ),
+      );
+    } catch (e) {
+      print("Upload error: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Failed to upload image!"),
@@ -155,7 +226,12 @@ class _InputFotoState extends State<InputFoto> {
 
                     // Upload Button
                     ElevatedButton(
-                      onPressed: uploadImage,
+                      onPressed: () {
+                        // print(widget.email);
+                        // deletePP('profile_pictures${widget.email}.jpg');
+                        // deleteAndUploadImage();
+                        uploadImage();
+                      },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: MediaQuery.of(context).size.width > 500
                             ? Color(0xFFEC7FA9)
@@ -179,7 +255,18 @@ class _InputFotoState extends State<InputFoto> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.popAndPushNamed(context, "/EditProfile");
+                        var navigator = Navigator.of(context);
+                        navigator.push(
+                          MaterialPageRoute(
+                            builder: (builder) {
+                              return Editprofilepage();
+                            },
+                          ),
+                        );
+                        // deletePP(widget.foto);
+                        Supabase.instance.client.storage
+                            .from('images')
+                            .remove([widget.foto]);
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,

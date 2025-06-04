@@ -1,4 +1,6 @@
 import 'package:beefriend_app/DB/user_DB.dart';
+import 'package:beefriend_app/Page/InputFoto.dart';
+import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -10,7 +12,7 @@ class Editprofilepage extends StatefulWidget {
 }
 
 class _EditprofilepageState extends State<Editprofilepage> {
-  double _distance = 10;
+  double? _distance;
 
   TextEditingController _bioController = TextEditingController();
   String? selectedReligion;
@@ -73,7 +75,9 @@ class _EditprofilepageState extends State<Editprofilepage> {
       setState(() {
         userData = data;
         print(userData);
+        _bioController.text = userData!["Bio"];
         selectedReligion = userData!['Agama']?['Agama'];
+        _distance = userData!["Distance"].toDouble();
         selectedHobby = userData!['Hobi']?['Hobi'];
         selectedEthnic = userData!['Ethnic']?['Ethnic'];
         selectedZodiac = userData!['Zodiak']?['Zodiak'];
@@ -83,6 +87,165 @@ class _EditprofilepageState extends State<Editprofilepage> {
         print(publicUrl.toString());
       });
     }
+  }
+
+  int? agamaID;
+  int? hobiID;
+  int? angkatanID;
+  int? ethnicID;
+  int? zodiakID;
+
+  Future<void> updateBio() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    }
+    showData().updateValueString(
+        _bioController.text.toString(), "Bio", userData!["Email"]);
+  }
+
+  Future<void> updateDistance() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    }
+
+    showData().updateValueDouble(_distance!, "Distance", userData!["Email"]);
+  }
+
+  Future<void> updateReligion() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    }
+    if (selectedReligion == "Buddha") {
+      agamaID = 1;
+    } else if (selectedReligion == "Hindu") {
+      agamaID = 2;
+    } else if (selectedReligion == "Protestan") {
+      agamaID = 3;
+    } else if (selectedReligion == "Katolik") {
+      agamaID = 4;
+    } else if (selectedReligion == "Konghucu") {
+      agamaID = 5;
+    } else if (selectedReligion == "Islam") {
+      agamaID = 6;
+    } else if (selectedReligion == "ANY") {
+      agamaID = null;
+    }
+
+    showData().updateValueInt(agamaID!, "AgamaID", userData!["Email"]);
+  }
+
+  Future<void> updateHobi() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = data;
+        print(userData);
+      });
+    }
+
+    if (selectedHobby == "Seni") {
+      hobiID = 1;
+    } else if (selectedHobby == "Gaming") {
+      hobiID = 2;
+    } else if (selectedHobby == "Olahraga") {
+      hobiID = 3;
+    } else if (selectedHobby == "Travel") {
+      hobiID = 4;
+    } else if (selectedHobby == "Belajar") {
+      hobiID = 5;
+    } else if (selectedHobby == "ANY") {
+      hobiID = null;
+    }
+
+    print(" HOBI ${hobiID}");
+    print(" HOBI ${selectedHobby}");
+
+    showData().updateValueInt(hobiID!, "HobiID", userData!["Email"]);
+  }
+
+  Future<void> updateRas() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = data;
+      });
+    }
+    if (selectedEthnic == "Chinese") {
+      ethnicID = 1;
+    } else if (selectedEthnic == "Batak") {
+      ethnicID = 2;
+    } else if (selectedEthnic == "Jawa") {
+      ethnicID = 3;
+    } else if (selectedEthnic == "Sunda") {
+      ethnicID = 4;
+    } else if (selectedEthnic == "Minang") {
+      ethnicID = 5;
+    } else if (selectedEthnic == "Dayak") {
+      ethnicID = 6;
+    } else if (selectedEthnic == "Madura") {
+      ethnicID = 7;
+    } else if (selectedEthnic == "Timur") {
+      ethnicID = 8;
+    } else if (selectedEthnic == "ANY") {
+      ethnicID = null;
+    }
+    showData().updateValueInt(ethnicID!, "EthnicID", userData!["Email"]);
+  }
+
+  Future<void> updateZodiak() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final data = await showData().getUserDataByEmail(user.email!);
+      setState(() {
+        userData = data;
+      });
+    }
+
+    if (selectedZodiac == "Aries") {
+      zodiakID = 1;
+    } else if (selectedZodiac == "Taurus") {
+      zodiakID = 2;
+    } else if (selectedZodiac == "Gemini") {
+      zodiakID = 3;
+    } else if (selectedZodiac == "Cancer") {
+      zodiakID = 4;
+    } else if (selectedZodiac == "Leo") {
+      zodiakID = 5;
+    } else if (selectedZodiac == "Virgo") {
+      zodiakID = 6;
+    } else if (selectedZodiac == "Libra") {
+      zodiakID = 7;
+    } else if (selectedZodiac == "Scorpio") {
+      zodiakID = 8;
+    } else if (selectedZodiac == "Sagitarius") {
+      zodiakID = 9;
+    } else if (selectedZodiac == "Capricorn") {
+      zodiakID = 10;
+    } else if (selectedZodiac == "Aquarius") {
+      zodiakID = 11;
+    } else if (selectedZodiac == "Pisces") {
+      zodiakID = 12;
+    } else if (selectedZodiac == "ANY") {
+      zodiakID = null;
+    }
+    showData().updateValueInt(zodiakID!, "ZodiakID", userData!["Email"]);
   }
 
   Widget _buildReadOnlyField(String label, String value) {
@@ -161,7 +324,14 @@ class _EditprofilepageState extends State<Editprofilepage> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return ProfilePage();
+                    },
+                  ),
+                );
               },
               child: Icon(
                 Icons.arrow_back_ios,
@@ -204,7 +374,7 @@ class _EditprofilepageState extends State<Editprofilepage> {
                             radius: circleRadius * 0.15,
                             backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(
-                              publicUrl.toString(),
+                              userData!["ProfilePicture"],
                             ),
                           ),
                         ),
@@ -214,7 +384,17 @@ class _EditprofilepageState extends State<Editprofilepage> {
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.popAndPushNamed(context, '/InputFoto');
+                              var navigator = Navigator.of(context);
+                              navigator.push(
+                                MaterialPageRoute(
+                                  builder: (builder) {
+                                    return InputFoto(
+                                      email: userData!["Email"],
+                                      foto: userData!['ProfilePicture'],
+                                    );
+                                  },
+                                ),
+                              );
                             },
                             child: Text(
                               "Change Foto Profile",
@@ -247,8 +427,8 @@ class _EditprofilepageState extends State<Editprofilepage> {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child:
-                        _buildEditableField("Bio", _bioController.toString()),
+                    child: _buildEditableField(
+                        "Bio", _bioController.text.toString()),
                   ),
                   Padding(
                     padding:
@@ -259,11 +439,11 @@ class _EditprofilepageState extends State<Editprofilepage> {
                         const Text("Distance (km)",
                             style: TextStyle(fontFamily: 'Poppins')),
                         Slider(
-                          value: _distance,
+                          value: _distance!,
                           min: 1,
                           max: 100,
                           divisions: 99,
-                          label: "${_distance.round()} km",
+                          label: "${_distance!.round()} km",
                           onChanged: (value) {
                             setState(() {
                               _distance = value;
@@ -291,6 +471,13 @@ class _EditprofilepageState extends State<Editprofilepage> {
                       onPressed: () {
                         // Navigator.popAndPushNamed(context, "/EditProfile");
                         //nanti ini kl bisa di onPress saved gas dh data
+                        // update(value, section)
+                        updateBio();
+                        updateDistance();
+                        updateHobi();
+                        updateReligion();
+                        updateRas();
+                        updateZodiak();
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
@@ -351,3 +538,78 @@ class _EditprofilepageState extends State<Editprofilepage> {
     );
   }
 }
+
+// if (selectedAgama == "Buddha") {
+//       agamaID = 1;
+//     } else if (selectedAgama == "Hindu") {
+//       agamaID = 2;
+//     } else if (selectedAgama == "Protestan") {
+//       agamaID = 3;
+//     } else if (selectedAgama == "Katolik") {
+//       agamaID = 4;
+//     } else if (selectedAgama == "Konghucu") {
+//       agamaID = 5;
+//     } else if (selectedAgama == "Islam") {
+//       agamaID = 6;
+//     } else if (selectedAgama == "ANY") {
+//       agamaID = null;
+//     }
+//     if (selectedHobi == "Seni") {
+//       agamaID = 1;
+//     } else if (selectedAgama == "Gaming") {
+//       agamaID = 2;
+//     } else if (selectedAgama == "Olahraga") {
+//       agamaID = 3;
+//     } else if (selectedAgama == "Travel") {
+//       agamaID = 4;
+//     } else if (selectedAgama == "Belajar") {
+//       agamaID = 5;
+//     } else if (selectedAgama == "ANY") {
+//       agamaID = null;
+//     }
+// if (selectedRas == "Chinese") {
+//       ethnicID = 1;
+//     } else if (selectedRas == "Batak") {
+//       ethnicID = 2;
+//     } else if (selectedRas == "Jawa") {
+//       ethnicID = 3;
+//     } else if (selectedRas == "Sunda") {
+//       ethnicID = 4;
+//     } else if (selectedRas == "Minang") {
+//       ethnicID = 5;
+//     } else if (selectedRas == "Dayak") {
+//       ethnicID = 6;
+//     } else if (selectedRas == "Madura") {
+//       ethnicID = 7;
+//     } else if (selectedRas == "Timur") {
+//       ethnicID = 8;
+//     } else if (selectedRas == "ANY") {
+//       ethnicID = null;
+//     }
+//     if (selectedZodiak == "Aries") {
+//       zodiakID = 1;
+//     } else if (selectedZodiak == "Taurus") {
+//       zodiakID = 2;
+//     } else if (selectedZodiak == "Gemini") {
+//       zodiakID = 3;
+//     } else if (selectedZodiak == "Cancer") {
+//       zodiakID = 4;
+//     } else if (selectedZodiak == "Leo") {
+//       zodiakID = 5;
+//     } else if (selectedZodiak == "Virgo") {
+//       zodiakID = 6;
+//     } else if (selectedZodiak == "Libra") {
+//       zodiakID = 7;
+//     } else if (selectedZodiak == "Scorpio") {
+//       zodiakID = 8;
+//     } else if (selectedZodiak == "Sagitarius") {
+//       zodiakID = 9;
+//     } else if (selectedZodiak == "Capricorn") {
+//       zodiakID = 10;
+//     } else if (selectedZodiak == "Aquarius") {
+//       zodiakID = 11;
+//     } else if (selectedZodiak == "Pisces") {
+//       zodiakID = 12;
+//     } else if (selectedZodiak == "ANY") {
+//       zodiakID = null;
+//     }

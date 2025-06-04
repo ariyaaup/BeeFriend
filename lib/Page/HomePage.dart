@@ -308,17 +308,17 @@ class _HomePageState extends State<HomePage> {
       agamaID = null;
     }
     if (selectedHobi == "Seni") {
-      agamaID = 1;
-    } else if (selectedAgama == "Gaming") {
-      agamaID = 2;
-    } else if (selectedAgama == "Olahraga") {
-      agamaID = 3;
-    } else if (selectedAgama == "Travel") {
-      agamaID = 4;
-    } else if (selectedAgama == "Belajar") {
-      agamaID = 5;
-    } else if (selectedAgama == "ANY") {
-      agamaID = null;
+      hobiID = 1;
+    } else if (selectedHobi == "Gaming") {
+      hobiID = 2;
+    } else if (selectedHobi == "Olahraga") {
+      hobiID = 3;
+    } else if (selectedHobi == "Travel") {
+      hobiID = 4;
+    } else if (selectedHobi == "Belajar") {
+      hobiID = 5;
+    } else if (selectedHobi == "ANY") {
+      hobiID = null;
     }
     if (selectedAngkatan == "B28") {
       angkatanID = 1;
@@ -399,7 +399,10 @@ class _HomePageState extends State<HomePage> {
         zodiak: zodiakID,
         email: emails,
       );
-      setState(() {});
+      print("INI agama ${selectedAgama}");
+      print("INI angkatan ${selectedAngkatan}");
+      print("INI ethnic ${selectedRas}");
+
       profiles =
           (response as List).map((data) => UsersDB.fromMap(data)).toList();
       setState(() {
@@ -415,6 +418,7 @@ class _HomePageState extends State<HomePage> {
         zodiak: zodiakID,
         email: emails,
       );
+
       setState(() {
         userList = responses;
       });
@@ -437,112 +441,16 @@ class _HomePageState extends State<HomePage> {
         // print(userData!['GenderID']);
       });
     }
-    if (selectedAgama == "Buddha") {
-      agamaID = 1;
-    } else if (selectedAgama == "Hindu") {
-      agamaID = 2;
-    } else if (selectedAgama == "Protestan") {
-      agamaID = 3;
-    } else if (selectedAgama == "Katolik") {
-      agamaID = 4;
-    } else if (selectedAgama == "Konghucu") {
-      agamaID = 5;
-    } else if (selectedAgama == "Islam") {
-      agamaID = 6;
-    } else if (selectedAgama == "ANY") {
-      agamaID = null;
-    }
-    if (selectedHobi == "Seni") {
-      agamaID = 1;
-    } else if (selectedAgama == "Gaming") {
-      agamaID = 2;
-    } else if (selectedAgama == "Olahraga") {
-      agamaID = 3;
-    } else if (selectedAgama == "Travel") {
-      agamaID = 4;
-    } else if (selectedAgama == "Belajar") {
-      agamaID = 5;
-    } else if (selectedAgama == "ANY") {
-      agamaID = null;
-    }
-    if (selectedAngkatan == "B28") {
-      angkatanID = 1;
-    } else if (selectedAngkatan == "B27") {
-      angkatanID = 2;
-    } else if (selectedAngkatan == "B26") {
-      angkatanID = 3;
-    } else if (selectedAngkatan == "B25") {
-      angkatanID = 4;
-    } else if (selectedAngkatan == "B24") {
-      angkatanID = 5;
-    } else if (selectedAngkatan == "B23") {
-      angkatanID = 6;
-    } else if (selectedAngkatan == "B22") {
-      angkatanID = 7;
-    } else if (selectedAngkatan == "B21") {
-      angkatanID = 8;
-    } else if (selectedAngkatan == "B20") {
-      angkatanID = 9;
-    } else if (selectedAngkatan == "Older") {
-      angkatanID = 10;
-    } else if (selectedAngkatan == "ANY") {
-      angkatanID = null;
-    }
-    if (selectedRas == "Chinese") {
-      ethnicID = 1;
-    } else if (selectedRas == "Batak") {
-      ethnicID = 2;
-    } else if (selectedRas == "Jawa") {
-      ethnicID = 3;
-    } else if (selectedRas == "Sunda") {
-      ethnicID = 4;
-    } else if (selectedRas == "Minang") {
-      ethnicID = 5;
-    } else if (selectedRas == "Dayak") {
-      ethnicID = 6;
-    } else if (selectedRas == "Madura") {
-      ethnicID = 7;
-    } else if (selectedRas == "Timur") {
-      ethnicID = 8;
-    } else if (selectedRas == "ANY") {
-      ethnicID = null;
-    }
-    if (selectedZodiak == "Aries") {
-      zodiakID = 1;
-    } else if (selectedZodiak == "Taurus") {
-      zodiakID = 2;
-    } else if (selectedZodiak == "Gemini") {
-      zodiakID = 3;
-    } else if (selectedZodiak == "Cancer") {
-      zodiakID = 4;
-    } else if (selectedZodiak == "Leo") {
-      zodiakID = 5;
-    } else if (selectedZodiak == "Virgo") {
-      zodiakID = 6;
-    } else if (selectedZodiak == "Libra") {
-      zodiakID = 7;
-    } else if (selectedZodiak == "Scorpio") {
-      zodiakID = 8;
-    } else if (selectedZodiak == "Sagitarius") {
-      zodiakID = 9;
-    } else if (selectedZodiak == "Capricorn") {
-      zodiakID = 10;
-    } else if (selectedZodiak == "Aquarius") {
-      zodiakID = 11;
-    } else if (selectedZodiak == "Pisces") {
-      zodiakID = 12;
-    } else if (selectedZodiak == "ANY") {
-      zodiakID = null;
-    }
+
     if (userData!["GenderID"].toString() == "1") {
       var response = await showData().getUserDataByAutoFiltered(
         genderId: 2,
-        agama: agamaID,
-        angkatan: angkatanID,
-        ethnic: ethnicID,
-        hobi: hobiID,
-        zodiak: zodiakID,
-        email: emails,
+        agama: userData!["AgamaID"],
+        angkatan: userData!["AngkatanID"],
+        ethnic: userData!["EthnicID"],
+        hobi: userData!["HobiID"],
+        zodiak: userData!["ZodiakID"],
+        email: userData!["Email"],
         campusLocation: userData!["RegionID"],
         relation: userData!["LookingForID"],
       );
@@ -560,12 +468,12 @@ class _HomePageState extends State<HomePage> {
     } else if (userData!["GenderID"].toString() == "2") {
       var responses = await showData().getUserDataByAutoFiltered(
         genderId: 1,
-        agama: agamaID,
-        angkatan: angkatanID,
-        ethnic: ethnicID,
-        hobi: hobiID,
-        zodiak: zodiakID,
-        email: emails,
+        agama: userData!["AgamaID"],
+        angkatan: userData!["AngkatanID"],
+        ethnic: userData!["EthnicID"],
+        hobi: userData!["HobiID"],
+        zodiak: userData!["ZodiakID"],
+        email: userData!["Email"],
         campusLocation: userData!["RegionID"],
         relation: userData!["LookingForID"],
       );

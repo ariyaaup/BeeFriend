@@ -8,7 +8,7 @@ import 'package:beefriend_app/Page/LoginPage.dart';
 // import 'package:beefriend_app/Page/BirthDate.dart';
 // import 'package:beefriend_app/Page/Gender.dart';
 // import 'package:beefriend_app/Page/LookingFor.dart';
-import 'package:beefriend_app/Page/InputFoto.dart';
+// import 'package:beefriend_app/Page/InputFoto.dart';
 import 'package:beefriend_app/Page/ProfilePage.dart';
 import 'package:beefriend_app/Page/RegisterPage.dart';
 import 'package:beefriend_app/Page/SplashScreen.dart';
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         '/AboutUs': (BuildContext context) => Aboutuspage(),
         '/ProfilePage': (BuildContext context) => ProfilePage(),
         '/EditProfile': (BuildContext context) => Editprofilepage(),
-        '/InputFoto': (BuildContext context) => InputFoto(),
+        // '/InputFoto': (BuildContext context) => InputFoto(),
       },
     );
   }

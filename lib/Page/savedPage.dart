@@ -3,6 +3,8 @@ import 'package:beefriend_app/DB_Helper/AuthService.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:beefriend_app/Page/ChatListPage.dart';
 import 'package:beefriend_app/Page/HomePage.dart';
+import 'package:beefriend_app/Page/ProfilePage.dart';
+import 'package:beefriend_app/Page/TopLikesPage.dart';
 import 'package:beefriend_app/Page/viewProfilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -131,7 +133,7 @@ class _SavedpageState extends State<Savedpage> {
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
-                childAspectRatio: 9 / 16,
+                childAspectRatio: 3 / 4,
               ),
               itemCount: userList.length,
               itemBuilder: (context, index) {
@@ -172,7 +174,7 @@ class _SavedpageState extends State<Savedpage> {
                                   'https://via.placeholder.com/150',
                               scale: 1,
                               width: screenWidth,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -208,14 +210,28 @@ class _SavedpageState extends State<Savedpage> {
               //button navbar profile
               icon: const Icon(Icons.person_outline, color: Colors.black),
               onPressed: () {
-                Navigator.pushNamed(context, '/ProfilePage');
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return ProfilePage();
+                    },
+                  ),
+                );
               },
             ),
             IconButton(
               //button navbar lokasi
               icon: const Icon(Icons.star_border_outlined, color: Colors.black),
               onPressed: () {
-                //ngpain lah
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return Toplikespage();
+                    },
+                  ),
+                );
               },
             ),
             SizedBox(width: screenWidth * 0.1), // jarak tengah floating button

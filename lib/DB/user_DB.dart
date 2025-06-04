@@ -11,6 +11,7 @@ class userDatabase {
   final Topliked = Supabase.instance.client.from('TopLiked');
   final FemaleToMaleChat = Supabase.instance.client.from('FemaletoMaleChat');
   final MaleToFemaleChat = Supabase.instance.client.from('MaletoFemaleChat');
+  final ReportTable = Supabase.instance.client.from('ReportTable');
 
   // CREATE
   Future signUp(UsersDB newUsers) async {
@@ -45,6 +46,10 @@ class userDatabase {
     }
   }
 
+  Future ReportInsert(report user) async {
+    await ReportTable.insert(user.toMap());
+  }
+
   Future topLikeds(topLiked toplike) async {
     await Topliked.insert(toplike.toMap());
   }
@@ -52,12 +57,6 @@ class userDatabase {
   Future chatContents(userChat newChat) async {
     await ChatTable.insert(newChat.toMap());
   }
-
-  // READ
-  final stream = Supabase.instance.client.from('UserTable').stream(primaryKey: [
-    'id'
-  ]).map((data) => data.map((UserMap) => UsersDB.fromMap(UserMap)).toList());
-  // UPDATE
 
   Future UpdateProfilePicture(String Email, String FileName) async {
     await Database.update({'ProfilePicture': FileName}).eq('Email', Email);
@@ -85,56 +84,6 @@ class showData {
     return response;
   }
 
-  // var response = await Supabase.instance.client
-  //         .from('UserTable')
-  //         .select()
-  //         .eq("GenderID", "1")
-  //         .limit(20);
-  //     var responses = await Supabase.instance.client
-  //         .from('UserTable')
-  //         .select()
-  //         .eq('GenderID', "2")
-  //         .limit(20);
-
-  // Future<Map<String, dynamic>?> getUserDataByFilteredFemale(
-  //     {int? agama, int? hobi, int? angkatan, int? ethnic, int? zodiak}) async {
-  //   print('TestBrooo');
-
-  //   var query =
-  //       Supabase.instance.client.from('UserTable').select().eq('GenderID', "1");
-  //   if (agama != null) query = query.eq('AgamaID', agama);
-  //   if (hobi != null) query = query.eq('HobiID', hobi);
-  //   if (angkatan != null) query = query.eq('AngkatanID', angkatan);
-  //   if (ethnic != null) query = query.eq('EthnicID', ethnic);
-  //   if (zodiak != null) query = query.eq('ZodiakID', zodiak);
-
-  //   final response = await query.maybeSingle();
-  //   return response;
-  // }
-
-  // Future<Map<String, dynamic>?> getUserDataByFilteredMale(
-  //     {int? agama,
-  //     int? hobi,
-  //     int? angkatan,
-  //     int? ethnic,
-  //     int? zodiak,
-  //     String? email}) async {
-  //   // print('TestBrooo');
-
-  //   var querys =
-  //       Supabase.instance.client.from('UserTable').select().eq('GenderID', "2");
-
-  //   if (agama != null) querys = querys.eq('AgamaID', agama);
-  //   if (hobi != null) querys = querys.eq('HobiID', hobi);
-  //   if (angkatan != null) querys = querys.eq('AngkatanID', angkatan);
-  //   if (ethnic != null) querys = querys.eq('EthnicID', ethnic);
-  //   if (zodiak != null) querys = querys.eq('ZodiakID', zodiak);
-  //   if (email != null) querys = querys.neq('Email', email);
-
-  //   final response = await querys.maybeSingle();
-  //   return response;
-  // }
-
   Future<List<Map<String, dynamic>>> getUserDataByFiltered({
     required int genderId, // 1 = female, 2 = male
     int? agama,
@@ -146,7 +95,7 @@ class showData {
   }) async {
     print('Fetching filtered user data...');
 
-    print(email);
+    print("INI agama ${agama}");
 
     var query = Supabase.instance.client
         .from('UserTable')
@@ -194,7 +143,7 @@ class showData {
     if (zodiak != null) query = query.eq('ZodiakID', zodiak);
     if (campusLocation != null) query = query.eq('RegionID', campusLocation);
     if (relation != null) query = query.eq('LookingForID', relation);
-    // if (email != null) query = query.neq('Email', email);
+    if (email != null) query = query.neq('Email', email);
 
     final response = await query;
     print('REGION ${campusLocation}');
@@ -256,6 +205,24 @@ class showData {
         .eq('Email_1', Email);
 
     return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
+  Future updateValueString(String Value, String section, String Email) async {
+    await Supabase.instance.client
+        .from('UserTable')
+        .update({section: Value}).eq("Email", Email);
+  }
+
+  Future updateValueInt(int Value, String section, String Email) async {
+    await Supabase.instance.client
+        .from('UserTable')
+        .update({section: Value}).eq("Email", Email);
+  }
+
+  Future updateValueDouble(double Value, String section, String Email) async {
+    await Supabase.instance.client
+        .from('UserTable')
+        .update({section: Value}).eq("Email", Email);
   }
 
   Future<List<Map<String, dynamic>>> getSavedUserDataFemaleChat({

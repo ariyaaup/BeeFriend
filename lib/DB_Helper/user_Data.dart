@@ -234,3 +234,25 @@ class topLiked {
     };
   }
 }
+
+class report {
+  String email;
+
+  report({
+    required this.email,
+  });
+
+  factory report.fromMap(Map<String, dynamic> map) {
+    print('MAP => $map');
+    return report(
+      email: map['user'] as String,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      // 'id': id,
+      'user': email,
+    };
+  }
+}

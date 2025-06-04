@@ -28,9 +28,8 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         userData = data;
         print(userData);
-        publicUrl = Supabase.instance.client.storage
-            .from('images')
-            .getPublicUrl('Upload/profile_pictures${userData!['Email']}.jpg');
+        publicUrl = Supabase.instance.client.storage.from('images').getPublicUrl(
+            'Upload/profile_pictures${userData!["Email"]}_${DateTime.now().millisecondsSinceEpoch}.jpg');
         print(publicUrl.toString());
       });
     }
@@ -109,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 radius: circleRadius * 0.12,
                                 backgroundColor: Colors.white,
                                 backgroundImage: NetworkImage(
-                                  publicUrl.toString(),
+                                  userData!["ProfilePicture"],
                                 ),
                               ),
                             ),
