@@ -21,6 +21,7 @@ class UsersDB {
   int EthnicID;
   int AgamaID;
   String ProfilePicture;
+  String Bio;
 
   final String? AgamaName;
   final String? ZodiakName;
@@ -34,30 +35,30 @@ class UsersDB {
   // String? Ethnic;
   // String? Angkatan;
 
-  UsersDB({
-    required this.id,
-    // required this.Username,
-    required this.FullName,
-    required this.Password,
-    required this.Gmail,
-    required this.Age,
-    required this.BirthDate,
-    required this.RegionID,
-    required this.Distance,
-    required this.LookingForID,
-    required this.GenderID,
-    required this.AngkatanID,
-    required this.AgamaID,
-    required this.EthnicID,
-    required this.HobiID,
-    required this.ZodiakID,
-    required this.ProfilePicture,
-    this.AgamaName,
-    this.AngkatanName,
-    this.EthnicName,
-    this.HobiName,
-    this.ZodiakName,
-  });
+  UsersDB(
+      {required this.id,
+      // required this.Username,
+      required this.FullName,
+      required this.Password,
+      required this.Gmail,
+      required this.Age,
+      required this.BirthDate,
+      required this.RegionID,
+      required this.Distance,
+      required this.LookingForID,
+      required this.GenderID,
+      required this.AngkatanID,
+      required this.AgamaID,
+      required this.EthnicID,
+      required this.HobiID,
+      required this.ZodiakID,
+      required this.ProfilePicture,
+      this.AgamaName,
+      this.AngkatanName,
+      this.EthnicName,
+      this.HobiName,
+      this.ZodiakName,
+      required this.Bio});
 
   factory UsersDB.fromMap(Map<String, dynamic> map) {
     return UsersDB(
@@ -83,6 +84,7 @@ class UsersDB {
       EthnicName: map['Ethnic']?['Ethnic'] as String?,
       AngkatanName: map['Angkatan']?['Angkatan'] as String?,
       HobiName: map['Hobi']?['Hobi'] as String?,
+      Bio: map['Bio'] as String,
     );
   }
 
@@ -105,6 +107,7 @@ class UsersDB {
       'HobiID': HobiID,
       'EthnicID': EthnicID,
       'ProfilePicture': ProfilePicture,
+      'Bio': Bio
       // 'Agama': Agama,
       // 'Hobi': Hobi,
       // 'Angkatan': Angkatan,

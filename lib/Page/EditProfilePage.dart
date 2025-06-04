@@ -227,25 +227,33 @@ class _EditprofilepageState extends State<Editprofilepage> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 4),
                           child: _buildReadOnlyField(
-                              "Agama", userData!['Religion'] ?? '-'),
+                            "Agama",
+                            userData!['Agama']?['Agama'] ?? 'null',
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 4),
                           child: _buildReadOnlyField(
-                              "Hobi", userData!['Hobby'] ?? '-'),
+                            "Hobi",
+                            userData!['Hobi']?['Hobi'] ?? 'null',
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 4),
                           child: _buildReadOnlyField(
-                              "Ras", userData!['Race'] ?? '-'),
+                            "Ras",
+                            userData!['Ethnic']?['Ethnic'] ?? 'null',
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 4),
                           child: _buildReadOnlyField(
-                              "Zodiak", userData!['Zodiac'] ?? '-'),
+                            "Zodiak",
+                            userData!['Zodiak']?['Zodiak'] ?? 'null',
+                          ),
                         ),
                       ],
                     ),

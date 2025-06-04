@@ -60,6 +60,7 @@ class _CampusInformationState extends State<CampusInformation> {
       HobiID: 6,
       ZodiakID: 13,
       ProfilePicture: "",
+      Bio: "Hi! Now i'm using Beefriend!!",
     );
 
     var userDB = userDatabase();

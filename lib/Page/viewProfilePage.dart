@@ -104,23 +104,24 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
 
   Future likesLogics(String Email, int gender) async {
     if (gender == 2) {
-      final data =
-          await showData().getLikedEmailFemale(user!.email.toString(), Email);
+      final data = await showData().getLikedEmailFemale(Email, widget.email);
       setState(() {
         userData = data;
         print(userData);
+        print("CEK EMAIL MASUK${widget.email} COWO");
+        print("CEK EMAIL MASUK${Email}");
       });
     } else if (gender == 1) {
-      final data =
-          await showData().getLikedEmailMale(user!.email.toString(), Email);
+      final data = await showData().getLikedEmailMale(Email, widget.email);
       setState(() {
         userData = data;
-        print(userData);
+        // print(userData);
       });
     }
 
-    if (userData!["Email_1"] == user!.email.toString() &&
-        userData!["Email_2"] == Email) {
+    if (userData!["Email_1"] == widget.email &&
+        userData!["Email_2"] == Email &&
+        userData!["Check"] == 1) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -134,7 +135,14 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
         ),
       );
     } else {
-      updateLikes(Email);
+      updateLikes(widget.email);
+      if (gender == 1) {
+        print("MASUK SINI");
+        updateLikesStatusFemaletoMale(widget.email, Email);
+      } else if (gender == 2) {
+        print("MASUK SINI2");
+        updateLikesStatusMaletoFemale(widget.email, Email);
+      }
     }
   }
 
@@ -146,9 +154,25 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
       setState(() {
         userData = data;
         userDatas = datas;
-        print(userData);
+        // print(userData);
       });
     }
+  }
+
+  Future updateLikesStatusFemaletoMale(String Email1, String Email2) async {
+    await Supabase.instance.client
+        .from('FemaletoMale')
+        .update({'Check': 1})
+        .eq("Email_1", Email1)
+        .eq("Email_2", Email2);
+  }
+
+  Future updateLikesStatusMaletoFemale(String Email1, String Email2) async {
+    await Supabase.instance.client
+        .from('MaletoFemale')
+        .update({'Check': 1})
+        .eq("Email_1", Email1)
+        .eq("Email_2", Email2);
   }
 
   @override
@@ -168,36 +192,37 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
           ? const Color(0xFFEC7FA9)
           : const Color(0xFFEC7FA9),
       appBar: AppBar(
-          scrolledUnderElevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: MediaQuery.of(context).size.width > 500
-              ? const Color(0xFFEC7FA9)
-              : const Color(0xFFEC7FA9),
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Icon(
-                  Icons.arrow_back_ios,
-                ),
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: MediaQuery.of(context).size.width > 500
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
               ),
-              SizedBox(width: screenWidth * 0.05),
-              Text(
-                "View Profile",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
+            ),
+            SizedBox(width: screenWidth * 0.05),
+            Text(
+              "View Profile",
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+                fontSize: 20,
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
       body: userData == null
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -271,15 +296,24 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
                                           Email1: widget.email,
                                           Email2: user!.email.toString()),
                                       userData!["GenderID"]);
+                                  userDatabase().ChatInsert(
+                                      savedUser(
+                                          Email1: user!.email.toString(),
+                                          Email2: widget.email),
+                                      userData!["GenderID"]);
                                   // var datas = await showData().AlreadyLiked(Email!);
 
                                   emails = widget.email;
-                                  print("DataaaaEUY: ${emails!}");
+                                  // print("DataaaaEUY: ${emails!}");
                                   await fetchUserData();
                                   userDatabase().topLikeds(
                                       topLiked(email: widget.email, likes: 1));
-                                  likesLogics(
-                                      widget.email, userDatas!["GenderID"]);
+                                  likesLogics(userDatas!["Email"],
+                                      userDatas!["GenderID"]);
+                                  print("GENDER ${userDatas!["GenderID"]}");
+                                  print("GENDER ${userData!["GenderID"]}");
+
+                                  Navigator.of(context).pop();
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: const CircleBorder(),

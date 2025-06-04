@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Map<String, dynamic>? userData;
   Map<String, dynamic>? userDatas;
-
+  Map<String, dynamic>? userDatass;
   String? emails;
 
   Widget buildTextBackgroundRow(List<String> texts,
@@ -159,15 +159,18 @@ class _HomePageState extends State<HomePage> {
                     userDatabase().LikeLogic(
                         savedUser(Email1: user.Gmail, Email2: Email!),
                         user.GenderID);
+                    userDatabase().ChatInsert(
+                        savedUser(Email1: Email, Email2: user.Gmail),
+                        user.GenderID);
+                    // print("CEK EMAIL MASUK ${user.Gmail}}");
+                    // print("CEK EMAIL MASUK ${Email}}");
                     emails = user.Gmail;
                     print("DataaaaEUY: ${emails!}");
 
                     await fetchProfiles();
                     userDatabase()
-                        .topLikeds(topLiked(email: user.Gmail, likes: 1));
-                    likesLogic(
-                      user.Gmail,
-                    );
+                        .topLikeds(topLiked(email: user.Gmail, likes: 0));
+                    likesLogic(user.Gmail, user.GenderID);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
@@ -213,21 +216,45 @@ class _HomePageState extends State<HomePage> {
         .update({'likes': userData!['likes'] + 1}).eq("email", Email);
   }
 
-  Future likesLogic(String Email) async {
+  Future updateLikesStatusFemaletoMale(String Email1, String Email2) async {
+    await Supabase.instance.client
+        .from('FemaletoMale')
+        .update({'Check': 1})
+        .eq("Email_1", Email1)
+        .eq("Email_2", Email2);
+  }
+
+  Future updateLikesStatusMaletoFemale(String Email1, String Email2) async {
+    await Supabase.instance.client
+        .from('MaletoFemale')
+        .update({'Check': 1})
+        .eq("Email_1", Email1)
+        .eq("Email_2", Email2);
+  }
+
+  Future likesLogic(String Email, int gender) async {
     if (userData!["GenderID"] == 2) {
       final data = await showData().getLikedEmailFemale(UserEmail, Email);
       setState(() {
-        userData = data;
-        print(userData);
+        userDatass = data;
+        print("CEK EMAIL MASUK${UserEmail} COWO");
+        print("CEK EMAIL MASUK${Email}");
       });
     } else if (userData!["GenderID"] == 1) {
       final data = await showData().getLikedEmailMale(UserEmail, Email);
       setState(() {
-        userData = data;
-        print(userData);
+        userDatass = data;
+        // print("CEK EMAIL MASUK${UserEmail} CEWE");
+        // print("CEK EMAIL MASUK${Email}");
+        // print("CEK EMAIL MASUK${userData!["Email_1"]}");
+        // print("CEK EMAIL MASUK${userData!["Email_2"]}");
       });
     }
-    if (userData!["Email_1"] == Email && userData!["Email_2"] == UserEmail) {
+    if (userDatass!["Email_1"] == Email &&
+        userDatass!["Email_2"] == UserEmail &&
+        userDatass!["Check"] == 1) {
+      print("CEK EMAIL MASUK");
+      print("CEK EMAIL MASUK${userDatass!["Email_2"]}");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -241,7 +268,16 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else {
+      // userDatabase()
+      //     .LikeLogic(savedUser(Email1: Email, Email2: UserEmail), gender);
       updateLikes(Email);
+      if (gender == 2) {
+        print("MASUK SINI");
+        updateLikesStatusFemaletoMale(Email, UserEmail);
+      } else if (gender == 1) {
+        print("MASUK SINI2");
+        updateLikesStatusMaletoFemale(Email, UserEmail);
+      }
     }
   }
 

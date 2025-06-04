@@ -33,7 +33,7 @@ class _ChatlistpageState extends State<Chatlistpage> {
 
     if (userData!['GenderID'] == 2) {
       var response = await showData()
-          .getSavedUserDataFemale(Email: user!.email.toString());
+          .getSavedUserDataFemaleChat(Email: user!.email.toString());
       final profiles = (response as List).map((data) {
         return savedUser.fromMap(data);
       }).toList();
@@ -42,8 +42,9 @@ class _ChatlistpageState extends State<Chatlistpage> {
         userList = profiles;
       });
     } else if (userData!['GenderID'] == 1) {
-      var response =
-          await showData().getSavedUserDataMale(Email: user!.email.toString());
+      var response = await showData()
+          .getSavedUserDataMaleChat(Email: user!.email.toString());
+      print("EMAIL ${user.email.toString()}");
       final profiles = (response as List).map((data) {
         return savedUser.fromMap(data);
       }).toList();

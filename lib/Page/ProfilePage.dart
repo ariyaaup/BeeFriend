@@ -185,11 +185,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontFamily: 'Poppins',
                           ),
                         ),
-                        // Text(
-                        //   userData!['Region']?['RegionName'] ?? 'null',
-                        //   style:
-                        //       const TextStyle(color: Colors.blue, fontSize: 16),
-                        // ),
+                        Text(
+                          userData!['Bio'],
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
                         // NANTI INI GANTI BIO DARI EDIT PROFILE PAGE
                         SizedBox(height: screenHeight * 0.05),
                         const Text(
@@ -201,8 +203,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         Text(
                           userData!['Region']?['RegionName'] ?? 'null',
-                          style:
-                              const TextStyle(color: Colors.blue, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 16),
                         ),
                         SizedBox(height: screenHeight * 0.01),
                       ],

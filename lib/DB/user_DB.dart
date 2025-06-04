@@ -9,6 +9,8 @@ class userDatabase {
   final MaleToFemale = Supabase.instance.client.from('MaletoFemale');
   final ChatTable = Supabase.instance.client.from('ChatTable');
   final Topliked = Supabase.instance.client.from('TopLiked');
+  final FemaleToMaleChat = Supabase.instance.client.from('FemaletoMaleChat');
+  final MaleToFemaleChat = Supabase.instance.client.from('MaletoFemaleChat');
 
   // CREATE
   Future signUp(UsersDB newUsers) async {
@@ -32,6 +34,14 @@ class userDatabase {
       await MaleToFemale.insert(newChat.toMap());
     } else if (gender == 2) {
       await FemaleToMale.insert(newChat.toMap());
+    }
+  }
+
+  Future ChatInsert(savedUser newChat, int gender) async {
+    if (gender == 1) {
+      await MaleToFemaleChat.insert(newChat.toMap());
+    } else if (gender == 2) {
+      await FemaleToMaleChat.insert(newChat.toMap());
     }
   }
 
@@ -149,7 +159,7 @@ class showData {
     if (angkatan != null) query = query.eq('AngkatanID', angkatan);
     if (ethnic != null) query = query.eq('EthnicID', ethnic);
     if (zodiak != null) query = query.eq('ZodiakID', zodiak);
-    if (email != null) query = query.neq('Email', email);
+    // if (email != null) query = query.neq('Email', email);
 
     final response = await query;
     // print('HALOOOO ${response}');
@@ -184,7 +194,7 @@ class showData {
     if (zodiak != null) query = query.eq('ZodiakID', zodiak);
     if (campusLocation != null) query = query.eq('RegionID', campusLocation);
     if (relation != null) query = query.eq('LookingForID', relation);
-    if (email != null) query = query.neq('Email', email);
+    // if (email != null) query = query.neq('Email', email);
 
     final response = await query;
     print('REGION ${campusLocation}');
@@ -219,7 +229,7 @@ class showData {
     required String Email,
   }) async {
     final response = await Supabase.instance.client
-        .from('MaletoFemale')
+        .from('FemaletoMale')
         .select('*, UserTable(*)')
         .eq('Email_1', Email);
 
@@ -230,7 +240,29 @@ class showData {
     required String Email,
   }) async {
     final response = await Supabase.instance.client
-        .from('FemaletoMale')
+        .from('MaletoFemale')
+        .select('*, UserTable(*)')
+        .eq('Email_1', Email);
+
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
+  Future<List<Map<String, dynamic>>> getSavedUserDataMaleChat({
+    required String Email,
+  }) async {
+    final response = await Supabase.instance.client
+        .from('FemaletoMaleChat')
+        .select('*, UserTable(*)')
+        .eq('Email_1', Email);
+
+    return (response as List<dynamic>).cast<Map<String, dynamic>>();
+  }
+
+  Future<List<Map<String, dynamic>>> getSavedUserDataFemaleChat({
+    required String Email,
+  }) async {
+    final response = await Supabase.instance.client
+        .from('MaletoFemaleChat')
         .select('*, UserTable(*)')
         .eq('Email_1', Email);
 
@@ -254,21 +286,22 @@ class showData {
         .from('TopLiked')
         .select('*')
         .eq('email', email)
-        .single();
+        .maybeSingle();
 
     return response;
   }
 
   Future<Map<String, dynamic>?> getLikedEmailMale(
       String email1, String email2) async {
-    print(email1);
-    print(email2);
+    // print("CEK EMAIL MASUK${email1}}");
+    // print("CEK EMAIL MASUK${email2}}");
+
     final response = await Supabase.instance.client
         .from('FemaletoMale')
         .select('*')
-        .eq('Email_1', email1)
-        .eq('Email_2', email2)
-        .single();
+        .eq('Email_1', email2)
+        .eq('Email_2', email1)
+        .maybeSingle();
 
     return response;
   }
@@ -278,9 +311,9 @@ class showData {
     final response = await Supabase.instance.client
         .from('MaletoFemale')
         .select('*')
-        .eq('Email_1', email1)
-        .eq('Email_2', email2)
-        .single();
+        .eq('Email_1', email2)
+        .eq('Email_2', email1)
+        .maybeSingle();
 
     return response;
   }
