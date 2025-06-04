@@ -105,7 +105,7 @@ class _SavedpageState extends State<Savedpage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "BeeFriend",
+              "Person Who Liked You",
               style: TextStyle(
                 fontFamily: 'Poppins',
                 color: Colors.white,
@@ -113,7 +113,7 @@ class _SavedpageState extends State<Savedpage> {
               ),
             ),
             SizedBox(
-              width: screenWidth * 0.45,
+              width: screenWidth * 0.125,
             ),
           ],
         ),

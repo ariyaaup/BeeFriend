@@ -123,7 +123,7 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
         userData!["Email_2"] == Email &&
         userData!["Check"] == 1) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "You Already Liked This User",
             style: TextStyle(
@@ -197,7 +197,7 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
         backgroundColor: MediaQuery.of(context).size.width > 500
             ? const Color(0xFFEC7FA9)
             : const Color(0xFFEC7FA9),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         title: Row(
@@ -207,12 +207,12 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
               ),
             ),
             SizedBox(width: screenWidth * 0.05),
-            Text(
+            const Text(
               "View Profile",
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -224,7 +224,7 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
         ),
       ),
       body: userData == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Container(
                 decoration: const BoxDecoration(
@@ -238,7 +238,7 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: ClipRRect(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(50),
@@ -251,7 +251,7 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
