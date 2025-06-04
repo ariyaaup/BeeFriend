@@ -117,7 +117,14 @@ class _SavedpageState extends State<Savedpage> {
         ),
       ),
       body: userList.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: Text(
+              "No one like you!",
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
+            ))
           : GridView.builder(
               padding: EdgeInsets.all(12),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

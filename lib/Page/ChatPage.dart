@@ -131,6 +131,31 @@ class _ChatpageState extends State<Chatpage> {
                 fontFamily: 'Poppins',
               ),
             ),
+            SizedBox(
+              width: screenWidth * 0.12,
+            ),
+            DropdownButton<String>(
+              items: [
+                DropdownMenuItem<String>(
+                  value: 'Report',
+                  child: Row(
+                    children: [
+                      Icon(Icons.report, color: Color(0xFFEC7FA9)),
+                      SizedBox(width: 8),
+                      Text('Report',
+                          style: TextStyle(color: Color(0xFFEC7FA9))),
+                    ],
+                  ),
+                ),
+              ],
+              onChanged: (value) {
+                if (value == 'Report') {
+                  _showReportDialog(context);
+                }
+              },
+              icon: Icon(Icons.more_vert, color: Colors.white),
+              dropdownColor: Colors.white,
+            ),
           ],
         ),
       ),
@@ -153,7 +178,7 @@ class _ChatpageState extends State<Chatpage> {
                           EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                       margin: EdgeInsets.symmetric(vertical: 4),
                       decoration: BoxDecoration(
-                        color: isMe ? Colors.blue[300] : Colors.grey[300],
+                        color: isMe ? Color(0xFFEC7FA9) : Colors.grey[300],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Column(
@@ -161,7 +186,10 @@ class _ChatpageState extends State<Chatpage> {
                         children: [
                           Text(
                             chat['Content'] ?? '',
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Poppins',
+                            ),
                           ),
                           SizedBox(height: 4),
                           Text(
@@ -177,7 +205,7 @@ class _ChatpageState extends State<Chatpage> {
               ),
       ),
       bottomNavigationBar: BottomAppBar(
-        height: screenHeight * 0.15, // Sesuaikan tinggi BottomAppBar
+        height: screenHeight * 0.15,
         color: const Color(0xFFEC7FA9),
         child: Padding(
           padding: const EdgeInsets.only(left: 10, top: 10.0, bottom: 10),
@@ -238,6 +266,35 @@ class _ChatpageState extends State<Chatpage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showReportDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Report Issue'),
+          content:
+              Text('This is where you can add the details for the report.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: Text('Submit'),
+              onPressed: () {
+                // Handle report submission
+                print('Report submitted');
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

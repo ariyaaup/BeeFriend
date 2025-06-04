@@ -1,6 +1,6 @@
 import 'package:beefriend_app/DB/user_DB.dart';
 import 'package:beefriend_app/DB_Helper/user_Data.dart';
-// import 'package:beefriend_app/Page/ChatPage.dart';
+import 'package:beefriend_app/Page/ChatPage.dart';
 import 'package:beefriend_app/Page/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -136,7 +136,20 @@ class _ToplikespageState extends State<Toplikespage> {
                         fontFamily: 'Poppins',
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      var navigator = Navigator.of(context);
+                      navigator.push(
+                        MaterialPageRoute(
+                          builder: (builder) {
+                            return Chatpage(
+                              Image: profile!.ProfilePicture,
+                              Name: profile.FullName,
+                              Email: profile.Gmail,
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                 );
               },
