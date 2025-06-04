@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       navigator.push(
         MaterialPageRoute(
           builder: (builder) {
-            return HomePage();
+            return const HomePage();
           },
         ),
       );
@@ -45,166 +45,172 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     // double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
-      ),
-      body: Container(
-        color: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
-        height: double.infinity,
-        width: double.infinity,
-        padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Hello, Bee👋",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Poppins',
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.1,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Your binusian email",
+    return WillPopScope(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: MediaQuery.of(context).size.width > 500
+              ? const Color(0xFFEC7FA9)
+              : const Color(0xFFEC7FA9),
+        ),
+        body: Container(
+          color: MediaQuery.of(context).size.width > 500
+              ? const Color(0xFFEC7FA9)
+              : const Color(0xFFEC7FA9),
+          height: double.infinity,
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Text(
+                "Hello, Bee👋",
                 style: TextStyle(
-                  fontFamily: 'Poppins',
                   color: Colors.white,
+                  fontFamily: 'Poppins',
                   fontSize: 20,
                 ),
               ),
-            ),
-            TextField(
-              controller: _controllerEmail,
-              style: const TextStyle(
-                color: Colors.black,
+              SizedBox(
+                height: screenHeight * 0.1,
               ),
-              obscureText: false,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(15)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(15)),
-                fillColor: const Color(0xFFFFFFFF),
-                filled: true,
-                hintText: 'Fill your Binusian Email',
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.03,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Your password",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            TextField(
-              controller: _controllerPassword,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-              obscureText: true,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(15)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(15)),
-                fillColor: const Color(0xFFFFFFFF),
-                filled: true,
-                hintText: 'Fill your password',
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                signInWithEmailAndPassword(
-                    _controllerEmail.text, _controllerPassword.text);
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Color(0xFFEC7FA9),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(
-                      color: Colors.white,
-                    )),
-                padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.02,
-                  horizontal: MediaQuery.of(context).size.width * 0.3,
-                ),
-              ),
-              child: const Text(
-                "Sign In",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                ),
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            RichText(
-              text: TextSpan(
-                text: "Don't have an account? ",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Poppins',
-                  fontSize: 12,
-                ),
-                children: [
-                  TextSpan(
-                    text: 'Sign UP',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      decoration: TextDecoration.underline, // underline effect
-                      fontFamily: 'Poppins',
-                      fontSize: 12,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        var navigator = Navigator.of(context);
-                        navigator.push(
-                          MaterialPageRoute(
-                            builder: (builder) {
-                              return RegisterPage();
-                            },
-                          ),
-                        );
-                      },
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Your binusian email",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                    fontSize: 20,
                   ),
-                ],
+                ),
               ),
-            )
-          ],
+              TextField(
+                controller: _controllerEmail,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                obscureText: false,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15)),
+                  fillColor: const Color(0xFFFFFFFF),
+                  filled: true,
+                  hintText: 'Fill your Binusian Email',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.03,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Your password",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              TextField(
+                controller: _controllerPassword,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                obscureText: true,
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15)),
+                  fillColor: const Color(0xFFFFFFFF),
+                  filled: true,
+                  hintText: 'Fill your password',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              ElevatedButton(
+                onPressed: () {
+                  signInWithEmailAndPassword(
+                      _controllerEmail.text, _controllerPassword.text);
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: const Color(0xFFEC7FA9),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side: const BorderSide(
+                        color: Colors.white,
+                      )),
+                  padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.02,
+                    horizontal: MediaQuery.of(context).size.width * 0.3,
+                  ),
+                ),
+                child: const Text(
+                  "Sign In",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              RichText(
+                text: TextSpan(
+                  text: "Don't have an account? ",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Sign UP',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        decoration:
+                            TextDecoration.underline, // underline effect
+                        fontFamily: 'Poppins',
+                        fontSize: 12,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          var navigator = Navigator.of(context);
+                          navigator.push(
+                            MaterialPageRoute(
+                              builder: (builder) {
+                                return const RegisterPage();
+                              },
+                            ),
+                          );
+                        },
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
+      onWillPop: () async {
+        return false;
+      },
     );
   }
 }

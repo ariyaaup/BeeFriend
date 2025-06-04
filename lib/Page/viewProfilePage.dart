@@ -262,17 +262,18 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
                               '${userData!['Hobi']?['Hobi'] ?? 'null'}',
                               '${userData!['Angkatan']?['Angkatan'] ?? 'null'}',
                               '${userData!['Zodiak']?['Zodiak'] ?? 'null'}',
-                              '${userData!['Ethnic']?['Ethnic'] ?? 'null'}',
 
                               // '${widget.}',
                             ], //nanti biar list disini banyak
                           ),
                           buildTextBackgroundRow2(
                             [
+                              '${userData!['Ethnic']?['Ethnic'] ?? 'null'}',
                               '${userData!['Looking_For']?['LookingFor'] ?? 'null'}',
                               // '${widget.}',
                             ], //nanti biar list disini banyak
                           ),
+                          SizedBox(height: screenWidth * 0.05),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [

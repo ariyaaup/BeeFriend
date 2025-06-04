@@ -5,6 +5,7 @@ import "package:beefriend_app/Page/ChatListPage.dart";
 import "package:beefriend_app/Page/EditProfilePage.dart";
 // import "package:beefriend_app/Page/HomePage.dart";
 import "package:beefriend_app/Page/LoginPage.dart";
+import "package:beefriend_app/Page/TopLikesPage.dart";
 import "package:beefriend_app/Page/savedPage.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
@@ -67,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "BeeFriend",
                 style: TextStyle(
                   fontFamily: 'Poppins',
@@ -81,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           )),
       body: userData == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,8 +92,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: MediaQuery.of(context).size.width > 500
-                          ? Color(0xFFEC7FA9)
-                          : Color(0xFFEC7FA9),
+                          ? const Color(0xFFEC7FA9)
+                          : const Color(0xFFEC7FA9),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     navigator.push(
                                       MaterialPageRoute(
                                         builder: (builder) {
-                                          return Editprofilepage();
+                                          return const Editprofilepage();
                                         },
                                       ),
                                     );
@@ -171,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     padding: const EdgeInsets.all(20),
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
                     child: Column(
@@ -214,13 +215,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     padding: const EdgeInsets.all(20),
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "More Info and support",
                           style: TextStyle(
                             fontSize: 12,
@@ -233,17 +234,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               ListTile(
                                 contentPadding: EdgeInsets.zero,
-                                leading: Icon(
+                                leading: const Icon(
                                   Icons.help_outline,
                                 ),
-                                title: Text(
+                                title: const Text(
                                   'Help',
                                   style: TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 12,
                                   ),
                                 ),
-                                trailing: Icon(
+                                trailing: const Icon(
                                   Icons.arrow_forward_ios,
                                 ),
                                 onTap: () {
@@ -263,7 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           appBar: AppBar(
                                               scrolledUnderElevation: 0,
                                               automaticallyImplyLeading: false,
-                                              iconTheme: IconThemeData(
+                                              iconTheme: const IconThemeData(
                                                 color: Colors.white,
                                               ),
                                               backgroundColor:
@@ -282,14 +283,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                                       Navigator.of(context)
                                                           .pop(); // Kembali ke halaman sebelumnya
                                                     },
-                                                    child: Icon(
+                                                    child: const Icon(
                                                       Icons.arrow_back_ios,
                                                     ),
                                                   ),
                                                   SizedBox(
                                                       width:
                                                           screenWidth * 0.05),
-                                                  Text(
+                                                  const Text(
                                                     "BeeFriend",
                                                     style: TextStyle(
                                                       fontFamily: 'Poppins',
@@ -314,7 +315,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 SizedBox(
                                                   height: screenHeight * 0.05,
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "What is it ?",
                                                   style: TextStyle(
                                                     fontSize: 20,
@@ -326,7 +327,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 SizedBox(
                                                   height: screenHeight * 0.01,
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Beefriend di buat untuk membantu mahasiswa menemukan teman baru, membangun hubungan bermakna, dan mungkin... menemukan cinta sejati! Kami percaya bahwa dunia perkuliahan adalah salah satu masa terbaik untuk bertemu orang-orang luar biasa dan Beefriend hadir untuk membuatnya lebih mudah dan seru.",
                                                   style: TextStyle(
                                                       fontSize: 14,
@@ -336,7 +337,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 SizedBox(
                                                     height:
                                                         screenHeight * 0.05),
-                                                Text(
+                                                const Text(
                                                   "Contact us",
                                                   style: TextStyle(
                                                     fontSize: 20,
@@ -348,7 +349,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 SizedBox(
                                                   height: screenHeight * 0.01,
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "Email :",
                                                   style: TextStyle(
                                                       fontSize: 15,
@@ -356,13 +357,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                       color: Colors.white),
                                                   textAlign: TextAlign.justify,
                                                 ),
-                                                Text(
+                                                const Text(
                                                   "3perintismahasiswa27@gmail.com",
                                                   style: TextStyle(
                                                       fontSize: 14,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255, 0, 38, 255)),
+                                                      color: Color.fromARGB(
+                                                          255, 0, 38, 255)),
                                                   textAlign: TextAlign.justify,
                                                 ),
                                               ],
@@ -377,17 +377,17 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               ListTile(
                                 contentPadding: EdgeInsets.zero,
-                                leading: Icon(
+                                leading: const Icon(
                                   Icons.help_outline,
                                 ),
-                                title: Text(
+                                title: const Text(
                                   'About us',
                                   style: TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 12,
                                   ),
                                 ),
-                                trailing: Icon(
+                                trailing: const Icon(
                                   Icons.arrow_forward_ios,
                                 ),
                                 onTap: () {
@@ -400,7 +400,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -420,10 +420,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           );
                         },
-                        child: Text("Sign Out"),
+                        child: const Text("Sign Out"),
                       )
                     ],
                   ),
+                  SizedBox(height: screenWidth / screenWidth * 50),
                 ],
               ),
             ),
@@ -445,7 +446,14 @@ class _ProfilePageState extends State<ProfilePage> {
               //button navbar lokasi
               icon: const Icon(Icons.star_border_outlined, color: Colors.black),
               onPressed: () {
-                //ngpain lah
+                var navigator = Navigator.of(context);
+                navigator.push(
+                  MaterialPageRoute(
+                    builder: (builder) {
+                      return const Toplikespage();
+                    },
+                  ),
+                );
               },
             ),
             SizedBox(width: screenWidth * 0.1), // jarak tengah floating button
@@ -457,7 +465,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 navigator.push(
                   MaterialPageRoute(
                     builder: (builder) {
-                      return Savedpage();
+                      return const Savedpage();
                     },
                   ),
                 );
@@ -471,7 +479,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 navigator.push(
                   MaterialPageRoute(
                     builder: (builder) {
-                      return Chatlistpage();
+                      return const Chatlistpage();
                     },
                   ),
                 );

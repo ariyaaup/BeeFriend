@@ -46,7 +46,7 @@ class _GenderState extends State<Gender> {
     }
     if (selectedGender == "") {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Must Choose a Gender",
             style: TextStyle(
@@ -59,7 +59,7 @@ class _GenderState extends State<Gender> {
     }
     if (GenderID == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Must Choose a Gender",
             style: TextStyle(
@@ -83,20 +83,20 @@ class _GenderState extends State<Gender> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
       ),
       body: Container(
         color: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
         height: double.infinity,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Hello, Bee👋",
               style: TextStyle(
                 color: Colors.white,
@@ -107,7 +107,7 @@ class _GenderState extends State<Gender> {
             SizedBox(
               height: screenHeight * 0.11,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "What's your Gender?",
@@ -162,8 +162,8 @@ class _GenderState extends State<Gender> {
                           style: TextStyle(
                             color: selectedGender == gender
                                 ? MediaQuery.of(context).size.width > 500
-                                    ? Color(0xFFEC7FA9)
-                                    : Color(0xFFEC7FA9)
+                                    ? const Color(0xFFEC7FA9)
+                                    : const Color(0xFFEC7FA9)
                                 : Colors.white,
                             fontFamily: 'Poppins',
                             fontSize: 16,
@@ -175,17 +175,17 @@ class _GenderState extends State<Gender> {
                 );
               }).toList(),
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 nextOnPressed(GenderID);
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xFFEC7FA9),
+                backgroundColor: const Color(0xFFEC7FA9),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.white,
                     )),
                 padding: EdgeInsets.symmetric(

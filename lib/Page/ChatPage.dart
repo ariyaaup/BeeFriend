@@ -100,13 +100,13 @@ class _ChatpageState extends State<Chatpage> {
             navigator.push(
               MaterialPageRoute(
                 builder: (builder) {
-                  return Chatlistpage();
+                  return const Chatlistpage();
                 },
               ),
             );
             dispose();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_new,
             color: Colors.white,
           ),
@@ -117,7 +117,7 @@ class _ChatpageState extends State<Chatpage> {
             Container(
               width: screenWidth * 0.1,
               alignment: Alignment.center,
-              padding: EdgeInsets.only(left: 0.1),
+              padding: const EdgeInsets.only(left: 0.1),
               child: CircleAvatar(
                 backgroundImage: NetworkImage(widget.Image),
               ),
@@ -134,35 +134,39 @@ class _ChatpageState extends State<Chatpage> {
             SizedBox(
               width: screenWidth * 0.05,
             ),
-            DropdownButton<String>(
-              items: const [
-                DropdownMenuItem<String>(
-                  value: 'Report',
-                  child: Row(
-                    children: [
-                      Icon(Icons.report, color: Color(0xFFEC7FA9)),
-                      SizedBox(width: 8),
-                      Text('Report',
-                          style: TextStyle(color: Color(0xFFEC7FA9))),
-                    ],
-                  ),
-                ),
-              ],
-              onChanged: (value) {
-                if (value == 'Report') {
-                  _showReportDialog(context, widget.Email);
-                }
-              },
-              icon: Icon(Icons.more_vert, color: Colors.white),
-              dropdownColor: Colors.white,
-            ),
           ],
         ),
+        actions: [
+          DropdownButton<String>(
+            items: const [
+              DropdownMenuItem<String>(
+                value: 'Report',
+                child: Row(
+                  children: [
+                    Icon(Icons.report, color: Color(0xFFEC7FA9)),
+                    SizedBox(width: 8),
+                    Text('Report', style: TextStyle(color: Color(0xFFEC7FA9))),
+                  ],
+                ),
+              ),
+            ],
+            onChanged: (value) {
+              if (value == 'Report') {
+                _showReportDialog(context, widget.Email);
+              }
+            },
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            dropdownColor: Colors.white,
+          ),
+          SizedBox(
+            width: screenHeight * 0.015,
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: chatMessages.isEmpty
-            ? Center(child: Text("No messages yet."))
+            ? const Center(child: Text("No messages yet."))
             : ListView.builder(
                 reverse: true, // agar chat terbaru di bawah
                 itemCount: chatMessages.length,
@@ -174,28 +178,24 @@ class _ChatpageState extends State<Chatpage> {
                     alignment:
                         isMe ? Alignment.centerRight : Alignment.centerLeft,
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                      margin: EdgeInsets.symmetric(vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
+                      margin: const EdgeInsets.symmetric(vertical: 5),
                       decoration: BoxDecoration(
-                        color: isMe ? Color(0xFFEC7FA9) : Colors.grey[300],
+                        color:
+                            isMe ? const Color(0xFFEC7FA9) : Colors.grey[300],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             chat['Content'] ?? '',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontFamily: 'Poppins',
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            chat['CreatedAt'] ?? '',
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 10),
                           ),
                         ],
                       ),
@@ -258,7 +258,7 @@ class _ChatpageState extends State<Chatpage> {
                       loadChat();
                     });
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.send,
                     color: Colors.white,
                   ))
@@ -274,18 +274,18 @@ class _ChatpageState extends State<Chatpage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Report Issue'),
-          content: Text(
+          title: const Text('Report Issue'),
+          content: const Text(
               'dou you really really very really want to report this user?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
             ),
             TextButton(
-              child: Text('Submit'),
+              child: const Text('Submit'),
               onPressed: () {
                 userDatabase().ReportInsert(report(email: Email));
                 print('Report submitted');

@@ -256,7 +256,7 @@ class _HomePageState extends State<HomePage> {
       print("CEK EMAIL MASUK");
       print("CEK EMAIL MASUK${userDatass!["Email_2"]}");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "You Already Liked This User",
             style: TextStyle(
@@ -599,246 +599,255 @@ class _HomePageState extends State<HomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: MediaQuery.of(context).size.width > 500
-          ? const Color(0xFFEC7FA9)
-          : const Color(0xFFEC7FA9),
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        automaticallyImplyLeading: false,
+    return WillPopScope(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
             ? const Color(0xFFEC7FA9)
             : const Color(0xFFEC7FA9),
-        iconTheme: const IconThemeData(
-          color: Colors.white, // Ganti warna ikon drawer menjadi putih
-        ),
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "BeeFriend",
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-          ],
-        ),
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            SizedBox(
-              height: screenHeight * 0.15,
-              child: DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEC7FA9),
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          automaticallyImplyLeading: false,
+          backgroundColor: MediaQuery.of(context).size.width > 500
+              ? const Color(0xFFEC7FA9)
+              : const Color(0xFFEC7FA9),
+          iconTheme: const IconThemeData(
+            color: Colors.white, // Ganti warna ikon drawer menjadi putih
+          ),
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "BeeFriend",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 20,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Filter Search",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontFamily: 'Poppins',
+              ),
+            ],
+          ),
+        ),
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              SizedBox(
+                height: screenHeight * 0.15,
+                child: DrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFEC7FA9),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Filter Search",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontFamily: 'Poppins',
+                        ),
                       ),
-                    ),
-                    Image.asset(
-                      'lib/assets/Setting.png',
-                      width: 24, // Sesuaikan ukuran ikon
-                      height: 24,
-                      color:
-                          Colors.white, // Opsional: mengubah warna jika perlu
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            _buildDropdownTile("Agama", agamaIcons, selectedAgama, (value) {
-              setState(() {
-                selectedAgama = value!;
-              });
-            }),
-            _buildDropdownTile("Hobi", hobiIcons, selectedHobi, (value) {
-              setState(() {
-                selectedHobi = value!;
-              });
-            }),
-            _buildDropdownTile("Angkatan", angkatanIcons, selectedAngkatan,
-                (value) {
-              setState(() => selectedAngkatan = value!);
-            }),
-            _buildDropdownTile("Ethnic", rasIcons, selectedRas, (value) {
-              setState(() => selectedRas = value!);
-            }),
-            _buildDropdownTile("Zodiak", zodiakIcons, selectedZodiak, (value) {
-              setState(() => selectedZodiak = value!);
-            }),
-            SizedBox(
-              height: screenHeight * 0.3, //jarak filter sama button confirm
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                left: screenWidth * 0.1,
-                right: screenWidth * 0.1,
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  fetchProfilesfiltered();
-                  setState(() {});
-                },
-                child: const Text(
-                  "Auto Filter",
-                  style: TextStyle(
-                    fontFamily: "Poppin",
+                      Image.asset(
+                        'lib/assets/Setting.png',
+                        width: 24, // Sesuaikan ukuran ikon
+                        height: 24,
+                        color:
+                            Colors.white, // Opsional: mengubah warna jika perlu
+                      ),
+                    ],
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  elevation: 5,
-                  foregroundColor: Color(0xFFEC7FA9),
-                  backgroundColor: Color(0xFFFFFFFF),
+              ),
+              _buildDropdownTile("Agama", agamaIcons, selectedAgama, (value) {
+                setState(() {
+                  selectedAgama = value!;
+                });
+              }),
+              _buildDropdownTile("Hobi", hobiIcons, selectedHobi, (value) {
+                setState(() {
+                  selectedHobi = value!;
+                });
+              }),
+              _buildDropdownTile("Angkatan", angkatanIcons, selectedAngkatan,
+                  (value) {
+                setState(() => selectedAngkatan = value!);
+              }),
+              _buildDropdownTile("Ethnic", rasIcons, selectedRas, (value) {
+                setState(() => selectedRas = value!);
+              }),
+              _buildDropdownTile("Zodiak", zodiakIcons, selectedZodiak,
+                  (value) {
+                setState(() => selectedZodiak = value!);
+              }),
+              SizedBox(
+                height: screenHeight * 0.3, //jarak filter sama button confirm
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                  left: screenWidth * 0.1,
+                  right: screenWidth * 0.1,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.001, //gap filter button nih
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                left: screenWidth * 0.1,
-                right: screenWidth * 0.1,
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  // refreshWidget();
-                  fetchProfiles();
-                  setState(() {});
-                },
-                child: const Text(
-                  "Confirm Filter",
-                  style: TextStyle(
-                    fontFamily: "Poppin",
+                child: ElevatedButton(
+                  onPressed: () {
+                    fetchProfilesfiltered();
+                    setState(() {});
+                  },
+                  child: const Text(
+                    "Auto Filter",
+                    style: TextStyle(
+                      fontFamily: "Poppin",
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 5,
+                    foregroundColor: const Color(0xFFEC7FA9),
+                    backgroundColor: const Color(0xFFFFFFFF),
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  elevation: 5,
-                  foregroundColor: Color(0xFFFFFFFF),
-                  backgroundColor: Color(0xFFEC7FA9),
+              ),
+              SizedBox(
+                height: screenHeight * 0.001, //gap filter button nih
+              ),
+              Container(
+                padding: EdgeInsets.only(
+                  left: screenWidth * 0.1,
+                  right: screenWidth * 0.1,
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // refreshWidget();
+                    fetchProfiles();
+                    setState(() {});
+                  },
+                  child: const Text(
+                    "Confirm Filter",
+                    style: TextStyle(
+                      fontFamily: "Poppin",
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 5,
+                    foregroundColor: const Color(0xFFFFFFFF),
+                    backgroundColor: const Color(0xFFEC7FA9),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            profiles.isEmpty
-                ? const Center(
-                    child: Text("No User Found"),
-                  )
-                : Swiper(
-                    itemBuilder: (BuildContext context, int index) {
-                      return buildProfileCard(profiles[index]);
-                    },
-                    itemCount: profiles.length,
-                    layout: SwiperLayout.TINDER,
-                    itemWidth: screenWidth,
-                    itemHeight: screenHeight,
-                    onIndexChanged: (index) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                  ),
-            SizedBox(
-              height: screenHeight * 0.01, //size swiper atau gap bawahnya
-            ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              profiles.isEmpty
+                  ? const Center(
+                      child: Text("No User Found"),
+                    )
+                  : Swiper(
+                      itemBuilder: (BuildContext context, int index) {
+                        return buildProfileCard(profiles[index]);
+                      },
+                      itemCount: profiles.length,
+                      layout: SwiperLayout.TINDER,
+                      itemWidth: screenWidth,
+                      itemHeight: screenHeight,
+                      onIndexChanged: (index) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                    ),
+              SizedBox(
+                height: screenHeight * 0.01, //size swiper atau gap bawahnya
+              ),
 
-            // Control Buttons
-          ],
+              // Control Buttons
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: const Color(0xFFFFFFFF),
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 5.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                //button navbar profile
+                icon: const Icon(Icons.person_outline, color: Colors.black),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/ProfilePage');
+                },
+              ),
+              IconButton(
+                //button navbar lokasi
+                icon:
+                    const Icon(Icons.star_border_outlined, color: Colors.black),
+                onPressed: () {
+                  var navigator = Navigator.of(context);
+                  navigator.push(
+                    MaterialPageRoute(
+                      builder: (builder) {
+                        return const Toplikespage();
+                      },
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                  width: screenWidth * 0.1), // jarak tengah floating button
+              IconButton(
+                //button pertemanan
+                icon: const Icon(Icons.group_outlined, color: Colors.black),
+                onPressed: () {
+                  var navigator = Navigator.of(context);
+                  navigator.push(
+                    MaterialPageRoute(
+                      builder: (builder) {
+                        return const Savedpage();
+                      },
+                    ),
+                  );
+                },
+              ),
+              IconButton(
+                //button chat halo chat
+                icon:
+                    const Icon(Icons.chat_bubble_outline, color: Colors.black),
+                onPressed: () {
+                  var navigator = Navigator.of(context);
+                  navigator.push(
+                    MaterialPageRoute(
+                      builder: (builder) {
+                        return const Chatlistpage();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          //BeeFriend match couple nih button
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/homePage');
+            print(UserEmail);
+          },
+          child: Image.asset(
+            'lib/assets/BeeFriend_fix.png',
+            width: 100,
+            height: 100,
+          ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color(0xFFFFFFFF),
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 5.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              //button navbar profile
-              icon: const Icon(Icons.person_outline, color: Colors.black),
-              onPressed: () {
-                Navigator.pushNamed(context, '/ProfilePage');
-              },
-            ),
-            IconButton(
-              //button navbar lokasi
-              icon: const Icon(Icons.star_border_outlined, color: Colors.black),
-              onPressed: () {
-                var navigator = Navigator.of(context);
-                navigator.push(
-                  MaterialPageRoute(
-                    builder: (builder) {
-                      return Toplikespage();
-                    },
-                  ),
-                );
-              },
-            ),
-            SizedBox(width: screenWidth * 0.1), // jarak tengah floating button
-            IconButton(
-              //button pertemanan
-              icon: const Icon(Icons.group_outlined, color: Colors.black),
-              onPressed: () {
-                var navigator = Navigator.of(context);
-                navigator.push(
-                  MaterialPageRoute(
-                    builder: (builder) {
-                      return Savedpage();
-                    },
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              //button chat halo chat
-              icon: const Icon(Icons.chat_bubble_outline, color: Colors.black),
-              onPressed: () {
-                var navigator = Navigator.of(context);
-                navigator.push(
-                  MaterialPageRoute(
-                    builder: (builder) {
-                      return Chatlistpage();
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        //BeeFriend match couple nih button
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        onPressed: () {
-          Navigator.popAndPushNamed(context, '/homePage');
-          print(UserEmail);
-        },
-        child: Image.asset(
-          'lib/assets/BeeFriend_fix.png',
-          width: 100,
-          height: 100,
-        ),
-      ),
+      onWillPop: () async {
+        return false;
+      },
     );
   }
 }

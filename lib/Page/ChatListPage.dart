@@ -89,12 +89,12 @@ class _ChatlistpageState extends State<Chatlistpage> {
               navigator.push(
                 MaterialPageRoute(
                   builder: (builder) {
-                    return HomePage();
+                    return const HomePage();
                   },
                 ),
               );
             },
-            icon: Icon(Icons.arrow_back_ios_new)),
+            icon: const Icon(Icons.arrow_back_ios_new)),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -107,13 +107,23 @@ class _ChatlistpageState extends State<Chatlistpage> {
               ),
             ),
             SizedBox(
-              width: screenWidth * 0.5,
+              width: screenWidth * 0.45,
             ),
           ],
         ),
       ),
       body: userList.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: Center(
+                child: Text(
+                  "Like someone to start chatting!",
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
           : ListView.builder(
               itemCount: userList.length,
               itemBuilder: (context, index) {
@@ -121,7 +131,8 @@ class _ChatlistpageState extends State<Chatlistpage> {
                 final profile = user.profile;
 
                 return Card(
-                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -136,7 +147,7 @@ class _ChatlistpageState extends State<Chatlistpage> {
                     ),
                     title: Text(
                       profile?.FullName ?? 'No Name',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Poppins',
                       ),
                     ),

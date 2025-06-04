@@ -48,7 +48,7 @@ class SplashScreen extends StatelessWidget {
             ),
             // Tombol Get Started
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(15.0),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.popAndPushNamed(context, '/loginPage');
@@ -60,7 +60,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.02,
-                    horizontal: MediaQuery.of(context).size.width * 0.3,
+                    horizontal: MediaQuery.of(context).size.width * 0.25,
                   ),
                 ),
                 child: Text(

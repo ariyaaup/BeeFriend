@@ -56,20 +56,20 @@ class _DistanceState extends State<Distance> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
       ),
       body: Container(
         color: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
         height: double.infinity,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Hello, Bee👋",
               style: TextStyle(
                 color: Colors.white,
@@ -80,7 +80,7 @@ class _DistanceState extends State<Distance> {
             SizedBox(
               height: screenHeight * 0.11,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Your distance preference?",
@@ -91,7 +91,7 @@ class _DistanceState extends State<Distance> {
                 ),
               ),
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Use the slider to set the maximum distance you want your potential matches to be located",
@@ -105,7 +105,7 @@ class _DistanceState extends State<Distance> {
             SizedBox(
               height: screenHeight * 0.05,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Distance Preference",
@@ -123,8 +123,8 @@ class _DistanceState extends State<Distance> {
                 thumbColor: Colors.white,
                 overlayColor: Colors.white.withOpacity(0.2),
                 valueIndicatorColor:
-                    Color(0xFF98476A), //warna penanda disctance nya
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8),
+                    const Color(0xFF98476A), //warna penanda disctance nya
+                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
                 trackHeight: 2,
               ),
               child: Slider(
@@ -141,12 +141,12 @@ class _DistanceState extends State<Distance> {
                 },
               ),
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 if (_currentSliderValue == 0) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text(
                         "Please set your distance preference!",
                         style: TextStyle(
@@ -164,10 +164,10 @@ class _DistanceState extends State<Distance> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xFFEC7FA9),
+                backgroundColor: const Color(0xFFEC7FA9),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.white,
                     )),
                 padding: EdgeInsets.symmetric(

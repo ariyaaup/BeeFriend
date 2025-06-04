@@ -88,7 +88,7 @@ class _ToplikespageState extends State<Toplikespage> {
               ),
             ),
             SizedBox(
-              width: screenWidth * 0.5,
+              width: screenWidth * 0.45,
             ),
           ],
         ),

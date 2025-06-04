@@ -36,7 +36,7 @@ class _InputFotoState extends State<InputFoto> {
     String Email = AuthService().getCurrentUserEmail().toString();
     if (_imageFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please select an image first!"),
           backgroundColor: Color(0xFF98476A),
         ),
@@ -59,7 +59,7 @@ class _InputFotoState extends State<InputFoto> {
           .upload(path, _imageFile!)
           .then(
             (value) => ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text(
                   "Image uploaded successfully!",
                   style: TextStyle(
@@ -76,7 +76,7 @@ class _InputFotoState extends State<InputFoto> {
     } catch (error) {
       print("Upload error: $error"); // Debugging error di terminal
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Failed to upload image!"),
           backgroundColor: Color(0xFF98476A),
         ),
@@ -105,7 +105,7 @@ class _InputFotoState extends State<InputFoto> {
     final email = AuthService().getCurrentUserEmail();
     if (_imageFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please select an image first!"),
           backgroundColor: Color(0xFF98476A),
         ),
@@ -132,7 +132,7 @@ class _InputFotoState extends State<InputFoto> {
       await userDatabase().UpdateProfilePicture(email.toString(), publicUrl);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Image uploaded successfully!"),
           backgroundColor: Colors.white,
         ),
@@ -140,7 +140,7 @@ class _InputFotoState extends State<InputFoto> {
     } catch (e) {
       print("Upload error: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Failed to upload image!"),
           backgroundColor: Color(0xFF98476A),
         ),
@@ -159,23 +159,23 @@ class _InputFotoState extends State<InputFoto> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
       ),
       body: Center(
           child: Container(
               color: MediaQuery.of(context).size.width > 500
-                  ? Color(0xFFEC7FA9)
-                  : Color(0xFFEC7FA9),
+                  ? const Color(0xFFEC7FA9)
+                  : const Color(0xFFEC7FA9),
               height: double.infinity,
               width: double.infinity,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Align(
                 alignment: Alignment.center,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Hello, Bee👋",
                       style: TextStyle(
                         color: Colors.white,
@@ -191,7 +191,7 @@ class _InputFotoState extends State<InputFoto> {
                         SizedBox(
                           width: screenWidth * 0.001,
                         ),
-                        Align(
+                        const Align(
                           alignment: Alignment.center,
                           child: Text(
                             "Let's create your own Profile Picture !\n"
@@ -217,7 +217,7 @@ class _InputFotoState extends State<InputFoto> {
                         backgroundImage:
                             _imageFile != null ? FileImage(_imageFile!) : null,
                         child: _imageFile == null
-                            ? Icon(Icons.upload_sharp,
+                            ? const Icon(Icons.upload_sharp,
                                 size: 40, color: Colors.grey)
                             : null,
                       ),
@@ -234,18 +234,18 @@ class _InputFotoState extends State<InputFoto> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: MediaQuery.of(context).size.width > 500
-                            ? Color(0xFFEC7FA9)
-                            : Color(0xFFEC7FA9),
+                            ? const Color(0xFFEC7FA9)
+                            : const Color(0xFFEC7FA9),
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 12,
                           horizontal: 30,
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         "Upload Image",
                         style: TextStyle(fontFamily: 'Poppins'),
                       ),
@@ -259,7 +259,7 @@ class _InputFotoState extends State<InputFoto> {
                         navigator.push(
                           MaterialPageRoute(
                             builder: (builder) {
-                              return Editprofilepage();
+                              return const Editprofilepage();
                             },
                           ),
                         );
@@ -270,10 +270,10 @@ class _InputFotoState extends State<InputFoto> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFFEC7FA9),
+                        backgroundColor: const Color(0xFFEC7FA9),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
-                            side: BorderSide(
+                            side: const BorderSide(
                               color: Colors.white,
                             )),
                         padding: EdgeInsets.symmetric(

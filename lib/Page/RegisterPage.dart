@@ -1,5 +1,5 @@
 import 'package:beefriend_app/DB/user_DB.dart';
-import 'package:beefriend_app/DB_Helper/AuthService.dart';
+// import 'package:beefriend_app/DB_Helper/AuthService.dart';
 // import 'package:beefriend_app/DB_Helper/user_Data.dart';
 import 'package:beefriend_app/Page/FirstName.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +31,14 @@ class _RegisterPageState extends State<RegisterPage> {
       if (response.user != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content:
-                  Text('Registrasi berhasil! Cek email untuk verifikasi.')),
+            content: Text(
+              "Register Success",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Color(0xFF98476A),
+          ),
         );
         var navigator = Navigator.of(context);
         navigator.push(
@@ -51,7 +57,15 @@ class _RegisterPageState extends State<RegisterPage> {
         Eror = "Email must be ended with @binus.ac.id.";
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${Eror}')),
+        const SnackBar(
+          content: Text(
+            "Email must be ended with @binus.ac.id.",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Color(0xFF98476A),
+        ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -16,7 +16,7 @@ class _RegistPageState extends State<FirstName> {
   void nextOnPressed() {
     if (_controllerFirstName == "") {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Please fill your Name!",
             style: TextStyle(
@@ -116,7 +116,7 @@ class _RegistPageState extends State<FirstName> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFEC7FA9),
+                        backgroundColor: const Color(0xFFEC7FA9),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
                       ),
@@ -149,20 +149,20 @@ class _RegistPageState extends State<FirstName> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
       ),
       body: Container(
         color: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
         height: double.infinity,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Hello, Bee👋",
               style: TextStyle(
                 color: Colors.white,
@@ -173,7 +173,7 @@ class _RegistPageState extends State<FirstName> {
             SizedBox(
               height: screenHeight * 0.11,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "What's your first name?",
@@ -213,7 +213,7 @@ class _RegistPageState extends State<FirstName> {
             SizedBox(
               height: screenHeight * 0.01,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "This is how it’ll appear on your profile.\nCant change it later.",
@@ -224,7 +224,7 @@ class _RegistPageState extends State<FirstName> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {
                 String name = _controllerFirstName.text.trim();
@@ -232,7 +232,7 @@ class _RegistPageState extends State<FirstName> {
                 if (_controllerFirstName.text.trim().isEmpty) {
                   // kalau kosong
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text(
                         "First name cannot be empty!",
                         style: TextStyle(
@@ -245,7 +245,7 @@ class _RegistPageState extends State<FirstName> {
                 } else if (name.length < 2) {
                   // kalau kosong
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text(
                         "First name at least more than one character!",
                         style: TextStyle(
@@ -263,10 +263,10 @@ class _RegistPageState extends State<FirstName> {
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Color(0xFFEC7FA9),
+                backgroundColor: const Color(0xFFEC7FA9),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.white,
                     )),
                 padding: EdgeInsets.symmetric(

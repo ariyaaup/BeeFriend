@@ -31,7 +31,7 @@ class _AboutuspageState extends State<Aboutuspage> {
           backgroundColor: MediaQuery.of(context).size.width > 500
               ? const Color(0xFFEC7FA9)
               : const Color(0xFFEC7FA9),
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.white,
           ),
           title: Row(
@@ -41,12 +41,12 @@ class _AboutuspageState extends State<Aboutuspage> {
                 onTap: () {
                   Navigator.of(context).pop();
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_back_ios,
                 ),
               ),
               SizedBox(width: screenWidth * 0.05),
-              Text(
+              const Text(
                 "About us",
                 style: TextStyle(
                   fontFamily: 'Poppins',
@@ -97,7 +97,7 @@ class _AboutuspageState extends State<Aboutuspage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "What is it ?",
                   style: TextStyle(
                     fontSize: 20,
@@ -109,13 +109,13 @@ class _AboutuspageState extends State<Aboutuspage> {
                 SizedBox(
                   height: screenHeight * 0.01,
                 ),
-                Text(
+                const Text(
                   "Beefriend di buat untuk membantu mahasiswa menemukan teman baru, membangun hubungan bermakna, dan mungkin... menemukan cinta sejati! Kami percaya bahwa dunia perkuliahan adalah salah satu masa terbaik untuk bertemu orang-orang luar biasa dan Beefriend hadir untuk membuatnya lebih mudah dan seru.",
                   style: TextStyle(fontSize: 14, color: Colors.white),
                   textAlign: TextAlign.justify,
                 ),
                 SizedBox(height: screenHeight * 0.05),
-                Text(
+                const Text(
                   "Our Purpose",
                   style: TextStyle(
                     fontSize: 20,
@@ -127,7 +127,7 @@ class _AboutuspageState extends State<Aboutuspage> {
                 SizedBox(
                   height: screenHeight * 0.01,
                 ),
-                Text(
+                const Text(
                   "VISI",
                   style: TextStyle(
                     fontSize: 15,
@@ -136,13 +136,13 @@ class _AboutuspageState extends State<Aboutuspage> {
                   ),
                   textAlign: TextAlign.left,
                 ),
-                Text(
+                const Text(
                   "Menjadi platform terpercaya untuk mempererat koneksi antar mahasiswa BINUS sebagai teman, sahabat, atau pasangan hidup.",
                   style: TextStyle(fontSize: 14, color: Colors.white),
                   textAlign: TextAlign.justify,
                 ),
                 SizedBox(height: screenHeight * 0.01),
-                Text(
+                const Text(
                   "MISI",
                   style: TextStyle(
                     fontSize: 15,
@@ -151,7 +151,7 @@ class _AboutuspageState extends State<Aboutuspage> {
                   ),
                   textAlign: TextAlign.left,
                 ),
-                Text(
+                const Text(
                   "- Menciptakan ruang aman dan nyaman untuk berkenalan.\n"
                   "- Menghubungkan mahasiswa dengan minat dan nilai yang sejalan.\n"
                   "- Membantu membangun relasi yang sehat, tulus, dan penuh makna.",
@@ -159,7 +159,7 @@ class _AboutuspageState extends State<Aboutuspage> {
                   textAlign: TextAlign.justify,
                 ),
                 SizedBox(height: screenHeight * 0.05),
-                Text(
+                const Text(
                   "Why ?",
                   style: TextStyle(
                     fontSize: 20,
@@ -171,7 +171,7 @@ class _AboutuspageState extends State<Aboutuspage> {
                 SizedBox(
                   height: screenHeight * 0.01,
                 ),
-                Text(
+                const Text(
                   "- Khusus Mahasiswa : Semua pengguna diverifikasi dengan email kampus.\n"
                   "- Aman & Serius : Fitur keamanan untuk melindungi identitas dan privasi pengguna.\n"
                   "- Asyik & Mudah: Swipe, match, dan ngobrol tanpa ribet.\n"
@@ -182,7 +182,7 @@ class _AboutuspageState extends State<Aboutuspage> {
                 SizedBox(
                   height: screenHeight * 0.05,
                 ),
-                Text(
+                const Text(
                   "The Story",
                   style: TextStyle(
                     fontSize: 20,
@@ -194,7 +194,7 @@ class _AboutuspageState extends State<Aboutuspage> {
                 SizedBox(
                   height: screenHeight * 0.01,
                 ),
-                Text(
+                const Text(
                   "Beefriend dimulai dari obrolan santai antara beberapa mahasiswa yang kesulitan memperluas lingkaran pertemanan di kampus. Dari sana, kami bertekad membuat platform yang menghubungkan mahasiswa bukan hanya untuk kencan, tapi juga untuk persahabatan dan kolaborasi masa depan.",
                   style: TextStyle(fontSize: 14, color: Colors.white),
                   textAlign: TextAlign.justify,

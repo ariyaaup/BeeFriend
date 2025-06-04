@@ -256,7 +256,7 @@ class _EditprofilepageState extends State<Editprofilepage> {
         labelText: label,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Color(0xFFEC7FA9),
             )),
       ),
@@ -316,7 +316,7 @@ class _EditprofilepageState extends State<Editprofilepage> {
         backgroundColor: MediaQuery.of(context).size.width > 500
             ? const Color(0xFFEC7FA9)
             : const Color(0xFFEC7FA9),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         title: Row(
@@ -328,17 +328,17 @@ class _EditprofilepageState extends State<Editprofilepage> {
                 navigator.push(
                   MaterialPageRoute(
                     builder: (builder) {
-                      return ProfilePage();
+                      return const ProfilePage();
                     },
                   ),
                 );
               },
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
               ),
             ),
             SizedBox(width: screenWidth * 0.05),
-            Text(
+            const Text(
               "Edit Profile",
               style: TextStyle(
                 fontFamily: 'Poppins',
@@ -353,7 +353,7 @@ class _EditprofilepageState extends State<Editprofilepage> {
         ),
       ),
       body: userData == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -363,8 +363,8 @@ class _EditprofilepageState extends State<Editprofilepage> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: MediaQuery.of(context).size.width > 500
-                          ? Color(0xFFEC7FA9)
-                          : Color(0xFFEC7FA9),
+                          ? const Color(0xFFEC7FA9)
+                          : const Color(0xFFEC7FA9),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -396,7 +396,7 @@ class _EditprofilepageState extends State<Editprofilepage> {
                                 ),
                               );
                             },
-                            child: Text(
+                            child: const Text(
                               "Change Foto Profile",
                               style: TextStyle(
                                 fontFamily: 'Poppins',
@@ -481,10 +481,10 @@ class _EditprofilepageState extends State<Editprofilepage> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFFEC7FA9),
+                        backgroundColor: const Color(0xFFEC7FA9),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
-                            side: BorderSide(
+                            side: const BorderSide(
                               color: Colors.white,
                             )),
                         padding: EdgeInsets.symmetric(
@@ -538,78 +538,3 @@ class _EditprofilepageState extends State<Editprofilepage> {
     );
   }
 }
-
-// if (selectedAgama == "Buddha") {
-//       agamaID = 1;
-//     } else if (selectedAgama == "Hindu") {
-//       agamaID = 2;
-//     } else if (selectedAgama == "Protestan") {
-//       agamaID = 3;
-//     } else if (selectedAgama == "Katolik") {
-//       agamaID = 4;
-//     } else if (selectedAgama == "Konghucu") {
-//       agamaID = 5;
-//     } else if (selectedAgama == "Islam") {
-//       agamaID = 6;
-//     } else if (selectedAgama == "ANY") {
-//       agamaID = null;
-//     }
-//     if (selectedHobi == "Seni") {
-//       agamaID = 1;
-//     } else if (selectedAgama == "Gaming") {
-//       agamaID = 2;
-//     } else if (selectedAgama == "Olahraga") {
-//       agamaID = 3;
-//     } else if (selectedAgama == "Travel") {
-//       agamaID = 4;
-//     } else if (selectedAgama == "Belajar") {
-//       agamaID = 5;
-//     } else if (selectedAgama == "ANY") {
-//       agamaID = null;
-//     }
-// if (selectedRas == "Chinese") {
-//       ethnicID = 1;
-//     } else if (selectedRas == "Batak") {
-//       ethnicID = 2;
-//     } else if (selectedRas == "Jawa") {
-//       ethnicID = 3;
-//     } else if (selectedRas == "Sunda") {
-//       ethnicID = 4;
-//     } else if (selectedRas == "Minang") {
-//       ethnicID = 5;
-//     } else if (selectedRas == "Dayak") {
-//       ethnicID = 6;
-//     } else if (selectedRas == "Madura") {
-//       ethnicID = 7;
-//     } else if (selectedRas == "Timur") {
-//       ethnicID = 8;
-//     } else if (selectedRas == "ANY") {
-//       ethnicID = null;
-//     }
-//     if (selectedZodiak == "Aries") {
-//       zodiakID = 1;
-//     } else if (selectedZodiak == "Taurus") {
-//       zodiakID = 2;
-//     } else if (selectedZodiak == "Gemini") {
-//       zodiakID = 3;
-//     } else if (selectedZodiak == "Cancer") {
-//       zodiakID = 4;
-//     } else if (selectedZodiak == "Leo") {
-//       zodiakID = 5;
-//     } else if (selectedZodiak == "Virgo") {
-//       zodiakID = 6;
-//     } else if (selectedZodiak == "Libra") {
-//       zodiakID = 7;
-//     } else if (selectedZodiak == "Scorpio") {
-//       zodiakID = 8;
-//     } else if (selectedZodiak == "Sagitarius") {
-//       zodiakID = 9;
-//     } else if (selectedZodiak == "Capricorn") {
-//       zodiakID = 10;
-//     } else if (selectedZodiak == "Aquarius") {
-//       zodiakID = 11;
-//     } else if (selectedZodiak == "Pisces") {
-//       zodiakID = 12;
-//     } else if (selectedZodiak == "ANY") {
-//       zodiakID = null;
-//     }

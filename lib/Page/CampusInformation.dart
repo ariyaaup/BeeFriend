@@ -67,7 +67,7 @@ class _CampusInformationState extends State<CampusInformation> {
     userDB.signUp(newUser);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text(
           "Login Successful",
           style: TextStyle(

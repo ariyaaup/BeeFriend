@@ -56,7 +56,7 @@ class _LookingForState extends State<LookingFor> {
     }
     if (selectedOption == "") {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Must Choose an Option",
             style: TextStyle(
@@ -69,7 +69,7 @@ class _LookingForState extends State<LookingFor> {
     }
     if (LookingForID == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             "Must Choose an Option",
             style: TextStyle(
@@ -91,23 +91,23 @@ class _LookingForState extends State<LookingFor> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: MediaQuery.of(context).size.width > 500
-            ? Color(0xFFEC7FA9)
-            : Color(0xFFEC7FA9),
+            ? const Color(0xFFEC7FA9)
+            : const Color(0xFFEC7FA9),
         // elevation: 0,
         scrolledUnderElevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
           color: MediaQuery.of(context).size.width > 500
-              ? Color(0xFFEC7FA9)
-              : Color(0xFFEC7FA9),
+              ? const Color(0xFFEC7FA9)
+              : const Color(0xFFEC7FA9),
           // height: screenHeight * 0.01,
           width: double.infinity,
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Hello, Bee👋",
                 style: TextStyle(
                   color: Colors.white,
@@ -118,7 +118,7 @@ class _LookingForState extends State<LookingFor> {
               SizedBox(
                 height: screenHeight * 0.04,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "What are you looking for?",
@@ -129,7 +129,7 @@ class _LookingForState extends State<LookingFor> {
                   ),
                 ),
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "All good if it changes. There’s something for everyone",
@@ -146,8 +146,8 @@ class _LookingForState extends State<LookingFor> {
               // Gridview option
               GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
@@ -189,7 +189,8 @@ class _LookingForState extends State<LookingFor> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.white : Color(0xFFEC7FA9),
+                        color:
+                            isSelected ? Colors.white : const Color(0xFFEC7FA9),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: Colors.white),
                       ),
@@ -199,15 +200,16 @@ class _LookingForState extends State<LookingFor> {
                         children: [
                           Text(
                             option['emoji']!,
-                            style: TextStyle(fontSize: 30),
+                            style: const TextStyle(fontSize: 30),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             option['text']!,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color:
-                                  isSelected ? Color(0xFFEC7FA9) : Colors.white,
+                              color: isSelected
+                                  ? const Color(0xFFEC7FA9)
+                                  : Colors.white,
                               fontFamily: 'Poppins',
                               fontSize: 14,
                             ),
@@ -225,7 +227,7 @@ class _LookingForState extends State<LookingFor> {
                 onPressed: () {
                   if (selectedOption.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text(
                           "Please select one option!",
                           style: TextStyle(
@@ -242,10 +244,10 @@ class _LookingForState extends State<LookingFor> {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Color(0xFFEC7FA9),
+                  backgroundColor: const Color(0xFFEC7FA9),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
-                      side: BorderSide(
+                      side: const BorderSide(
                         color: Colors.white,
                       )),
                   padding: EdgeInsets.symmetric(

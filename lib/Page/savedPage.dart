@@ -95,12 +95,12 @@ class _SavedpageState extends State<Savedpage> {
               navigator.push(
                 MaterialPageRoute(
                   builder: (builder) {
-                    return HomePage();
+                    return const HomePage();
                   },
                 ),
               );
             },
-            icon: Icon(Icons.arrow_back_ios_new)),
+            icon: const Icon(Icons.arrow_back_ios_new)),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -113,23 +113,24 @@ class _SavedpageState extends State<Savedpage> {
               ),
             ),
             SizedBox(
-              width: screenWidth * 0.5,
+              width: screenWidth * 0.45,
             ),
           ],
         ),
       ),
       body: userList.isEmpty
-          ? Center(
+          ? const Center(
               child: Text(
-              "No one like you!",
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.white,
+                "No one like you!",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                ),
               ),
-            ))
+            )
           : GridView.builder(
-              padding: EdgeInsets.all(12),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              padding: const EdgeInsets.all(12),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
@@ -167,8 +168,8 @@ class _SavedpageState extends State<Savedpage> {
                         // Foto Profil
                         Expanded(
                           child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(16)),
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(16)),
                             child: Image.network(
                               profile?.ProfilePicture ??
                                   'https://via.placeholder.com/150',
@@ -185,7 +186,7 @@ class _SavedpageState extends State<Savedpage> {
                               children: [
                                 Text(
                                   profile?.FullName ?? 'No Name',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -214,7 +215,7 @@ class _SavedpageState extends State<Savedpage> {
                 navigator.push(
                   MaterialPageRoute(
                     builder: (builder) {
-                      return ProfilePage();
+                      return const ProfilePage();
                     },
                   ),
                 );
@@ -228,7 +229,7 @@ class _SavedpageState extends State<Savedpage> {
                 navigator.push(
                   MaterialPageRoute(
                     builder: (builder) {
-                      return Toplikespage();
+                      return const Toplikespage();
                     },
                   ),
                 );
@@ -243,7 +244,7 @@ class _SavedpageState extends State<Savedpage> {
                 navigator.push(
                   MaterialPageRoute(
                     builder: (builder) {
-                      return Savedpage();
+                      return const Savedpage();
                     },
                   ),
                 );
@@ -257,7 +258,7 @@ class _SavedpageState extends State<Savedpage> {
                 navigator.push(
                   MaterialPageRoute(
                     builder: (builder) {
-                      return Chatlistpage();
+                      return const Chatlistpage();
                     },
                   ),
                 );
