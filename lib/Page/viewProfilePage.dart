@@ -308,7 +308,7 @@ class _ViewprofilepageState extends State<Viewprofilepage> {
                                   // print("DataaaaEUY: ${emails!}");
                                   await fetchUserData();
                                   userDatabase().topLikeds(
-                                      topLiked(email: widget.email, likes: 1));
+                                      topLiked(email: widget.email, likes: 0));
                                   likesLogics(userDatas!["Email"],
                                       userDatas!["GenderID"]);
                                   print("GENDER ${userDatas!["GenderID"]}");
